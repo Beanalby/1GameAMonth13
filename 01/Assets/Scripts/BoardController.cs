@@ -6,7 +6,7 @@ public class BoardController : MonoBehaviour {
 
     public GameObject squareTemplate;
 
-    private int boardSize = 4;
+    private int boardSize = 5;
     private float squareX, squareZ;
 
     public SquareController[,] squares;
@@ -50,5 +50,19 @@ public class BoardController : MonoBehaviour {
             squares[sc.boardX, sc.boardY - 1].Toggle();
         if(sc.boardY < boardSize - 1)
             squares[sc.boardX, sc.boardY + 1].Toggle();
+    }
+
+    public void OnDrawGizmos()
+    {
+        Vector3 size = squareTemplate.GetComponent<BoxCollider>().size;
+        Gizmos.color = Color.green / 2;
+        for (int i = 0; i < boardSize; i++)
+        {
+            for (int j = 0; j < boardSize; j++)
+            {
+                Vector3 pos = new Vector3((i + .5f) * size.x, 0, (j + .5f) * size.z);
+                Gizmos.DrawWireCube(pos, size);
+            }
+        }
     }
 }
