@@ -5,20 +5,40 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
     private float walkSpeed = 5f;
+    private float fireSpeed = 1f;
 
     private CapsuleCollider cc;
     private BoardController board;
+
+    public GameObject ProgressCircleTemplate;
+    private ProgressCircle pc;
+    private float pcStart;
 
 	// Use this for initialization
 	void Start () {
         cc = GetComponent<CapsuleCollider>();
         board = GameObject.Find("Board").GetComponent<BoardController>();
+        pcStart = -1;
 	}
 	
 	// Update is called once per frame
 	void Update () {
         UpdateMovement();
         HandleFiring();
+        if (pcStart != -1)
+        {
+            if (Time.time > pcStart + fireSpeed)
+            {
+                Destroy(pc.gameObject);
+                pcStart = -1;
+            }
+            else
+            {
+                float percent = Mathf.InverseLerp(pcStart + fireSpeed, pcStart, Time.time);
+                Debug.Log("Setting to " + percent);
+                pc.percent = percent;
+            }
+        }
     }
 
     void HandleFiring()
@@ -33,7 +53,15 @@ public class PlayerController : MonoBehaviour {
         {
             SquareController sc = hit.collider.gameObject.GetComponent<SquareController>();
             if (sc != null)
+            {
                 board.SquareHit(sc);
+                pc = ((GameObject)GameObject.Instantiate(ProgressCircleTemplate)).GetComponent<ProgressCircle>();
+                pos = sc.transform.position;
+                pos.y += .1f;
+                pc.transform.position = pos;
+                pc.transform.rotation = Quaternion.Euler(new Vector3(90, 180, 0));
+                pcStart = Time.time - .01f;
+            }
         }
     }
     void UpdateMovement()
