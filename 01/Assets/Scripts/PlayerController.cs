@@ -23,10 +23,11 @@ public class PlayerController : MonoBehaviour {
 
         // Don't go outside the board game
         Rect bounds = board.GetBounds();
-        Debug.Log("bounds=" + bounds);
         pos.x = Mathf.Max(bounds.x+cc.radius, (Mathf.Min(bounds.width-cc.radius, pos.x)));
         pos.z = Mathf.Max(bounds.y+cc.radius, (Mathf.Min(bounds.height-cc.radius, pos.z)));
 
+        Vector3 lookTarget = new Vector3(Input.GetAxis("Horizontal"), transform.position.y, Input.GetAxis("Vertical"));
+        transform.rotation = Quaternion.LookRotation(lookTarget);
         transform.position = pos;
 	}
 }
