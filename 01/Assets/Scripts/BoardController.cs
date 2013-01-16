@@ -17,10 +17,8 @@ public class BoardController : MonoBehaviour {
         squareZ = squareTemplate.GetComponent<BoxCollider>().size.z;
 
         squares = new SquareController[boardSize, boardSize];
-        for (int i = 0; i < boardSize; i++)
-        {
-            for (int j = 0; j < boardSize; j++)
-            {
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
                 squares[i,j] = ((GameObject)GameObject.Instantiate(squareTemplate)).GetComponent<SquareController>();
                 squares[i,j].gameObject.name = "sq" + i + j;
                 squares[i, j].boardX = i; squares[i, j].boardY = j;
@@ -33,13 +31,11 @@ public class BoardController : MonoBehaviour {
         }
 	}
 
-    public Rect GetBounds()
-    {
+    public Rect GetBounds() {
         return new Rect(0, 0, squareX * boardSize, squareZ * boardSize);
     }
 
-    public void SquareHit(SquareController sc)
-    {
+    public void SquareHit(SquareController sc) {
         sc.Toggle();
         // toggle any additional squares around them
         if (sc.boardX > 0)
@@ -52,14 +48,11 @@ public class BoardController : MonoBehaviour {
             squares[sc.boardX, sc.boardY + 1].Toggle();
     }
 
-    public void OnDrawGizmos()
-    {
+    public void OnDrawGizmos() {
         Vector3 size = squareTemplate.GetComponent<BoxCollider>().size;
         Gizmos.color = Color.green / 2;
-        for (int i = 0; i < boardSize; i++)
-        {
-            for (int j = 0; j < boardSize; j++)
-            {
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
                 Vector3 pos = new Vector3((i + .5f) * size.x, 0, (j + .5f) * size.z);
                 Gizmos.DrawWireCube(pos, size);
             }

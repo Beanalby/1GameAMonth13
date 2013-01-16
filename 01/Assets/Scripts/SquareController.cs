@@ -22,15 +22,12 @@ public class SquareController : MonoBehaviour {
 	
 	}
 
-    public void Toggle()
-    {
-        if (isLight)
-        {
+    public void Toggle() {
+        if (isLight) {
             isLight = false;
             mr.material = darkMaterial;
         }
-        else
-        {
+        else {
             isLight = true;
             mr.material = lightMaterial;
         }
