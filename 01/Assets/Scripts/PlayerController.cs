@@ -12,16 +12,18 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject ProgressCircleTemplate;
     private ProgressCircle pc;
-    private float pcStart;
-    private SquareController pcTarget;
+    private float chargeStart;
+    private SquareController chargeTarget;
+    private float lastFire = -1;
+    private float fireCooldown = .5f;
 
-	void Start () {
+	void Start() {
         cc = GetComponent<CapsuleCollider>();
         board = GameObject.Find("Board").GetComponent<BoardController>();
-        pcStart = -1;
+        chargeStart = -1;
 	}
 	
-	void Update () {
+	void Update() {
         UpdateMovement();
         HandleCharging();
         HandleFiring();
@@ -33,48 +35,47 @@ public class PlayerController : MonoBehaviour {
     }
     void HandleCharging()
     {
-        if (pcStart == -1 && Input.GetButtonDown("Jump"))  {
+        if(chargeStart == -1 && Input.GetButtonDown("Jump"))  {
             // started charging, grab the target square
             RaycastHit hit;
             Vector3 pos = transform.position;
             pos.y += .1f;
-            if (Physics.Raycast(pos, -Vector3.up, out hit, cc.height * 1.1f))  {
-                pcTarget = hit.collider.gameObject.GetComponent<SquareController>();
-                if (pcTarget != null)  {
+            if(Physics.Raycast(pos, -Vector3.up, out hit, cc.height * 1.1f))  {
+                chargeTarget = hit.collider.gameObject.GetComponent<SquareController>();
+                if (chargeTarget != null)  {
                     pc = ((GameObject)GameObject.Instantiate(ProgressCircleTemplate)).GetComponent<ProgressCircle>();
-                    pos = pcTarget.transform.position;
+                    pos = chargeTarget.transform.position;
                     pos.y += .1f;
                     pc.transform.position = pos;
                     pc.transform.rotation = Quaternion.Euler(new Vector3(90, 180, 0));
-                    pcStart = Time.time;
+                    chargeStart = Time.time;
                     //Debug.Break();
                 }
             }
             return;
-        }
-        else if (pcStart != -1)  {
-            if (Input.GetButtonUp("Jump"))  {
+        } else if(chargeStart != -1)  {
+            if(Input.GetButtonUp("Jump"))  {
                 // they let go, cancel charging
                 Destroy(pc.gameObject);
-                pcStart = -1;
+                chargeStart = -1;
                 return;
             }
-            if (Time.time > pcStart + chargeTime)  {
+            if(Time.time > chargeStart + chargeTime)  {
                 // finished charging, DOO EET
                 Destroy(pc.gameObject);
-                pcStart = -1;
-                board.SquareHit(pcTarget);
+                chargeStart = -1;
+                board.SquareHit(chargeTarget);
                 return;
             }
             // still charging, update the progress
-            float percent = Mathf.InverseLerp(pcStart, pcStart + chargeTime, Time.time);
+            float percent = Mathf.InverseLerp(chargeStart, chargeStart + chargeTime, Time.time);
             pc.percent = percent;
             return;
         }
     }
     void UpdateMovement() {
         // don't allow any movement if they're charging
-        if (pcStart != -1)
+        if(chargeStart != -1)
             return;
         float h = Input.GetAxis("Horizontal"), v = Input.GetAxis("Vertical");
         Vector3 pos = transform.position;
@@ -87,9 +88,13 @@ public class PlayerController : MonoBehaviour {
         pos.z = Mathf.Max(bounds.y+cc.radius, (Mathf.Min(bounds.height-cc.radius, pos.z)));
 
         Vector3 lookTarget = new Vector3(h, transform.position.y, v);
-        if (lookTarget != Vector3.zero)  {
+        if(lookTarget != Vector3.zero)  {
             transform.rotation = Quaternion.LookRotation(lookTarget);
             transform.position = pos;
         }
 	}
+
+    void Fire()
+    {
+    }
 }

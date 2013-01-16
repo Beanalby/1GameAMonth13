@@ -4,7 +4,7 @@ public class ProgressCircle : MonoBehaviour {
     void Start() {
         renderer.materials[1].SetFloat("_Cutoff", 1);
     }
-	void Update () {
+	void Update() {
         renderer.materials[1].SetFloat("_Cutoff", 1-percent);
 	}
 }
