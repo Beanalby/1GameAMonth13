@@ -14,21 +14,22 @@ public class SquareController : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
         mr = GetComponentInChildren<MeshRenderer>();
-        
+        // we might've already been toggled when created
+        UpdateMaterial();
 	}
 	
-	// Update is called once per frame
-	void Update() {
-	
-	}
-
     public void Toggle() {
+        isLight = !isLight;
+        UpdateMaterial();
+    }
+    private void UpdateMaterial() {
+        if(mr == null) { // might not be Start()ed yet
+            return;
+        }
         if(isLight) {
-            isLight = false;
-            mr.material = darkMaterial;
-        } else {
-            isLight = true;
             mr.material = lightMaterial;
+        } else {
+            mr.material = darkMaterial;
         }
     }
 }
