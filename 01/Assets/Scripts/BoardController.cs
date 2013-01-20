@@ -53,7 +53,7 @@ public class BoardController : MonoBehaviour {
         Gizmos.color = Color.green / 2;
         for(int i = 0; i < boardSize; i++) {
             for(int j = 0; j < boardSize; j++) {
-                Vector3 pos = new Vector3((i + .5f) * size.x, 0, (j + .5f) * size.z);
+                Vector3 pos = new Vector3((i + .5f) * size.x, -.5f * size.y, (j + .5f) * size.z);
                 Gizmos.DrawWireCube(pos, size);
             }
         }
