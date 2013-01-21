@@ -5,14 +5,12 @@ using System.Collections.Generic;
 
 public class BoardController : MonoBehaviour {
 
-    public GameObject squareTemplate;
-
     public static int BoardSize = 5;
-    private float squareX, squareZ;
-
-    private List<SquareController> squares;
 
     private List<int> silentPattern1, silentPattern2, silentPattern3;
+    private List<SquareController> squares;
+    public GameObject squareTemplate;
+    private float squareX, squareZ;
 
 	void Start() {
         squareX = squareTemplate.GetComponent<BoxCollider>().size.x;
@@ -35,7 +33,29 @@ public class BoardController : MonoBehaviour {
             Debug.Log(IsSolvable(board) + " for " + board);
         }
 	}
-    void InitSilentPatterns() {
+
+    public void OnDrawGizmos() {
+        Vector3 size = squareTemplate.GetComponent<BoxCollider>().size;
+        Gizmos.color = Color.green / 2;
+        for(int i = 0; i < BoardSize; i++) {
+            for(int j = 0; j < BoardSize; j++) {
+                Vector3 pos = new Vector3((i + .5f) * size.x, -.5f * size.y, (j + .5f) * size.z);
+                Gizmos.DrawWireCube(pos, size);
+            }
+        }
+    }
+
+    private List<int> Board2list() {
+        List<int> boardState = new List<int>();
+        foreach(SquareController sc in squares) {
+            if(sc.isCorrupted) {
+                boardState.Add(sc.boardIndex);
+            }
+        }
+        return boardState;
+    }
+
+    private void InitSilentPatterns() {
         /* XX.XX
          * .....
          * XX.XX
@@ -72,20 +92,6 @@ public class BoardController : MonoBehaviour {
         };
     }
 
-    public Rect GetBounds() {
-        return new Rect(0, 0, squareX * BoardSize, squareZ * BoardSize);
-    }
-
-
-    private List<int> Board2list() {
-        List<int> boardState = new List<int>();
-        foreach(SquareController sc in squares) {
-            if(sc.IsCorrupted) {
-                boardState.Add(sc.boardIndex);
-            }
-        }
-        return boardState;
-    }
     public bool IsSolvable(List<int> boardState) {
         /* a board is unsolvable if either of the silent patterns
          * have an odd number marked. */
@@ -96,6 +102,10 @@ public class BoardController : MonoBehaviour {
             return false;
         }
         return true;
+    }
+
+    public Rect GetBounds() {
+        return new Rect(0, 0, squareX * BoardSize, squareZ * BoardSize);
     }
 
     public void SquareHit(SquareController sc) {
@@ -109,16 +119,5 @@ public class BoardController : MonoBehaviour {
             squares[sc.boardIndex-BoardSize].Toggle();
         if(sc.boardX < BoardSize - 1)
             squares[sc.boardIndex+BoardSize].Toggle();
-    }
-
-    public void OnDrawGizmos() {
-        Vector3 size = squareTemplate.GetComponent<BoxCollider>().size;
-        Gizmos.color = Color.green / 2;
-        for(int i = 0; i < BoardSize; i++) {
-            for(int j = 0; j < BoardSize; j++) {
-                Vector3 pos = new Vector3((i + .5f) * size.x, -.5f * size.y, (j + .5f) * size.z);
-                Gizmos.DrawWireCube(pos, size);
-            }
-        }
     }
 }

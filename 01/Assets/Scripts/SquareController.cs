@@ -3,12 +3,12 @@ using System.Collections;
 
 public class SquareController : MonoBehaviour {
 
-    public Material lightMaterial;
     public Material darkMaterial;
+    public Material lightMaterial;
 
     public int boardIndex;
 
-    private bool isCorrupted = false;
+    private bool _isCorrupted = false;
     private MeshRenderer mr;
     
 	// Use this for initialization
@@ -18,6 +18,17 @@ public class SquareController : MonoBehaviour {
         // we might've already been toggled when created
         UpdateMaterial();
 	}
+
+    public int boardX {
+        get { return (int)(Mathf.Floor(boardIndex / BoardController.BoardSize)); }
+    }
+    public int boardY {
+        get { return boardIndex % 5; }
+    }
+    public bool isCorrupted {
+        get { return _isCorrupted; }
+    }
+
     private void InitIndex() {
         float width = GetComponentInChildren<BoxCollider>().size.x;
         float length = GetComponentInChildren<BoxCollider>().size.z;
@@ -29,9 +40,10 @@ public class SquareController : MonoBehaviour {
     }
 
     public void Toggle() {
-        isCorrupted = !isCorrupted;
+        _isCorrupted = !_isCorrupted;
         UpdateMaterial();
     }
+
     private void UpdateMaterial() {
         if(mr == null) { // might not be Start()ed yet
             return;
@@ -41,14 +53,5 @@ public class SquareController : MonoBehaviour {
         } else {
             mr.material = lightMaterial;
         }
-    }
-    public bool IsCorrupted {
-        get { return isCorrupted; }
-    }
-    public int boardX {
-        get { return (int)(Mathf.Floor(boardIndex / BoardController.BoardSize)); }
-    }
-    public int boardY {
-        get { return boardIndex % 5; }
     }
 }
