@@ -27,6 +27,7 @@ public class SquareController : MonoBehaviour {
     }
     public bool isCorrupted {
         get { return _isCorrupted; }
+        set { _isCorrupted = value; UpdateMaterial(); }
     }
 
     private void InitIndex() {

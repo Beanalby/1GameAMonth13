@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,17 +24,31 @@ public class BoardController : MonoBehaviour {
             squares[i].transform.parent = transform;
         }
         InitSilentPatterns();
-        List<List<int>> testBoards = new List<List<int>>() {
-            new List<int>() { 0 },
-            new List<int>() { 0,1 },
-            new List<int>() { 0,2 }
-        };
-
-        foreach(List<int> board in testBoards) {
-            Debug.Log(IsSolvable(board) + " for " + board);
-        }
 	}
 
+    void Update() {
+        // only for development / debugging
+        if(Input.GetKeyDown(KeyCode.Return)) {
+            Debug.Log(DumpBoard());
+        }
+        if(Input.GetKeyDown(KeyCode.Mouse2)) { // toggle single square
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if(Physics.Raycast(ray, out hit, Mathf.Infinity, (1 << LayerMask.NameToLayer("Square")))) {
+                hit.collider.gameObject.GetComponent<SquareController>().Toggle();
+            }
+        }
+        if(Input.GetKeyDown(KeyCode.Mouse3)) { // make solvable
+            List<int> boardState = Board2list();
+            if(!IsSolvable(boardState)) {
+                MakeSolvable(ref boardState);
+                SetBoard(boardState);
+            }
+        }
+        if(Input.GetKeyDown(KeyCode.Mouse4)) {
+            RandomizeBoard();
+        }
+    }
     public void OnDrawGizmos() {
         Vector3 size = squareTemplate.GetComponent<BoxCollider>().size;
         Gizmos.color = Color.green / 2;
@@ -53,6 +68,12 @@ public class BoardController : MonoBehaviour {
             }
         }
         return boardState;
+    }
+
+    public string DumpBoard() {
+        Converter<int, string> converter = delegate(int i) { return i.ToString(); };
+        string[] boardState = Board2list().ConvertAll<string>(converter).ToArray();
+        return "{" + string.Join(", ", boardState.ToArray()) + "}";
     }
 
     private void InitSilentPatterns() {
@@ -92,20 +113,72 @@ public class BoardController : MonoBehaviour {
         };
     }
 
-    public bool IsSolvable(List<int> boardState) {
-        /* a board is unsolvable if either of the silent patterns
-         * have an odd number marked. */
-        if(boardState.Intersect(silentPattern1).Count() % 2 != 0) {
-            return false;
-        }
-        if(boardState.Intersect(silentPattern2).Count() % 2 != 0) {
-            return false;
+    public bool IsClear() {
+        foreach(SquareController sc in squares) {
+            if(sc.isCorrupted) {
+                return false;
+            }
         }
         return true;
     }
 
+    public bool IsSolvable(List<int> boardState) {
+        /* a board is unsolvable if either of the silent patterns
+         * have an odd number marked. */
+        return PassPattern(boardState, silentPattern1)
+            && PassPattern(boardState, silentPattern2);
+    }
+
     public Rect GetBounds() {
         return new Rect(0, 0, squareX * BoardSize, squareZ * BoardSize);
+    }
+
+    public void MakeSolvable(ref List<int> boardState) {
+        bool pass1 = PassPattern(boardState, silentPattern1);
+        bool pass2 = PassPattern(boardState, silentPattern2);
+        if(pass1 && pass2) {
+            return;
+        } else if(pass1 && !pass2) {
+            if(boardState.Contains(5)) {
+                boardState.Remove(5);
+            } else {
+                boardState.Add(5);
+            }
+        } else if(!pass1 && pass2) {
+            if(boardState.Contains(1)) {
+                boardState.Remove(1);
+            } else {
+                boardState.Add(1);
+            }
+        } else {
+            if(boardState.Contains(0)) {
+                boardState.Remove(0);
+            } else {
+                boardState.Add(0);
+            }
+        }
+    }
+
+    private bool PassPattern(List<int> boardState, List<int> pattern) {
+        // board state passes the silent pattern if there's an
+        // even number of its squares corrupted
+        return (boardState.Intersect(pattern).Count() % 2) == 0;
+    }
+    public void RandomizeBoard() {
+        List<int> boardState = new List<int>();
+        for(int i = 0; i < BoardSize * BoardSize; i++) {
+            if(UnityEngine.Random.value > .5f) {
+                boardState.Add(i);
+            }
+        }
+        MakeSolvable(ref boardState);
+        SetBoard(boardState);
+    }
+
+    public void SetBoard(List<int> boardState) {
+        foreach(SquareController sc in squares) {
+            sc.isCorrupted = boardState.Contains(sc.boardIndex);
+        }
     }
 
     public void SquareHit(SquareController sc) {
