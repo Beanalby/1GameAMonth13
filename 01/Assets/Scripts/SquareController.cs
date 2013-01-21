@@ -10,7 +10,7 @@ public class SquareController : MonoBehaviour {
 
     private bool _isCorrupted = false;
     private MeshRenderer mr;
-    
+
 	// Use this for initialization
 	void Start() {
         InitIndex();
@@ -19,30 +19,26 @@ public class SquareController : MonoBehaviour {
         UpdateMaterial();
 	}
 
-    public int boardX {
-        get { return (int)(Mathf.Floor(boardIndex / BoardController.BoardSize)); }
-    }
-    public int boardY {
-        get { return boardIndex % 5; }
-    }
     public bool isCorrupted {
         get { return _isCorrupted; }
-        set { _isCorrupted = value; UpdateMaterial(); }
+        set {
+            if(value != _isCorrupted) {
+                _isCorrupted = value;
+                UpdateMaterial();
+            }
+        }
     }
 
     private void InitIndex() {
         float width = GetComponentInChildren<BoxCollider>().size.x;
         float length = GetComponentInChildren<BoxCollider>().size.z;
-        gameObject.name = "sq" + boardX + boardY;
+        int x = BoardState.IndexToX(boardIndex);
+        int y = BoardState.IndexToY(boardIndex);
+        gameObject.name = "sq" + x + y;
         transform.position = new Vector3(
-            transform.position.x + (boardX + .5f) * width,
+            transform.position.x + (x + .5f) * width,
             transform.position.y,
-            transform.position.z + (boardY + .5f) * length);
-    }
-
-    public void Toggle() {
-        _isCorrupted = !_isCorrupted;
-        UpdateMaterial();
+            transform.position.z + (y + .5f) * length);
     }
 
     private void UpdateMaterial() {

@@ -20,7 +20,6 @@ public class GameDriver : MonoBehaviour {
             boardState = new List<int>() { 24 };
         }
         if(boardState != null) {
-            bc.MakeSolvable(ref boardState);
             bc.SetBoard(boardState);
         }
     }
