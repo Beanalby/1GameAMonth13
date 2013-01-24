@@ -4,23 +4,31 @@ using System.Collections.Generic;
 
 public class GameDriver : MonoBehaviour {
 
-    private BoardController bc;
+    private static GameDriver instance = null;
 
-    public void Start() {
-        bc = GameObject.Find("Board").GetComponent<BoardController>();
+    Levels levels;
+    LevelInfo _currentLevel;
+
+    public LevelInfo currentLevel {
+        get { return _currentLevel; }
     }
 
-    public void Update() {
-        List<int> boardState = null;
-            //bc.SetBoard(new List<int>() { 2, 12, 22});
-            //bc.SetBoard(new List<int>() {0, 1, 3, 5, 8, 15, 18, 20, 21, 23});
-        if(Input.GetKeyDown(KeyCode.Alpha1)) {
-            boardState = new List<int>() { 0, 1 };
-        } else if(Input.GetKeyDown(KeyCode.Alpha2)) {
-            boardState = new List<int>() { 24 };
+    public void Awake() {
+        if(instance != null) {
+            Destroy(gameObject);
+        } else {
+            instance = this; 
+            DontDestroyOnLoad(gameObject);
+            levels = new Levels();
+            _currentLevel = levels.GetFirstLevel();
         }
-        if(boardState != null) {
-            bc.SetBoard(boardState);
-        }
+    }
+    //void OnLevelWasLoaded(int level) {
+    //}
+
+    public void LevelFinished() {
+        // do some fancy level finish thing
+        _currentLevel = levels.GetNextLevel(_currentLevel);
+        Application.LoadLevel(_currentLevel.scene);
     }
 }

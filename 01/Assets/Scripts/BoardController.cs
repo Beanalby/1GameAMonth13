@@ -8,21 +8,24 @@ public class BoardController : MonoBehaviour {
 
     public GameObject squareTemplate;
 
+    private GameDriver gameDriver;
     private List<SquareController> squares;
     private BoardState state;
     private float squareX, squareZ;
 
 	void Start() {
+        gameDriver = GameObject.Find("GameDriver").GetComponent<GameDriver>();
         squareX = squareTemplate.GetComponent<BoxCollider>().size.x;
         squareZ = squareTemplate.GetComponent<BoxCollider>().size.z;
 
-        state = new BoardState();
+        state = gameDriver.currentLevel.state;
         squares = new List<SquareController>(BoardState.BoardSize);
         for(int i = 0; i < BoardState.BoardSize; i++) {
             squares.Add(((GameObject)GameObject.Instantiate(squareTemplate)).GetComponent<SquareController>());
             squares[i].boardIndex = i;
             squares[i].transform.parent = transform;
         }
+        UpdateSquares();
 	}
 
     void Update() {
@@ -64,6 +67,10 @@ public class BoardController : MonoBehaviour {
             squareX * BoardState.BoardSide, squareZ * BoardState.BoardSide);
     }
 
+    public void SetBoard(BoardState state) {
+        this.state = state;
+        UpdateSquares();
+    }
     public void SetBoard(List<int> boardState) {
         state.Set(boardState);
         UpdateSquares();
@@ -77,6 +84,9 @@ public class BoardController : MonoBehaviour {
     private void UpdateSquares() {
         foreach(SquareController sc in squares) {
             sc.isCorrupted = state.Get(sc.boardIndex);
+        }
+        if(state.IsClear()) {
+            gameDriver.LevelFinished();
         }
     }
 }

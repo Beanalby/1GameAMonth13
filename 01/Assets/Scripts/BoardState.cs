@@ -9,10 +9,15 @@ using Diag=System.Diagnostics;
 public class BoardState {
     public static int BoardSide = 5;
     public static int BoardSize = BoardSide * BoardSide;
+    // safe togles are the indeces of squares that we can toggle individually
+    // without affecting the solvability of the board
+    public static List<int> safeToggles;
     // static patterns are toggling sequences that don't alter final state.
     // Used for determining solvability, and minimizing solutions.
     public static ulong[] silentPatterns;
     static BoardState() {
+        safeToggles = new List<int>() { 6, 8, 12, 16, 18 };
+
         silentPatterns = new ulong[] {
             // XX.XX
             // .....
@@ -62,6 +67,14 @@ public class BoardState {
         }
 	    return count;
     }
+    public static BoardState FromToggles(List<int> toggles) {
+        BoardState state = new BoardState();
+        foreach(int i in toggles) {
+            state.ToggleArea(i);
+        }
+        return state;
+    }
+
     // Converts a list of integers specifying asserted bits
     // into a ulong
     public static ulong IntListToUlong(List<int> list) {
@@ -148,10 +161,12 @@ public class BoardState {
     public override string ToString() {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < BoardSize; i++) {
-            if(sb.Length != 0) {
-                sb.Append(", ");
+            if((bits & (1UL << i)) != 0) {
+                if(sb.Length != 0) {
+                    sb.Append(", ");
+                }
+                sb.Append(i);
             }
-            sb.Append(i);
         }
         return sb.ToString();
     }
