@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviour {
         if(chargeStart != -1) {
             Destroy(pc.gameObject);
             chargeStart = -1;
+            GetComponentInChildren<Animator>().SetBool("Charging", false);
         }
     }
 
@@ -82,7 +83,11 @@ public class PlayerController : MonoBehaviour {
         if(chargeStart == -1 && Input.GetButtonDown("Jump"))  {
             StartCharge();
         } else if(chargeStart != -1)  {
-            if(Input.GetButtonUp("Jump"))  {
+            // cancel if they release the button, but only if they haven't
+            // gone to far (we start the "pound" animation a little early)
+            float chargePercent = (Time.time - chargeStart) / chargeTime;
+            if(Input.GetButtonUp("Jump") && chargePercent < .78f)  {
+                Debug.Log("Cancelling @ " + chargePercent);
                 CancelCharge();
             } else if(Time.time > chargeStart + chargeTime) {
                 FinishCharge();
@@ -104,6 +109,8 @@ public class PlayerController : MonoBehaviour {
         Destroy(pc.gameObject);
         chargeStart = -1;
         board.SquareHit(chargeTarget);
+        GetComponentInChildren<Animator>().SetBool("Pound", true);
+        GetComponentInChildren<Animator>().SetBool("Charging", false);
         return;
     }
 
@@ -141,6 +148,8 @@ public class PlayerController : MonoBehaviour {
                 pc.transform.position = pos;
                 pc.transform.rotation = Quaternion.Euler(new Vector3(90, 180, 0));
                 chargeStart = Time.time;
+                GetComponentInChildren<Animator>().SetBool("Charging", true);
+                GetComponentInChildren<Animator>().SetBool("Pound", false);
             }
         }
     }
