@@ -3,8 +3,8 @@ using System.Collections;
 
 public class SquareController : MonoBehaviour {
 
-    public Material darkMaterial;
-    public Material lightMaterial;
+    public Material[] darkMaterial;
+    public Material[] lightMaterial;
 
     public int boardIndex;
 
@@ -46,9 +46,9 @@ public class SquareController : MonoBehaviour {
             return;
         }
         if(isCorrupted) {
-            mr.material = darkMaterial;
+            mr.material = darkMaterial[(int)Random.Range(0, darkMaterial.Length-1)];
         } else {
-            mr.material = lightMaterial;
+            mr.material = lightMaterial[(int)Random.Range(0, lightMaterial.Length-1)];
         }
     }
 }
