@@ -6,36 +6,47 @@ using System.Collections.Generic;
 public class PlayerController : MonoBehaviour {
 
     private float chargeTime = 1f;
-    private float fallRate = .3f;
-    private float hurtFlingScale = .1f;
+    private float hurtFlingScale = 3f;
+    private float walkAcceleration = 20f;
     private float walkSpeed = 5f;
+    private float attackDistance;
     public GameObject progressCircleTemplate;
 
     private BoxCollider attackCollider;
     private BoardController board;
     private CapsuleCollider cc;
+    private Animator anim;
 
-    private bool canControl = true;
+    private bool attackFrozen = false;
+    private Vector3 attackMoveTarget = Vector3.zero;
+    private bool hitFrozen = false;
     private float chargeStart = -1;
     private SquareController chargeTarget;
-    private float fireCooldown = .5f;
+    private float attackCooldown = .5f;
     private List<GameObject> inAttackEffect;
-    private float lastFire = -1;
+    private float lastAttack = -1;
     private ProgressCircle pc = null;
     private Vector3 velocity = Vector3.zero;
+
+    public bool canControl {
+        get { return !hitFrozen && chargeStart == -1 && !attackFrozen; }
+    }
+    public bool canMove {
+        get { return chargeStart == -1; }
+    }
 
 	void Start() {
         cc = GetComponent<CapsuleCollider>();
         board = GameObject.Find("Board").GetComponent<BoardController>();
         inAttackEffect = new List<GameObject>();
         attackCollider = transform.Find("AttackArea").GetComponent<BoxCollider>();
+        attackDistance = attackCollider.size.z * .75f;
+        anim = transform.GetComponentInChildren<Animator>();
 	}
 	
 	void Update() {
-        if(canControl) {
-            HandleCharging();
-            HandleFiring();
-        }
+        HandleCharging();
+        HandleAttacking();
     }
 
     void FixedUpdate() {
@@ -61,10 +72,10 @@ public class PlayerController : MonoBehaviour {
 
     void OnDrawGizmos() {
         if(velocity != Vector3.zero) {
-            Gizmos.DrawRay(transform.position, velocity * 100);
+            Gizmos.DrawRay(transform.position, velocity);
         }
         Gizmos.color = Color.red;
-        if(lastFire + fireCooldown > Time.time) {
+        if(lastAttack + attackCooldown > Time.time) {
             Gizmos.matrix = transform.localToWorldMatrix;
             Gizmos.DrawCube(attackCollider.center, attackCollider.size);
         }
@@ -74,20 +85,19 @@ public class PlayerController : MonoBehaviour {
         if(chargeStart != -1) {
             Destroy(pc.gameObject);
             chargeStart = -1;
-            GetComponentInChildren<Animator>().SetBool("Charging", false);
+            anim.SetBool("Charging", false);
         }
     }
 
     void HandleCharging()
     {
-        if(chargeStart == -1 && Input.GetButtonDown("Jump"))  {
+        if(canControl && chargeStart == -1 && Input.GetButtonDown("Jump"))  {
             StartCharge();
         } else if(chargeStart != -1)  {
             // cancel if they release the button, but only if they haven't
             // gone to far (we start the "pound" animation a little early)
             float chargePercent = (Time.time - chargeStart) / chargeTime;
             if(Input.GetButtonUp("Jump") && chargePercent < .78f)  {
-                Debug.Log("Cancelling @ " + chargePercent);
                 CancelCharge();
             } else if(Time.time > chargeStart + chargeTime) {
                 FinishCharge();
@@ -97,26 +107,35 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    void HandleFiring()
+    void HandleAttacking()
     {
-        if(Input.GetButtonDown("Fire1") && lastFire + fireCooldown < Time.time) {
-            Fire();
+        if(canControl && Input.GetButtonDown("Fire1") && lastAttack + attackCooldown < Time.time) {
+            Attack();
+        } else if(attackFrozen) {
+            anim.SetBool("Attack", false);
+            if(lastAttack + (attackCooldown * .75f) < Time.time) {
+                attackFrozen = false;
+                attackMoveTarget = Vector3.zero;
+            }
         }
-
     }
 
     void FinishCharge() {
         Destroy(pc.gameObject);
         chargeStart = -1;
         board.SquareHit(chargeTarget);
-        GetComponentInChildren<Animator>().SetBool("Pound", true);
-        GetComponentInChildren<Animator>().SetBool("Charging", false);
+        anim.SetBool("Pound", true);
+        anim.SetBool("Charging", false);
         return;
     }
 
-    void Fire()
+    void Attack()
     {
-        lastFire = Time.time;
+        lastAttack = Time.time;
+        anim.SetBool("Attack", true);
+        attackMoveTarget = transform.position + transform.forward * attackDistance;
+        attackFrozen = true;
+        velocity = Vector3.zero;
         foreach(GameObject obj in inAttackEffect) {
             obj.SendMessage("GotAttacked", gameObject, SendMessageOptions.RequireReceiver);
         }
@@ -131,7 +150,7 @@ public class PlayerController : MonoBehaviour {
         velocity.Normalize();
         velocity.y = 1;
         velocity *= hurtFlingScale;
-        canControl = false;
+        hitFrozen = true;
     }
 
     void StartCharge() {
@@ -148,8 +167,9 @@ public class PlayerController : MonoBehaviour {
                 pc.transform.position = pos;
                 pc.transform.rotation = Quaternion.Euler(new Vector3(90, 180, 0));
                 chargeStart = Time.time;
-                GetComponentInChildren<Animator>().SetBool("Charging", true);
-                GetComponentInChildren<Animator>().SetBool("Pound", false);
+                anim.SetBool("Charging", true);
+                anim.SetBool("Pound", false);
+                velocity = Vector3.zero;
             }
         }
     }
@@ -160,20 +180,50 @@ public class PlayerController : MonoBehaviour {
     }
 
     void UpdateMovement() {
-        // don't allow any movement if they're charging
-        if(chargeStart != -1)
+        if(!canMove)
             return;
-        float h = Input.GetAxis("Horizontal"), v = Input.GetAxis("Vertical");
-        Vector3 pos = transform.position + velocity;
-        if(pos.y <= 0 && velocity != Vector3.zero) {
-            velocity = Vector3.zero;
-            pos.y = 0;
-            canControl = true;
-        }
 
+        float inputHorizontal = Input.GetAxisRaw("Horizontal"), inputVertical = Input.GetAxisRaw("Vertical");
         if(canControl) {
-            pos.x += Time.deltaTime * walkSpeed * h;
-            pos.z += Time.deltaTime * walkSpeed * v;
+            if(inputHorizontal != 0) {
+                // if they're swapping direction, immediately snap
+                if(inputHorizontal > 0 && velocity.x < 0)
+                    velocity.x = 0;
+                if(inputHorizontal < 0 && velocity.x > 0)
+                    velocity.x = 0;
+                velocity.x += inputHorizontal * Time.deltaTime * walkAcceleration;
+                velocity.x = Mathf.Min(walkSpeed, Mathf.Max(-walkSpeed, velocity.x));
+            } else {
+                // not moving horizontally, apply some friction
+                if(velocity.x > 0)
+                    velocity.x = Mathf.Max(0, velocity.x - walkAcceleration * Time.deltaTime);
+                else
+                    velocity.x = Mathf.Min(0, velocity.x + walkAcceleration * Time.deltaTime);
+            }
+            if(inputVertical != 0) {
+                // if they're swapping direction, immediately snap
+                if(inputVertical > 0 && velocity.z < 0)
+                    velocity.z = 0;
+                if(inputVertical < 0 && velocity.z > 0)
+                    velocity.z = 0;
+                velocity.z += inputVertical * Time.deltaTime * walkAcceleration;
+                velocity.z = Mathf.Min(walkSpeed, Mathf.Max(-walkSpeed, velocity.z));
+            } else {
+                // not moving vertically, apply some friction
+                if(velocity.z > 0)
+                    velocity.z = Mathf.Max(0, velocity.z - walkAcceleration * Time.deltaTime);
+                else
+                    velocity.z = Mathf.Min(0, velocity.z + walkAcceleration * Time.deltaTime);
+            }
+        }
+        Vector3 pos = transform.position + (velocity * Time.deltaTime);
+        if(pos.y <= 0 && velocity.y != 0) {
+            velocity.y = 0;
+            pos.y = 0;
+            hitFrozen = false;
+        }
+        if(attackMoveTarget != Vector3.zero) {
+            pos = Vector3.Lerp(pos, attackMoveTarget, .25f);
         }
 
         // Don't go outside the board game
@@ -182,14 +232,15 @@ public class PlayerController : MonoBehaviour {
         pos.z = Mathf.Max(bounds.y+cc.radius, (Mathf.Min(bounds.height-cc.radius, pos.z)));
 
         // look towards the direction the user's pressing
-        Vector3 lookTarget = new Vector3(h, 0, v);
-        if(lookTarget != Vector3.zero)  {
-            transform.rotation = Quaternion.LookRotation(lookTarget);
+        if(canControl) {
+            Vector3 lookTarget = new Vector3(inputHorizontal, 0, inputVertical);
+            if(lookTarget != Vector3.zero) {
+                transform.rotation = Quaternion.LookRotation(lookTarget);
+            }
         }
         rigidbody.MovePosition(pos);
-        if(velocity != Vector3.zero) {
-            velocity.y -= fallRate * Time.deltaTime;
+        if(velocity.y != 0) {
+            velocity += Physics.gravity * Time.deltaTime;
         }
 	}
-
 }

@@ -269,6 +269,7 @@ ModelImporter:
     7400004: Pound
     7400006: PoundCharge
     7400008: PoundRecover
+    7400010: Attack
     9500000: //RootNode
     13700000: perseu
   materials:
@@ -376,6 +377,28 @@ ModelImporter:
       takeName: PoundRecover
       firstFrame: -1
       lastFrame: 11
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      keepAdditionalBonesAnimation: 1
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      skeletonMaskElements: []
+    - name: Attack
+      takeName: Attack
+      firstFrame: -1
+      lastFrame: 5
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
