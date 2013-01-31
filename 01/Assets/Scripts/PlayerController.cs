@@ -5,6 +5,9 @@ using System.Collections.Generic;
 [RequireComponent(typeof (CapsuleCollider))]
 public class PlayerController : MonoBehaviour {
 
+    private static int gotHitState = Animator.StringToHash("Base Layer.GotHit");
+    private static int attackState = Animator.StringToHash("Base Layer.Attack");
+
     private float chargeTime = 1f;
     private float hurtFlingScale = 3f;
     private float walkAcceleration = 20f;
@@ -47,6 +50,7 @@ public class PlayerController : MonoBehaviour {
 	void Update() {
         HandleCharging();
         HandleAttacking();
+        ResetAnimatorFlags();
     }
 
     void FixedUpdate() {
@@ -112,7 +116,6 @@ public class PlayerController : MonoBehaviour {
         if(canControl && Input.GetButtonDown("Fire1") && lastAttack + attackCooldown < Time.time) {
             Attack();
         } else if(attackFrozen) {
-            anim.SetBool("Attack", false);
             if(lastAttack + (attackCooldown * .75f) < Time.time) {
                 attackFrozen = false;
                 attackMoveTarget = Vector3.zero;
@@ -143,7 +146,16 @@ public class PlayerController : MonoBehaviour {
     }
 
     void GotHit(Vector3 contactPoint) {
+        // if we're frozen in the attacking animation, ignore it
+        if(attackFrozen)
+            return;
         CancelCharge();
+        // turn towards the thing that hit us so the "thrown back"
+        // animation looks normal
+        Vector3 lookPos = contactPoint - transform.position;
+        lookPos.y = 0;
+        transform.rotation = Quaternion.LookRotation(lookPos);
+
         // throw player backwards from the contact point
         velocity = rigidbody.position - contactPoint;
         velocity.y = 0;
@@ -151,8 +163,17 @@ public class PlayerController : MonoBehaviour {
         velocity.y = 1;
         velocity *= hurtFlingScale;
         hitFrozen = true;
+        anim.SetBool("GotHit", true);
     }
 
+    void ResetAnimatorFlags() {
+        int state = anim.GetCurrentAnimatorStateInfo(0).nameHash;
+        if(state == gotHitState)
+            anim.SetBool("GotHit", false);
+        if(state == attackState)
+            anim.SetBool("Attack", false);
+    }
+   
     void StartCharge() {
         // started charging, grab the target square
         RaycastHit hit;
