@@ -129,6 +129,7 @@ public class PlayerController : MonoBehaviour {
         board.SquareHit(chargeTarget);
         anim.SetBool("Pound", true);
         anim.SetBool("Charging", false);
+        Camera.main.SendMessage("DidPound", SendMessageOptions.DontRequireReceiver);
         return;
     }
 
