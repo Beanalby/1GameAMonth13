@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour {
     private float walkSpeed = 5f;
     private float attackDistance;
     public GameObject progressCircleTemplate;
+    public bool sceneFrozen = false;
+
 
     private BoxCollider attackCollider;
     private BoardController board;
@@ -32,7 +34,7 @@ public class PlayerController : MonoBehaviour {
     private Vector3 velocity = Vector3.zero;
 
     public bool canControl {
-        get { return !hitFrozen && chargeStart == -1 && !attackFrozen; }
+        get { return !hitFrozen && chargeStart == -1 && !attackFrozen && !sceneFrozen; }
     }
     public bool canMove {
         get { return chargeStart == -1; }

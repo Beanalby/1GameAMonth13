@@ -17,6 +17,7 @@ public class TinyEnemyController : MonoBehaviour {
 
     private static int attackState = Animator.StringToHash("Base Layer.Attack");
     private static int dieState = Animator.StringToHash("Base Layer.Die");
+
     void Start() {
         player = GameObject.Find("Player");
         if(player == null) {
@@ -61,17 +62,10 @@ public class TinyEnemyController : MonoBehaviour {
         transform.rotation = Quaternion.LookRotation(lookPos);
         anim.SetBool("Attack", true);
     }
-    IEnumerator DoDeathEffect() {
-        yield return new WaitForSeconds(deathDuration);
-        if(deathEffect) {
-            GameObject obj = Instantiate(deathEffect) as GameObject;
-            Vector3 pos = transform.position;
-            pos.y += 1; // compensate for model moving up
-            obj.transform.position = pos;
-        }
-        Destroy(gameObject);
-    }
     void GotAttacked(GameObject attacker) {
+        StartCoroutine(GotAttackedEffect(attacker));
+    }
+    IEnumerator GotAttackedEffect(GameObject attacker) {
         canControl = false;
         anim.SetBool("Die", true);
         // don't worry about collisions anymore
@@ -88,6 +82,16 @@ public class TinyEnemyController : MonoBehaviour {
         velocity.Normalize();
         velocity *= deathFlingScale;
         rigidbody.velocity = velocity;
-        StartCoroutine(DoDeathEffect());
+        yield return new WaitForSeconds(deathDuration);
+        KillSelf();
+    }
+    public void KillSelf() {
+        if(deathEffect) {
+            GameObject obj = Instantiate(deathEffect) as GameObject;
+            Vector3 pos = transform.position;
+            pos.y += 1; // compensate for model moving up
+            obj.transform.position = pos;
+        }
+        Destroy(gameObject);
     }
 }
