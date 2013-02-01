@@ -19,7 +19,7 @@ public class EndDriver : MonoBehaviour {
 
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
-        GUILayout.Label("YOU WINZ.");
+        GUILayout.Label("More stages to come later.  Stay tuned...");
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
 

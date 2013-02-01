@@ -9,6 +9,9 @@ public class Levels {
             new LevelInfo("1-1", BoardState.FromToggles(new List<int>() {0})),
             new LevelInfo("1-2", BoardState.FromToggles(new List<int>() {0, 2, 4})),
             new LevelInfo("1-3", BoardState.FromToggles(new List<int>() {6, 7, 8, 12})),
+            new LevelInfo("1-3", BoardState.FromToggles(new List<int>() {8, 9, 11, 13, 14})),
+            new LevelInfo("1-4", BoardState.FromToggles(new List<int>() {1, 3, 5, 7, 9, 11, 13, 15})),
+            new LevelInfo("1-5", BoardState.FromToggles(new List<int>() {22, 4, 6, 18, 15, 4})),
             new LevelInfo("end")
         };
     }
