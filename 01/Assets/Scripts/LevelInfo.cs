@@ -40,15 +40,17 @@ public class LevelInfo {
     public string scene = null;
     public string name = null;
     public BoardState state = null;
+    public float spawnRate = 0;
 
     public LevelInfo(string customScene) {
         this.scene = customScene;
     }
-    public LevelInfo(string name, BoardState state): this(name, state, 0) { }
-    public LevelInfo(string name, BoardState state, int enemiesAtStart) {
+    public LevelInfo(string name, BoardState state): this(name, state, 0, 3) { }
+    public LevelInfo(string name, BoardState state, int enemiesAtStart, float spawnRate) {
         this.scene = "generalLevel";
         this.name = name;
         this.state = state;
         this.enemiesAtStart = enemiesAtStart;
+        this.spawnRate = spawnRate;
     }
 }
