@@ -64,7 +64,7 @@ public class GameDriver : MonoBehaviour {
             player.sceneFrozen = false;
         }
     }
-    public void LevelFinished() {
+    public void BoardClear() {
         stageState = StageState.Complete;
         // Destroy any enemies that may be left
         foreach(TinyEnemyController enemy in GameObject.FindSceneObjectsOfType(typeof(TinyEnemyController))) {

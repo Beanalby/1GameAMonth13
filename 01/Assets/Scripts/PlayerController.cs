@@ -15,7 +15,9 @@ public class PlayerController : MonoBehaviour {
     private float attackDistance;
     public GameObject progressCircleTemplate;
     public bool sceneFrozen = false;
-
+    public SquareController restrictedCharge = null;
+    public bool canCharge = true;
+    public GameObject driver = null;
 
     private BoxCollider attackCollider;
     private BoardController board;
@@ -97,7 +99,7 @@ public class PlayerController : MonoBehaviour {
 
     void HandleCharging()
     {
-        if(canControl && chargeStart == -1 && Input.GetButtonDown("Jump"))  {
+        if(canControl && canCharge && chargeStart == -1 && Input.GetButtonDown("Jump"))  {
             StartCharge();
         } else if(chargeStart != -1)  {
             // cancel if they release the button, but only if they haven't
@@ -132,6 +134,8 @@ public class PlayerController : MonoBehaviour {
         anim.SetBool("Pound", true);
         anim.SetBool("Charging", false);
         Camera.main.SendMessage("DidPound", SendMessageOptions.DontRequireReceiver);
+        if(driver != null)
+            driver.SendMessage("ToggledSquare", chargeTarget, SendMessageOptions.DontRequireReceiver);
         return;
     }
 
@@ -182,20 +186,29 @@ public class PlayerController : MonoBehaviour {
         RaycastHit hit;
         Vector3 pos = transform.position;
         pos.y += .1f;
-        if(Physics.Raycast(pos, -Vector3.up, out hit, cc.height * 1.1f))  {
-            chargeTarget = hit.collider.gameObject.GetComponent<SquareController>();
-            if (chargeTarget != null)  {
-                pc = ((GameObject)GameObject.Instantiate(progressCircleTemplate)).GetComponent<ProgressCircle>();
-                pos = chargeTarget.transform.position;
-                pos.y += .1f;
-                pc.transform.position = pos;
-                pc.transform.rotation = Quaternion.Euler(new Vector3(90, 180, 0));
-                chargeStart = Time.time;
-                anim.SetBool("Charging", true);
-                anim.SetBool("Pound", false);
-                velocity = Vector3.zero;
-            }
+        if(!Physics.Raycast(pos, -Vector3.up, out hit, cc.height * 1.1f))  {
+            Debug.Log("Missed a square?!?");
+            return;
         }
+        chargeTarget = hit.collider.gameObject.GetComponent<SquareController>();
+        if (chargeTarget == null)  {
+            Debug.Log("No SquareController on target!");
+            return;
+        }
+        // if we're currently restricted to only toggling a
+        // certain square (such as during the tutorial)
+        // make sure this is it
+        if(restrictedCharge != null && restrictedCharge != chargeTarget)
+            return;
+        pc = ((GameObject)GameObject.Instantiate(progressCircleTemplate)).GetComponent<ProgressCircle>();
+        pos = chargeTarget.transform.position;
+        pos.y += .1f;
+        pc.transform.position = pos;
+        pc.transform.rotation = Quaternion.Euler(new Vector3(90, 180, 0));
+        chargeStart = Time.time;
+        anim.SetBool("Charging", true);
+        anim.SetBool("Pound", false);
+        velocity = Vector3.zero;
     }
 
     void UpdateCharge() {
