@@ -3,6 +3,8 @@ using System.Collections;
 
 public class SquareController : MonoBehaviour {
 
+    public GameObject squareEffect;
+
     public Material[] darkMaterial;
     public Material[] lightMaterial;
 
@@ -16,7 +18,7 @@ public class SquareController : MonoBehaviour {
         InitIndex();
         mr = GetComponentInChildren<MeshRenderer>();
         // we might've already been toggled when created
-        UpdateMaterial();
+        UpdateMaterial(false);
 	}
 
     public bool isCorrupted {
@@ -24,7 +26,7 @@ public class SquareController : MonoBehaviour {
         set {
             if(value != _isCorrupted) {
                 _isCorrupted = value;
-                UpdateMaterial();
+                UpdateMaterial(true);
             }
         }
     }
@@ -40,8 +42,13 @@ public class SquareController : MonoBehaviour {
             transform.position.y,
             transform.position.z + (y + .5f) * length);
     }
-
-    private void UpdateMaterial() {
+    public void SetIsCorrupted(bool isCorrupted, bool doEffect) {
+        if(isCorrupted != this.isCorrupted) {
+            this.isCorrupted = isCorrupted;
+            UpdateMaterial(doEffect);
+        }
+    }
+    private void UpdateMaterial(bool doEffect) {
         if(mr == null) { // might not be Start()ed yet
             return;
         }
@@ -50,5 +57,11 @@ public class SquareController : MonoBehaviour {
         } else {
             mr.material = lightMaterial[(int)Random.Range(0, lightMaterial.Length-1)];
         }
+        if(doEffect && squareEffect != null) {
+            GameObject tmp = Instantiate(squareEffect) as GameObject;
+            tmp.transform.position = transform.position;
+            tmp.GetComponent<SquareEffect>().isCorrupted = isCorrupted;
+        }
     }
+
 }

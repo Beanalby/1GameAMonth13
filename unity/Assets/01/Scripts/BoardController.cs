@@ -76,8 +76,7 @@ public class BoardController : MonoBehaviour {
     }
     public void SetBoard(BoardState state) {
         this.state = state;
-        Debug.Log("Board state set to " + this.state);
-        UpdateSquares();
+        UpdateSquares(false);
     }
     public void SetBoard(List<int> boardState) {
         state.Set(boardState);
@@ -90,8 +89,11 @@ public class BoardController : MonoBehaviour {
     }
 
     private void UpdateSquares() {
+        UpdateSquares(true);
+    }
+    private void UpdateSquares(bool doEffect) {
         foreach(SquareController sc in squares) {
-            sc.isCorrupted = state.Get(sc.boardIndex);
+            sc.SetIsCorrupted(state.Get(sc.boardIndex), doEffect);
         }
         if(driver != null && state.IsClear()) {
             driver.SendMessage("BoardClear");
