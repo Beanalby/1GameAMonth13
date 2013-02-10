@@ -10,7 +10,7 @@ public class UnitMovement : MonoBehaviour {
     public bool isActive = true;
 
     //private float attackRange = 5f;
-    private float moveSpeed = 1.5f;
+    private float moveSpeed = 15f;
     private float turnSpeed = 1f;
 
     private ClusterManager cm;
@@ -28,6 +28,8 @@ public class UnitMovement : MonoBehaviour {
 
 	void FixedUpdate () {
         if(!isActive)
+            return;
+        if(weapon.target == null)
             return;
         Vector3 offset = Vector3.zero;
         Vector3 lookTarget = Vector3.zero;

@@ -2,26 +2,79 @@ using System.Collections;
 using UnityEngine;
 public abstract class WeaponBase : MonoBehaviour {
 
-    protected float cooldown;
+    public string TargetLayer;
+
+    protected float cooldown=1f;
+    protected int damage;
     protected float lastFired=-100;
     protected float range=-1;
     public GameObject target;
+    protected int targetMask;
 
     public abstract void FireWeapon();
 
-    public void Start() {
+    public int Damage {
+        get { return damage; }
     }
-    public void OnDrawGizmos() {
+    public virtual bool IsInRange {
+        get { return target != null && range > (target.transform.position - transform.position).magnitude; }
+    }
+    public virtual bool IsOnCooldown {
+        get { return (lastFired + cooldown) > Time.time; }
+    }
+
+    public void Start() {
+        targetMask = 1 << LayerMask.NameToLayer(TargetLayer);
+    }
+    public void OnDrawGizmosSelected() {
         if(range != -1) {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, range);
         }
     }
-
-    public virtual bool IsInRange {
-        get { return range > (target.transform.position - transform.position).magnitude; }
+    public void Update() {
+        if(target == null) {
+            FindNewTarget();
+        }
     }
-    public virtual bool IsOnCooldown {
-        get { return (lastFired + cooldown) > Time.time; }
+
+    protected void FindNewTarget() {
+        // find the closest thing we're looking for.  
+        // bases are targetable, but lower priority than all else.
+        bool targetIsBase = false;
+        target = null;
+        float current = Mathf.Infinity;
+        foreach(Collider col in Physics.OverlapSphere(transform.position, Mathf.Infinity, targetMask)) {
+            bool replace = false;
+            float thisDist = -1;
+            if(target == null) {
+                replace = true;
+            } else {
+                // skip bases if we already have a target
+                if(col.gameObject.CompareTag("Base")) {
+                    continue;
+                }
+                // always take the new target over a base
+                if(targetIsBase) {
+                    replace = true;
+                } else {
+                    // take the new one if it's closer
+                    Vector3 dist = col.gameObject.transform.position - transform.position;
+                    thisDist = dist.sqrMagnitude;
+                    if(thisDist < current) {
+                        replace = true;
+                    }
+                }
+            }
+            if(replace) {
+                if(thisDist == -1) {
+                    Vector3 dist = col.gameObject.transform.position - transform.position;
+                    thisDist = dist.sqrMagnitude;
+                }
+                current = thisDist;
+                target = col.gameObject;
+                targetIsBase = target.gameObject.CompareTag("Base");
+            }
+        }
     }
 }
