@@ -11,8 +11,8 @@ public class ClusterManager : MonoBehaviour {
     public Vector3 bias = Vector3.zero;
 
     private float biasStrength = 3f;
-    private float checkCooldown = .25f;
-    private float checkRange = 3f;
+    private float checkCooldown = .1f;
+    private float checkRange = 4f;
     private float lastCheck = -100;
 
 	void Update () {
