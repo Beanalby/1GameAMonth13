@@ -11,7 +11,7 @@ public class UnitMovement : MonoBehaviour {
 
     //private float attackRange = 5f;
     private float moveSpeed = 1.5f;
-    private float turnSpeed = 5f;
+    private float turnSpeed = 1f;
 
     private ClusterManager cm;
     private WeaponBase weapon;
@@ -27,11 +27,12 @@ public class UnitMovement : MonoBehaviour {
             isActive = false;
         }
     }
-	// Update is called once per frame
+
 	void FixedUpdate () {
         if(!isActive)
             return;
         Vector3 offset = Vector3.zero;
+        Vector3 lookTarget = Vector3.zero;
         if(weapon.IsInRange) {
             // don't need to get closer, just slide left or right
             // so others can get closer if needed
@@ -44,22 +45,24 @@ public class UnitMovement : MonoBehaviour {
                 localBias.y = 0; localBias.z = 0;
                 localBias.x = (localBias.x > 0 ? amt : -amt);
                 offset = transform.TransformPoint(localBias) - transform.position;
-                rigidbody.MovePosition(transform.position + offset);
             }
             // look towards what we're shooting at, regardless of whether
             // we scooted around at all
-            Quaternion targetRot = Quaternion.LookRotation(weapon.target.transform.position - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, turnSpeed * Time.deltaTime);
+            lookTarget = weapon.target.transform.position - transform.position;
         } else {
             // move towards the target, with a little extra movement
             // to separate ourselves from others.  Look in the direction
             // we end up moving, rather than directly at the target.
             Vector3 moveDir = weapon.target.transform.position - transform.position;
+            moveDir.y = 0;
             Vector3 fromTarget = moveDir.normalized * moveSpeed * Time.deltaTime;
             Vector3 fromBias = cm.bias * Time.deltaTime;
             offset = fromTarget + fromBias;
-            transform.rotation = Quaternion.LookRotation(offset);
-            rigidbody.MovePosition(transform.position + offset);
+            lookTarget = offset;
         }
+        lookTarget.y = 0;
+        Quaternion targetRot = Quaternion.LookRotation(lookTarget);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, turnSpeed * Time.deltaTime);
+        rigidbody.MovePosition(transform.position + offset);
     }
 }
