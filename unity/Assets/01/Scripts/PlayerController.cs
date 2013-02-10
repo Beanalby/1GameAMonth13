@@ -201,6 +201,9 @@ public class PlayerController : MonoBehaviour {
         if(restrictedCharge != null && restrictedCharge != chargeTarget)
             return;
         pc = ((GameObject)GameObject.Instantiate(progressCircleTemplate)).GetComponent<ProgressCircle>();
+        pc.Percent = 0;
+        pc.FullColor = Color.white;
+        pc.EmptyColor = Color.white;
         pos = chargeTarget.transform.position;
         pos.y += .1f;
         pc.transform.position = pos;
@@ -213,7 +216,8 @@ public class PlayerController : MonoBehaviour {
 
     void UpdateCharge() {
         float percent = Mathf.InverseLerp(chargeStart, chargeStart + chargeTime, Time.time);
-        pc.percent = percent;
+        Debug.Log("Set to " + percent.ToString(".000"));
+        pc.Percent = percent;
     }
 
     void UpdateMovement() {
