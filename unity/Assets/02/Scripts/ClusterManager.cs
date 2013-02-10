@@ -18,6 +18,14 @@ public class ClusterManager : MonoBehaviour {
 	void Update () {
         UpdateBias();
 	}
+    void OnDrawGizmosSelected() {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, checkRange);
+        if(bias != Vector3.zero) {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(transform.position, transform.position + (5*bias));
+        }
+    }
 
     void UpdateBias() {
         if(lastCheck + checkCooldown > Time.time)
@@ -38,15 +46,6 @@ public class ClusterManager : MonoBehaviour {
         bias *= biasStrength;
         if(numUsed > 0) {
             bias /= numUsed;
-        }
-    }
-
-    void OnDrawGizmosSelected() {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, checkRange);
-        if(bias != Vector3.zero) {
-            Gizmos.color = Color.green;
-            Gizmos.DrawLine(transform.position, transform.position + (5*bias));
         }
     }
 }

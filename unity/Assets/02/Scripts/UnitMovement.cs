@@ -16,12 +16,10 @@ public class UnitMovement : MonoBehaviour {
     private ClusterManager cm;
     private WeaponBase weapon;
 
-	// Use this for initialization
 	void Start () {
         cm = GetComponent<ClusterManager>();
         weapon = GetComponent<WeaponBase>();
 	}
-
     void Update() {
         if(Input.GetKeyDown(KeyCode.Space)) {
             isActive = false;
