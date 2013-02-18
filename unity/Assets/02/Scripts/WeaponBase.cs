@@ -32,7 +32,7 @@ public abstract class WeaponBase : MonoBehaviour {
             Gizmos.DrawWireSphere(transform.position, range);
         }
     }
-    public void Update() {
+    public virtual void Update() {
         if(target == null) {
             FindNewTarget();
         }

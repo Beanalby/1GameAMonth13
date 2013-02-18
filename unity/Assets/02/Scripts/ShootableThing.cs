@@ -63,4 +63,10 @@ public class ShootableThing : MonoBehaviour {
         Debug.Log("Updating percent");
         pc.Percent = ((float)health / MaxHealth);
     }
+
+    public virtual void Die() {
+        Debug.Log("(Default die) Blarg, " + name + " is dead!");
+        Destroy(gameObject);
+    }
 }
+

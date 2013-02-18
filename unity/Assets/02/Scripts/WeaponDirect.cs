@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
-public class WeaponJack : WeaponBase {
+public class WeaponDirect : WeaponBase {
 
 	new void Start () {
         base.Start();
-        damage = 30;
+        damage = 10;
         range = 3;
 	}
 	new void Update () {

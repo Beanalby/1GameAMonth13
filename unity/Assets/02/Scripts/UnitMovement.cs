@@ -10,7 +10,7 @@ public class UnitMovement : MonoBehaviour {
     public bool isActive = true;
 
     //private float attackRange = 5f;
-    private float moveSpeed = 15f;
+    private float moveSpeed = 3f;
     private float turnSpeed = 1f;
 
     private ClusterManager cm;
