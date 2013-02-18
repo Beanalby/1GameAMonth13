@@ -22,5 +22,10 @@ public class ProgressCircle : MonoBehaviour {
     public void UpdateCircle() {
         renderer.materials[1].SetFloat("_Cutoff", 1-percent);
         renderer.materials[1].color = Color.Lerp(EmptyColor, FullColor, percent);
+        // keep this rotated such that it's facing the same direction
+        // todo: see if we can keep it towards the camera?
+        Vector3 tmp = transform.rotation.eulerAngles;
+        tmp.y = 180;
+        transform.rotation = Quaternion.Euler(tmp);
     }
 }
