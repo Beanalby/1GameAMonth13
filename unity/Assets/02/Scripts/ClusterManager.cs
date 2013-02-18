@@ -11,9 +11,7 @@ public class ClusterManager : MonoBehaviour {
     public Vector3 bias = Vector3.zero;
 
     private float biasStrength = 3f;
-    private float checkCooldown = .1f;
     private float checkRange = 4f;
-    private float lastCheck = -100;
 
 	void Update () {
         UpdateBias();
@@ -28,9 +26,6 @@ public class ClusterManager : MonoBehaviour {
     }
 
     void UpdateBias() {
-        if(lastCheck + checkCooldown > Time.time)
-            return;
-        lastCheck = Time.time;
         bias = Vector3.zero;
         Collider[] objs = Physics.OverlapSphere(transform.position, checkRange, 1 << gameObject.layer);
         int numUsed = 0;

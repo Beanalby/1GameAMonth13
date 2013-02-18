@@ -3,18 +3,21 @@ using System.Collections;
 
 [RequireComponent(typeof(ClusterManager))]
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(ConstantForce))]
 [RequireComponent(typeof(WeaponBase))]
 public class UnitMovement : MonoBehaviour {
 
     public bool isActive = true;
 
     //private float attackRange = 5f;
-    private float moveSpeed = 3f;
-    private float turnSpeed = 1f;
-
+    public float moveSpeed = 1f;
+    public float turnSpeed = 1f;
+    private Vector3 currentVelocity;
     private ClusterManager cm;
     private WeaponBase weapon;
+
+    public Vector3 CurrentVelocity {
+        get { return currentVelocity; }
+    }
 
 	void Start () {
         cm = GetComponent<ClusterManager>();
@@ -64,5 +67,6 @@ public class UnitMovement : MonoBehaviour {
         Quaternion targetRot = Quaternion.LookRotation(lookTarget);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, turnSpeed * Time.deltaTime);
         rigidbody.MovePosition(transform.position + offset);
+        currentVelocity = offset / Time.deltaTime;
     }
 }

@@ -20,7 +20,6 @@ public class WeaponDirect : WeaponBase {
             return;
         lastFired = Time.time;
         target.SendMessage("GotHit", this);
-        Debug.Log("PEW!");
     }
 }
 
