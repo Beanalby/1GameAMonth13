@@ -53,7 +53,9 @@ public class ShootableThing : MonoBehaviour {
             pc = (Instantiate(progressTemplate) as GameObject).GetComponent<ProgressCircle>();
             pc.transform.parent = transform;
             Vector3 pos = transform.position + offset;
-            pos.y += .1f;
+            // put the height slightly above the offset so it doesn't collide with a ground
+            // texture, and randomize slightly so overlapping units don't flicker
+            pos.y += Random.Range(.05f, .15f);
             pc.transform.position = pos;
             pc.transform.rotation = Quaternion.Euler(new Vector3(90, 180, 0));
             pc.transform.localScale = new Vector3(scale, scale, scale);
