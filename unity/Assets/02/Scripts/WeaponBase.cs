@@ -11,6 +11,9 @@ public abstract class WeaponBase : MonoBehaviour {
     public GameObject target;
     protected int targetMask;
 
+    protected float retargetCooldown = .5f;
+    protected float lastRetarget = -100f;
+
     public abstract void FireWeapon();
 
     public int Damage {
@@ -33,7 +36,7 @@ public abstract class WeaponBase : MonoBehaviour {
         }
     }
     public virtual void Update() {
-        if(target == null) {
+        if(target == null || lastRetarget + retargetCooldown < Time.time) {
             FindNewTarget();
         }
     }
@@ -41,6 +44,7 @@ public abstract class WeaponBase : MonoBehaviour {
     protected void FindNewTarget() {
         // find the closest thing we're looking for.  
         // bases are targetable, but lower priority than all else.
+        lastRetarget = Time.time;
         bool targetIsBase = false;
         target = null;
         float current = Mathf.Infinity;
