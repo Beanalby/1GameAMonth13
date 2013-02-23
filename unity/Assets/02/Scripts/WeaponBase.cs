@@ -10,6 +10,8 @@ public abstract class WeaponBase : MonoBehaviour {
     protected float range=-1;
     public GameObject target;
     protected int targetMask;
+    protected bool autoTarget = true;
+    protected bool autoFire = true;
 
     protected float retargetCooldown = .5f;
     protected float lastRetarget = -100f;
@@ -20,7 +22,7 @@ public abstract class WeaponBase : MonoBehaviour {
         get { return damage; }
     }
     public virtual bool IsInRange {
-        get { return target != null && range > (target.transform.position - transform.position).magnitude; }
+        get { return target == null || range > (target.transform.position - transform.position).magnitude; }
     }
     public virtual bool IsOnCooldown {
         get { return (lastFired + cooldown) > Time.time; }
@@ -36,7 +38,7 @@ public abstract class WeaponBase : MonoBehaviour {
         }
     }
     public virtual void Update() {
-        if(target == null || lastRetarget + retargetCooldown < Time.time) {
+        if(autoTarget && (target == null || lastRetarget + retargetCooldown < Time.time)) {
             FindNewTarget();
         }
     }

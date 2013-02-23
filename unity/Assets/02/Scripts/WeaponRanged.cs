@@ -14,7 +14,8 @@ public class WeaponRanged : WeaponBase {
 	}
 	new void Update () {
         base.Update();
-        FireWeapon();
+        if(autoFire)
+            FireWeapon();
 	}
 
     public override void FireWeapon() {

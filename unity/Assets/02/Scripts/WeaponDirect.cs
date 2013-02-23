@@ -10,7 +10,8 @@ public class WeaponDirect : WeaponBase {
 	}
 	new void Update () {
         base.Update();
-        FireWeapon();
+        if(autoFire)
+            FireWeapon();
 	}
 
     public override void FireWeapon() {
