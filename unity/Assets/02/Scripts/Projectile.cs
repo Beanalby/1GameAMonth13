@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour {
     public GameObject target;
     public WeaponRanged launcher;
     public float minhangTime;
+    public GameObject reticle;
 
     private Vector3 velocity;
     private bool didHit = false;
@@ -16,6 +17,7 @@ public class Projectile : MonoBehaviour {
             Vector3 diff = target.transform.position - transform.position;
             float dist = diff.magnitude;
             hangTime = Mathf.Max(dist / 15, minhangTime);
+            Debug.Log("dist=" + dist.ToString(".0") + ", hangtime=" + hangTime.ToString(".0"));
             // now that we know how long it will be in the air, check if
             // the target's moving, and lead the shot accordingly.
             UnitMovement um = target.GetComponent<UnitMovement>();
@@ -33,6 +35,8 @@ public class Projectile : MonoBehaviour {
         if(!didHit && transform.position.y <= 0) {
             didHit = true;
             launcher.ProjectileHit(this);
+            if (reticle)
+                Destroy(reticle);
         }
 	}
 }

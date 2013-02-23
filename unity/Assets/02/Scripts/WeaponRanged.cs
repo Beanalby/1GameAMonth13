@@ -18,18 +18,18 @@ public class WeaponRanged : WeaponBase {
             FireWeapon();
 	}
 
-    public override void FireWeapon() {
+    public override Projectile FireWeapon() {
         if(!IsInRange)
-            return;
+            return null;
         if(IsOnCooldown)
-            return;
+            return null;
         lastFired = Time.time;
         Projectile tmp = (Instantiate(projectile) as GameObject).GetComponent<Projectile>();
         tmp.transform.position = transform.position;
         tmp.target = target;
         tmp.launcher = this;
+        return tmp;
     }
-
     public void ProjectileHit(Projectile projectile) {
         // hit everything in the target radius
         Collider[] objs = Physics.OverlapSphere(projectile.transform.position, damageRadius, targetMask);

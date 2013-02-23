@@ -14,13 +14,14 @@ public class WeaponDirect : WeaponBase {
             FireWeapon();
 	}
 
-    public override void FireWeapon() {
+    public override Projectile FireWeapon() {
         if(!IsInRange)
-            return;
+            return null;
         if(IsOnCooldown)
-            return;
+            return null;
         lastFired = Time.time;
         target.SendMessage("GotHit", this);
+        return null;
     }
 }
 

@@ -51,8 +51,8 @@ public class HomeCannon : WeaponRanged {
         line.SetPosition(1, ray.GetPoint(1000) );
     }
     private void FireCannon() {
-        base.FireWeapon();
-        Destroy(target);
+        Projectile proj = base.FireWeapon();
+        proj.reticle = target;
         target = null;
     }
     private Vector3 GetMouseInCannonArea() {
@@ -90,6 +90,7 @@ public class HomeCannon : WeaponRanged {
         targetPos.y = .1f;
         target.transform.position = targetPos;
         targetDir = (mouseHit - targetPos);
+        targetDir.y = 0;
         targetDir.Normalize();
     }
 }

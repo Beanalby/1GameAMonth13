@@ -16,7 +16,7 @@ public abstract class WeaponBase : MonoBehaviour {
     protected float retargetCooldown = .5f;
     protected float lastRetarget = -100f;
 
-    public abstract void FireWeapon();
+    public abstract Projectile FireWeapon();
 
     public int Damage {
         get { return damage; }
