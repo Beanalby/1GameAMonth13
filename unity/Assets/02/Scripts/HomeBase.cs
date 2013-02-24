@@ -14,7 +14,6 @@ public abstract class HomeBase : MonoBehaviour {
             target = "HomeEnemy";
         else
             target = "HomePlayer";
-        // Debug.Log(name + " facing towards " + GameObject.Find(target).transform.position + " from " + transform.position);
         spawnFacing = Quaternion.LookRotation(GameObject.Find(target).transform.position - transform.position);
 	}
     void OnDrawGizmosSelected() {

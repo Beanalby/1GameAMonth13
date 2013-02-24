@@ -64,7 +64,6 @@ public class ShootableThing : MonoBehaviour {
     }
 
     public virtual void Die() {
-        Debug.Log("(Default die) Blarg, " + name + " is dead!");
         Destroy(gameObject);
     }
 }

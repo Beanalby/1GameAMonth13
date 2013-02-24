@@ -17,7 +17,6 @@ public class Projectile : MonoBehaviour {
             Vector3 diff = target.transform.position - transform.position;
             float dist = diff.magnitude;
             hangTime = Mathf.Max(dist / 15, minhangTime);
-            Debug.Log("dist=" + dist.ToString(".0") + ", hangtime=" + hangTime.ToString(".0"));
             // now that we know how long it will be in the air, check if
             // the target's moving, and lead the shot accordingly.
             UnitMovement um = target.GetComponent<UnitMovement>();
