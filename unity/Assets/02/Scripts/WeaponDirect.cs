@@ -15,6 +15,8 @@ public class WeaponDirect : WeaponBase {
 	}
 
     public override Projectile FireWeapon() {
+        if (target == null)
+            return null;
         if(!IsInRange)
             return null;
         if(IsOnCooldown)
@@ -22,7 +24,11 @@ public class WeaponDirect : WeaponBase {
         lastFired = Time.time;
         if(target!=null)
             target.SendMessage("GotHit", this);
+        if(effectTemplate!=null) {
+            WeaponEffectBase tmp = (Instantiate(effectTemplate) as GameObject).GetComponent<WeaponEffectBase>();
+            tmp.launcher = gameObject;
+            tmp.target = target;
+        }
         return null;
     }
 }
-

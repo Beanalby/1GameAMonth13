@@ -3,11 +3,13 @@ using UnityEngine;
 public abstract class WeaponBase : MonoBehaviour {
 
     public string TargetLayer;
+    public GameObject effectTemplate;
 
     protected float cooldown=1f;
     protected int damage;
     protected float lastFired=-100;
     protected float range=-1;
+    [HideInInspector]
     public GameObject target;
     protected int targetMask;
     protected bool autoTarget = true;
@@ -38,8 +40,18 @@ public abstract class WeaponBase : MonoBehaviour {
         }
     }
     public virtual void Update() {
-        if(autoTarget && (target == null || lastRetarget + retargetCooldown < Time.time)) {
-            FindNewTarget();
+        if(autoTarget) {
+            /// try to find a new target if we don't have one (just spawned
+            /// or existing target died). Also look for a new one occasionally
+            /// if we're not in range or if we're targetting a base
+            if(target == null) {
+                FindNewTarget();
+            } else {
+                if (lastRetarget + retargetCooldown < Time.time
+                        && (!IsInRange || target.CompareTag("Base"))) {
+                    FindNewTarget();
+                }
+            }
         }
     }
 
