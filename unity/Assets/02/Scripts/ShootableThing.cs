@@ -4,9 +4,10 @@ using System.Collections;
 public class ShootableThing : MonoBehaviour {
 
     public GameObject progressTemplate;
+    public GameObject fragmentTemplate;
     public int MaxHealth = -1;
     public Vector3 offset;
-    public float scale = 1f;
+    public float healthbarScale = 1f;
 
     private ProgressCircle pc = null;
     private int health = -1;
@@ -58,12 +59,20 @@ public class ShootableThing : MonoBehaviour {
             pos.y += Random.Range(.05f, .15f);
             pc.transform.position = pos;
             pc.transform.rotation = Quaternion.Euler(new Vector3(90, 180, 0));
-            pc.transform.localScale = new Vector3(scale, scale, scale);
+            pc.transform.localScale = new Vector3(healthbarScale, healthbarScale, healthbarScale);
         }
         pc.Percent = ((float)health / MaxHealth);
     }
 
     public virtual void Die() {
+        if (fragmentTemplate != null) {
+            int num = MaxHealth / 20;
+            num += Random.Range(-num / 2, num / 2);
+            for (int i=0; i < num; i++) {
+                GameObject tmp = Instantiate(fragmentTemplate) as GameObject;
+                tmp.transform.position = transform.position;
+            }
+        }
         Destroy(gameObject);
     }
 }

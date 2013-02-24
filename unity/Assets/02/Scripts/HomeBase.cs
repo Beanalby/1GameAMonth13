@@ -7,7 +7,7 @@ public abstract class HomeBase : MonoBehaviour {
     protected Transform spawnArea;
 
 	// Use this for initialization
-	void Start () {
+	public void Start () {
         spawnArea = transform.Find("SpawnArea");
         string target;
         if (name == "HomePlayer")

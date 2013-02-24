@@ -4,6 +4,7 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - progressTemplate: {fileID: 100000, guid: 12c8ae75e2246cd478b2a911ac77a5b2, type: 2}
+  - fragmentTemplate: {fileID: 100006, guid: 170e709d42e33b54081cd97a9bf065d0, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

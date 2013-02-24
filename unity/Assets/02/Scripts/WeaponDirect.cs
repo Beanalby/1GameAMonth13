@@ -20,7 +20,8 @@ public class WeaponDirect : WeaponBase {
         if(IsOnCooldown)
             return null;
         lastFired = Time.time;
-        target.SendMessage("GotHit", this);
+        if(target!=null)
+            target.SendMessage("GotHit", this);
         return null;
     }
 }

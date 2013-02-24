@@ -27,12 +27,19 @@ public class HomePlayer : HomeBase {
     private int coinRegenAmount = 1;
     private float coinRegenLast = -100f;
 
+    private int pickupMask;
+
     public Spawnable[] spawnables;
     private Spawnable spawning=null;
     private float spawnStart=-1f;
 
+    new public void Start() {
+        base.Start();
+        pickupMask = 1 << LayerMask.NameToLayer("Pickup");
+    }
     public void Update() {
         HandleCoinRegen();
+        HandlePickups();
         HandleSpawning();
     }
     public void OnGUI() {
@@ -97,6 +104,18 @@ public class HomePlayer : HomeBase {
             return;
         coinCurrent += coinRegenAmount;
         coinRegenLast = Time.time;
+    }
+    private void HandlePickups() {
+        // see if the cursor intersects any pickups
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Infinity, pickupMask);
+        foreach (RaycastHit hit in hits) {
+            Fragment frag = hit.transform.GetComponent<Fragment>();
+            if (!frag.IsPickupable)
+                continue;
+            coinCurrent += frag.coinValue;
+            frag.PickedUp();
+        }
     }
     private void HandleSpawning() {
         if (spawning != null && spawnStart != -1f && spawnStart + spawning.spawnTime < Time.time) {

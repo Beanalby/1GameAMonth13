@@ -41,7 +41,7 @@ public class BoardController : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.Mouse2)) { // toggle single square
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if(Physics.Raycast(ray, out hit, Mathf.Infinity, (1 << LayerMask.NameToLayer("Square")))) {
+            if(Physics.Raycast(ray, out hit, Mathf.Infinity, (1 << LayerMask.NameToLayer("Ground")))) {
                 int index = hit.collider.gameObject.GetComponent<SquareController>().boardIndex;
                 state.Toggle(index);
                 UpdateSquares();
