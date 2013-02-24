@@ -23,12 +23,10 @@ public class WeaponEffectJack : WeaponEffectBase {
         started = Time.time;
     }
     public void Update() {
-        if (launcher == null || target == null || Time.time > started + duration) {
+        if (Time.time > started + duration) {
             Destroy(gameObject);
             return;
         }
-        line.SetPosition(0, launcher.transform.position);
-        line.SetPosition(1, target.transform.position);
         offset.x -= scrollSpeed * Time.deltaTime;
         line.material.SetTextureOffset("_MainTex", offset);
     }
