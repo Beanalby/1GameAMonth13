@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using UnityEngine;
 public abstract class WeaponBase : MonoBehaviour {
@@ -9,7 +10,7 @@ public abstract class WeaponBase : MonoBehaviour {
     protected int damage;
     protected float lastFired=-100;
     protected float range=-1;
-    [HideInInspector]
+    //[HideInInspector]
     public GameObject target;
     protected int targetMask;
     protected bool autoTarget = true;
@@ -17,6 +18,7 @@ public abstract class WeaponBase : MonoBehaviour {
 
     protected float retargetCooldown = .5f;
     protected float lastRetarget = -100f;
+    protected GameObject weaponMuzzle;
 
     public abstract Projectile FireWeapon();
 
@@ -32,6 +34,11 @@ public abstract class WeaponBase : MonoBehaviour {
 
     public void Start() {
         targetMask = 1 << LayerMask.NameToLayer(TargetLayer);
+        //weaponMuzzle = transform.FindChild("WeaponMuzzle").gameObject;
+        Debug.Log(name + " finding muzzle");
+        weaponMuzzle = FindChild(transform, "WeaponMuzzle").gameObject;
+        Debug.Log("muzzle=" + weaponMuzzle);
+
     }
     public void OnDrawGizmos() {
         if(target != null) {
@@ -69,17 +76,18 @@ public abstract class WeaponBase : MonoBehaviour {
         target = null;
         float current = Mathf.Infinity;
         foreach(Collider col in Physics.OverlapSphere(transform.position, Mathf.Infinity, targetMask)) {
+            bool colIsBase = col.gameObject.CompareTag("Base");
             bool replace = false;
             float thisDist = -1;
             if(target == null) {
                 replace = true;
             } else {
                 // skip bases if we already have a non-base target
-                if(col.gameObject.CompareTag("Base") && !targetIsBase) {
+                if(colIsBase && !targetIsBase) {
                     continue;
                 }
                 // always take a new non-base over a base
-                if(targetIsBase && col.gameObject.CompareTag("Base")) {
+                if(targetIsBase && !colIsBase) {
                     replace = true;
                 } else {
                     // take the new one if it's closer
@@ -100,5 +108,18 @@ public abstract class WeaponBase : MonoBehaviour {
                 targetIsBase = target.gameObject.CompareTag("Base");
             }
         }
+    }
+
+    public static Transform FindChild(Transform node, string name) {
+        if(node.name == name) {
+            return node;
+        }
+        for(int i = 0; i < node.GetChildCount(); i++) {
+            Transform result = FindChild(node.GetChild(i), name);
+            if(result != null) {
+                return result;
+            }
+        }
+        return null;
     }
 }

@@ -26,7 +26,7 @@ public class WeaponDirect : WeaponBase {
             target.SendMessageUpwards("GotHit", this);
         if(effectTemplate!=null) {
             WeaponEffectBase tmp = (Instantiate(effectTemplate) as GameObject).GetComponent<WeaponEffectBase>();
-            tmp.launcher = gameObject;
+            tmp.launcher = weaponMuzzle;
             tmp.target = target;
         }
         return null;
