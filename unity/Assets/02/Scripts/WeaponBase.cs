@@ -33,6 +33,12 @@ public abstract class WeaponBase : MonoBehaviour {
     public void Start() {
         targetMask = 1 << LayerMask.NameToLayer(TargetLayer);
     }
+    public void OnDrawGizmos() {
+        if(target != null) {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, target.transform.position);
+        }
+    }
     public void OnDrawGizmosSelected() {
         if(range != -1) {
             Gizmos.color = Color.red;
@@ -68,12 +74,12 @@ public abstract class WeaponBase : MonoBehaviour {
             if(target == null) {
                 replace = true;
             } else {
-                // skip bases if we already have a target
-                if(col.gameObject.CompareTag("Base")) {
+                // skip bases if we already have a non-base target
+                if(col.gameObject.CompareTag("Base") && !targetIsBase) {
                     continue;
                 }
-                // always take the new target over a base
-                if(targetIsBase) {
+                // always take a new non-base over a base
+                if(targetIsBase && col.gameObject.CompareTag("Base")) {
                     replace = true;
                 } else {
                     // take the new one if it's closer

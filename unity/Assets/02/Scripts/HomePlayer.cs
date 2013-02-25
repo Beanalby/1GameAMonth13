@@ -111,7 +111,7 @@ public class HomePlayer : HomeBase {
         RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Infinity, pickupMask);
         foreach (RaycastHit hit in hits) {
             Fragment frag = hit.transform.GetComponent<Fragment>();
-            if (!frag.IsPickupable)
+            if (!frag || !frag.IsPickupable)
                 continue;
             coinCurrent += frag.coinValue;
             frag.PickedUp();

@@ -23,7 +23,7 @@ public class WeaponDirect : WeaponBase {
             return null;
         lastFired = Time.time;
         if(target!=null)
-            target.SendMessage("GotHit", this);
+            target.SendMessageUpwards("GotHit", this);
         if(effectTemplate!=null) {
             WeaponEffectBase tmp = (Instantiate(effectTemplate) as GameObject).GetComponent<WeaponEffectBase>();
             tmp.launcher = gameObject;

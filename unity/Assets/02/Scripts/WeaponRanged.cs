@@ -34,7 +34,7 @@ public class WeaponRanged : WeaponBase {
         // hit everything in the target radius
         Collider[] objs = Physics.OverlapSphere(projectile.transform.position, damageRadius, targetMask);
         foreach(Collider obj in objs) {
-            obj.SendMessage("GotHit", this);
+            obj.SendMessageUpwards("GotHit", this);
         }
         Destroy(projectile.gameObject);
     }
