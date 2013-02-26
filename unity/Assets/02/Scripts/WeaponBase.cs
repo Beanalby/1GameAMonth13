@@ -39,7 +39,7 @@ public abstract class WeaponBase : MonoBehaviour {
     public void Start() {
         targetMask = 1 << LayerMask.NameToLayer(TargetLayer);
         weaponMuzzle = FindChild(transform, "WeaponMuzzle").gameObject;
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
     }
     public void OnDrawGizmos() {
         if(target != null) {

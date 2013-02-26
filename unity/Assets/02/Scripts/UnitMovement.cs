@@ -23,7 +23,7 @@ public class UnitMovement : MonoBehaviour {
 	void Start () {
         cm = GetComponent<ClusterManager>();
         weapon = GetComponent<WeaponBase>();
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
 	}
 	void FixedUpdate () {
         if(!isActive)

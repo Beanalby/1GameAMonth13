@@ -23,7 +23,7 @@ public class ShootableThing : MonoBehaviour {
     }
 	void Start () {
         health = MaxHealth;
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
 	}
     void Update() {
         //Health = MaxHealth - (int)(20 * Time.time);
@@ -70,11 +70,8 @@ public class ShootableThing : MonoBehaviour {
         pc.Percent = ((float)health / MaxHealth);
     }
     private IEnumerator DeathAnimation() {
-        Debug.Log("Setting IsDead!");
         anim.SetBool("IsDead", true);
-        Debug.Log("Yielding...");
-        yield return new WaitForSeconds(10f);
-        Debug.Log("Yield over, destroying!");
+        yield return new WaitForSeconds(2f);
         Destroy(gameObject);
     }
     public virtual void Die() {

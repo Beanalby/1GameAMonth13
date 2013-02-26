@@ -9,7 +9,7 @@ public class WeaponRanged : WeaponBase {
 	new void Start () {
         base.Start();
         damage = 30;
-        range = 8;
+        range = 12;
         cooldown = 2;
 	}
 	new void Update () {
@@ -21,7 +21,7 @@ public class WeaponRanged : WeaponBase {
     public override Projectile FireWeapon() {
         lastFired = Time.time;
         Projectile tmp = (Instantiate(projectile) as GameObject).GetComponent<Projectile>();
-        tmp.transform.position = transform.position;
+        tmp.transform.position = weaponMuzzle.transform.position;
         tmp.target = target;
         tmp.launcher = this;
         SendMessage("Firing");
