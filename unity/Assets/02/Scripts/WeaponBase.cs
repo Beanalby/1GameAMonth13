@@ -3,14 +3,17 @@ using System.Collections;
 using UnityEngine;
 public abstract class WeaponBase : MonoBehaviour {
 
+    private static int firingState = Animator.StringToHash("Base Layer.Fire");
+
     public string TargetLayer;
     public GameObject effectTemplate;
 
+    protected bool isActive = true;
     protected float cooldown=1f;
     protected int damage;
     protected float lastFired=-100;
     protected float range=-1;
-    //[HideInInspector]
+    [HideInInspector]
     public GameObject target;
     protected int targetMask;
     protected bool autoTarget = true;
@@ -19,6 +22,7 @@ public abstract class WeaponBase : MonoBehaviour {
     protected float retargetCooldown = .5f;
     protected float lastRetarget = -100f;
     protected GameObject weaponMuzzle;
+    protected Animator anim;
 
     public abstract Projectile FireWeapon();
 
@@ -34,11 +38,8 @@ public abstract class WeaponBase : MonoBehaviour {
 
     public void Start() {
         targetMask = 1 << LayerMask.NameToLayer(TargetLayer);
-        //weaponMuzzle = transform.FindChild("WeaponMuzzle").gameObject;
-        Debug.Log(name + " finding muzzle");
         weaponMuzzle = FindChild(transform, "WeaponMuzzle").gameObject;
-        Debug.Log("muzzle=" + weaponMuzzle);
-
+        anim = GetComponent<Animator>();
     }
     public void OnDrawGizmos() {
         if(target != null) {
@@ -57,13 +58,19 @@ public abstract class WeaponBase : MonoBehaviour {
             /// try to find a new target if we don't have one (just spawned
             /// or existing target died). Also look for a new one occasionally
             /// if we're not in range or if we're targetting a base
-            if(target == null) {
+            if(target == null || target.transform.root.GetComponentInChildren<ShootableThing>().IsActive==false) {
                 FindNewTarget();
             } else {
                 if (lastRetarget + retargetCooldown < Time.time
                         && (!IsInRange || target.CompareTag("Base"))) {
                     FindNewTarget();
                 }
+            }
+        }
+        if(anim) {
+            int state = anim.GetCurrentAnimatorStateInfo(0).nameHash;
+            if(state == firingState) {
+                anim.SetBool("IsFiring", false);
             }
         }
     }
@@ -76,22 +83,31 @@ public abstract class WeaponBase : MonoBehaviour {
         target = null;
         float current = Mathf.Infinity;
         foreach(Collider col in Physics.OverlapSphere(transform.position, Mathf.Infinity, targetMask)) {
-            bool colIsBase = col.gameObject.CompareTag("Base");
+            GameObject obj = col.gameObject;
+            bool objIsBase = obj.CompareTag("Base");
             bool replace = false;
             float thisDist = -1;
+            ShootableThing thing = obj.transform.root.GetComponentInChildren<ShootableThing>();
+            if(thing == null) {
+                return;
+            }
+            if(!thing.IsActive) {
+                continue;
+            }
+            // if we aren't targetting anything yet, target this
             if(target == null) {
                 replace = true;
             } else {
                 // skip bases if we already have a non-base target
-                if(colIsBase && !targetIsBase) {
+                if(objIsBase && !targetIsBase) {
                     continue;
                 }
                 // always take a new non-base over a base
-                if(targetIsBase && !colIsBase) {
+                if(targetIsBase && !objIsBase) {
                     replace = true;
                 } else {
                     // take the new one if it's closer
-                    Vector3 dist = col.gameObject.transform.position - transform.position;
+                    Vector3 dist = obj.transform.position - transform.position;
                     thisDist = dist.sqrMagnitude;
                     if(thisDist < current) {
                         replace = true;
@@ -100,11 +116,11 @@ public abstract class WeaponBase : MonoBehaviour {
             }
             if(replace) {
                 if(thisDist == -1) {
-                    Vector3 dist = col.gameObject.transform.position - transform.position;
+                    Vector3 dist = obj.transform.position - transform.position;
                     thisDist = dist.sqrMagnitude;
                 }
                 current = thisDist;
-                target = col.gameObject;
+                target = obj;
                 targetIsBase = target.gameObject.CompareTag("Base");
             }
         }
@@ -121,5 +137,12 @@ public abstract class WeaponBase : MonoBehaviour {
             }
         }
         return null;
+    }
+    public void Firing() {
+        if(isActive && anim)
+            anim.SetBool("IsFiring", true);
+    }
+    public void IsDead() {
+        isActive = false;
     }
 }

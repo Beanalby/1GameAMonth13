@@ -15,20 +15,26 @@ public class WeaponRanged : WeaponBase {
 	new void Update () {
         base.Update();
         if(autoFire)
-            FireWeapon();
+            HandleFiring();
 	}
 
     public override Projectile FireWeapon() {
-        if(!IsInRange)
-            return null;
-        if(IsOnCooldown)
-            return null;
         lastFired = Time.time;
         Projectile tmp = (Instantiate(projectile) as GameObject).GetComponent<Projectile>();
         tmp.transform.position = transform.position;
         tmp.target = target;
         tmp.launcher = this;
+        SendMessage("Firing");
         return tmp;
+    }
+    private void HandleFiring() {
+        if(!isActive)
+            return;
+        if(!IsInRange)
+            return;
+        if(IsOnCooldown)
+            return;
+        FireWeapon();
     }
     public void ProjectileHit(Projectile projectile) {
         // hit everything in the target radius

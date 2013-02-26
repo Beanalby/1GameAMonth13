@@ -11,16 +11,10 @@ public class WeaponDirect : WeaponBase {
 	new void Update () {
         base.Update();
         if(autoFire)
-            FireWeapon();
+            HandleFiring();
 	}
 
     public override Projectile FireWeapon() {
-        if (target == null)
-            return null;
-        if(!IsInRange)
-            return null;
-        if(IsOnCooldown)
-            return null;
         lastFired = Time.time;
         if(target!=null)
             target.SendMessageUpwards("GotHit", this);
@@ -29,6 +23,18 @@ public class WeaponDirect : WeaponBase {
             tmp.launcher = weaponMuzzle;
             tmp.target = target;
         }
+        SendMessage("Firing");
         return null;
+    }
+    private void HandleFiring() {
+        if(!isActive)
+            return;
+        if (target == null)
+            return;
+        if(!IsInRange)
+            return;
+        if(IsOnCooldown)
+            return;
+        FireWeapon();
     }
 }

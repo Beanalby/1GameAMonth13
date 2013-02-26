@@ -9,15 +9,21 @@ public class ShootableThing : MonoBehaviour {
     public Vector3 offset;
     public float healthbarScale = 1f;
 
+    private bool isActive = true;
     private ProgressCircle pc = null;
+    private Animator anim;
     private int health = -1;
 
+    public bool IsActive {
+        get { return isActive; }
+    }
     public int Health {
         get { return health; }
         set { UpdateHealth(value); }
     }
 	void Start () {
         health = MaxHealth;
+        anim = GetComponent<Animator>();
 	}
     void Update() {
         //Health = MaxHealth - (int)(20 * Time.time);
@@ -63,8 +69,16 @@ public class ShootableThing : MonoBehaviour {
         }
         pc.Percent = ((float)health / MaxHealth);
     }
-
+    private IEnumerator DeathAnimation() {
+        Debug.Log("Setting IsDead!");
+        anim.SetBool("IsDead", true);
+        Debug.Log("Yielding...");
+        yield return new WaitForSeconds(10f);
+        Debug.Log("Yield over, destroying!");
+        Destroy(gameObject);
+    }
     public virtual void Die() {
+        isActive = false;
         if (fragmentTemplate != null) {
             int num = MaxHealth / 20;
             num += Random.Range(-num / 2, num / 2);
@@ -73,7 +87,12 @@ public class ShootableThing : MonoBehaviour {
                 tmp.transform.position = transform.position;
             }
         }
-        Destroy(gameObject);
+        SendMessage("IsDead", SendMessageOptions.DontRequireReceiver);
+        if(anim) {
+            StartCoroutine(DeathAnimation());
+        } else {
+            Destroy(gameObject);
+        }
     }
 }
 

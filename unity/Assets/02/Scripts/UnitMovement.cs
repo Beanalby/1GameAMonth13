@@ -10,10 +10,11 @@ public class UnitMovement : MonoBehaviour {
 
     //private float attackRange = 5f;
     public float moveSpeed = 1f;
-    public float turnSpeed = 1f;
+    private float turnSpeed = 5f;
     private Vector3 currentVelocity;
     private ClusterManager cm;
     private WeaponBase weapon;
+    protected Animator anim;
 
     public Vector3 CurrentVelocity {
         get { return currentVelocity; }
@@ -22,13 +23,8 @@ public class UnitMovement : MonoBehaviour {
 	void Start () {
         cm = GetComponent<ClusterManager>();
         weapon = GetComponent<WeaponBase>();
+        anim = GetComponent<Animator>();
 	}
-    void Update() {
-        if(Input.GetKeyDown(KeyCode.Space)) {
-            isActive = false;
-        }
-    }
-
 	void FixedUpdate () {
         if(!isActive)
             return;
@@ -68,5 +64,12 @@ public class UnitMovement : MonoBehaviour {
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, turnSpeed * Time.deltaTime);
         rigidbody.MovePosition(transform.position + offset);
         currentVelocity = offset / Time.deltaTime;
+        if(anim) {
+            anim.SetFloat("Speed", currentVelocity.sqrMagnitude);
+        }
+    }
+
+    public void IsDead() {
+        isActive = false;
     }
 }

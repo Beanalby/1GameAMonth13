@@ -6,7 +6,7 @@ public class HomeEnemy : HomeBase {
     public GameObject enemyTemplate;
     public float spawnCooldown;
 
-    private float lastSpawn = 1;
+    private float lastSpawn = -100;
 
 	void Update () {
         SpawnEnemy();

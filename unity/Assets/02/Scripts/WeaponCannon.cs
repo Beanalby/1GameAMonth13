@@ -3,7 +3,7 @@ using System.Collections;
 
 [RequireComponent(typeof(LineRenderer))]
 [RequireComponent(typeof(BoxCollider))]
-public class HomeCannon : WeaponRanged {
+public class WeaponCannon : WeaponRanged {
 
     public GameObject targetTemplate;
 
@@ -65,6 +65,8 @@ public class HomeCannon : WeaponRanged {
         }
     }
     void HandleFiring() {
+        if(!isActive)
+            return;
         if (target != null) {
             if (Input.GetButtonUp("Fire1")) {
                 FireCannon();
