@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
+[RequireComponent(typeof(AudioSource))]
 public class HomePlayer : HomeBase {
 
     [System.Serializable]
@@ -32,10 +33,17 @@ public class HomePlayer : HomeBase {
     public Spawnable[] spawnables;
     private Spawnable spawning=null;
     private float spawnStart=-1f;
-
+    private AudioSource warpCharge, warpSuccess;
     new public void Start() {
         base.Start();
         pickupMask = 1 << LayerMask.NameToLayer("Pickup");
+        AudioSource[] sources = GetComponents<AudioSource>();
+        if(sources.Length != 2) {
+            Debug.LogError("Expected 2 sources for warp start & end!");
+        }
+        warpCharge = sources[0];
+        warpSuccess = sources[1];
+        Debug.Log("Got charge=" + warpCharge.clip.name + ", success=" + warpSuccess.clip.name);
     }
     public void Update() {
         HandleCoinRegen();
@@ -69,6 +77,8 @@ public class HomePlayer : HomeBase {
                 if (spawning == null && spawnStart == -1) {
                     this.spawning = spawn;
                     spawnStart = Time.time;
+                    warpCharge.Play();
+                    Debug.Log("Starting charge");
                 }
             }
             if (spawning == spawn) {
@@ -83,6 +93,9 @@ public class HomePlayer : HomeBase {
             // can spawn again.
             spawning = null;
             spawnStart = -1f;
+            if(warpCharge.isPlaying) {
+                warpCharge.Stop();
+            }
         }
         GUI.enabled = true;
     }
@@ -121,6 +134,9 @@ public class HomePlayer : HomeBase {
         if (spawning != null && spawnStart != -1f && spawnStart + spawning.spawnTime < Time.time) {
             Spawn(spawning.template);
             coinCurrent -= spawning.cost;
+            warpCharge.Stop();
+            Debug.Log("Playing Success");
+            warpSuccess.PlayOneShot(warpSuccess.clip);
             // clear spawnStart, but not spawning so we won't immediately spawn
             // another via holding down the button
             spawnStart = -1f;
