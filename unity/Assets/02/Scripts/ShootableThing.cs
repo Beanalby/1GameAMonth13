@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(AudioSource))]
 public class ShootableThing : MonoBehaviour {
 
     public GameObject progressTemplate;
@@ -8,6 +9,7 @@ public class ShootableThing : MonoBehaviour {
     public int MaxHealth = -1;
     public Vector3 offset;
     public float healthbarScale = 1f;
+    public AudioClip deathSound;
 
     private bool isActive = true;
     private ProgressCircle pc = null;
@@ -27,6 +29,9 @@ public class ShootableThing : MonoBehaviour {
 	}
     void Update() {
         //Health = MaxHealth - (int)(20 * Time.time);
+        if(Input.GetKeyDown(KeyCode.Space)) {
+            Die();
+        }
     }
 
     public void GotHit(WeaponBase attacker) {
@@ -85,6 +90,9 @@ public class ShootableThing : MonoBehaviour {
             }
         }
         SendMessage("IsDead", SendMessageOptions.DontRequireReceiver);
+        if(deathSound != null) {
+            audio.PlayOneShot(deathSound);
+        }
         if(anim) {
             StartCoroutine(DeathAnimation());
         } else {

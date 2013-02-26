@@ -1,12 +1,15 @@
 using System.Linq;
 using System.Collections;
 using UnityEngine;
+
+[RequireComponent(typeof(AudioSource))]
 public abstract class WeaponBase : MonoBehaviour {
 
     private static int firingState = Animator.StringToHash("Base Layer.Fire");
 
     public string TargetLayer;
     public GameObject effectTemplate;
+    public AudioClip[] weaponSounds;
 
     protected bool isActive = true;
     protected float cooldown=1f;
@@ -139,8 +142,14 @@ public abstract class WeaponBase : MonoBehaviour {
         return null;
     }
     public void Firing() {
-        if(isActive && anim)
-            anim.SetBool("IsFiring", true);
+        if(isActive) {
+            if(anim) {
+                anim.SetBool("IsFiring", true);
+            }
+            if(weaponSounds.Length != 0) {
+                audio.PlayOneShot(weaponSounds[Random.Range(0, weaponSounds.Length)]);
+            }
+        }
     }
     public void IsDead() {
         isActive = false;
