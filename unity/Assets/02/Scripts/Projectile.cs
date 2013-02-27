@@ -3,14 +3,19 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour {
 
+    public float minhangTime = 2f;
+    public float spinSpeed = 10f;
+
+    [HideInInspector]
     public GameObject target;
+    [HideInInspector]
     public WeaponRanged launcher;
-    public float minhangTime;
+    [HideInInspector]
     public GameObject reticle;
 
     private Vector3 velocity;
     private bool didHit = false;
-
+    private Transform mesh;
 	void Start () {
         if(target != null) {
             float hangTime;
@@ -26,6 +31,7 @@ public class Projectile : MonoBehaviour {
             diff /= hangTime;
             velocity = new Vector3(diff.x, (hangTime / 2) * -Physics.gravity.y, diff.z);
         }
+        mesh = transform.FindChild("ProjectileMesh");
 	}
 	
 	void FixedUpdate () {
@@ -37,5 +43,9 @@ public class Projectile : MonoBehaviour {
             if (reticle)
                 Destroy(reticle);
         }
+        transform.rotation = Quaternion.LookRotation(velocity);
+        Vector3 euler = mesh.localEulerAngles;
+        euler.z += spinSpeed + Time.deltaTime;
+        mesh.localEulerAngles = euler;
 	}
 }

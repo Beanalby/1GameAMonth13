@@ -43,7 +43,6 @@ public class HomePlayer : HomeBase {
         }
         warpCharge = sources[0];
         warpSuccess = sources[1];
-        Debug.Log("Got charge=" + warpCharge.clip.name + ", success=" + warpSuccess.clip.name);
     }
     public void Update() {
         HandleCoinRegen();
@@ -78,7 +77,6 @@ public class HomePlayer : HomeBase {
                     this.spawning = spawn;
                     spawnStart = Time.time;
                     warpCharge.Play();
-                    Debug.Log("Starting charge");
                 }
             }
             if (spawning == spawn) {
@@ -135,7 +133,6 @@ public class HomePlayer : HomeBase {
             Spawn(spawning.template);
             coinCurrent -= spawning.cost;
             warpCharge.Stop();
-            Debug.Log("Playing Success");
             warpSuccess.PlayOneShot(warpSuccess.clip);
             // clear spawnStart, but not spawning so we won't immediately spawn
             // another via holding down the button
