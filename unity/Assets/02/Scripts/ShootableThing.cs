@@ -10,6 +10,7 @@ public class ShootableThing : MonoBehaviour {
     public Vector3 offset;
     public float healthbarScale = 1f;
     public AudioClip deathSound;
+    public GameObject deathEffect;
 
     private bool isActive = true;
     private ProgressCircle pc = null;
@@ -92,6 +93,9 @@ public class ShootableThing : MonoBehaviour {
         SendMessage("IsDead", SendMessageOptions.DontRequireReceiver);
         if(deathSound != null) {
             audio.PlayOneShot(deathSound);
+        }
+        if(deathEffect) {
+            Instantiate(deathEffect, transform.position, transform.rotation);
         }
         if(anim) {
             StartCoroutine(DeathAnimation());
