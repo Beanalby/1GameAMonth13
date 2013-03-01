@@ -60,8 +60,10 @@ public class UnitMovement : MonoBehaviour {
             lookTarget = offset;
         }
         lookTarget.y = 0;
-        Quaternion targetRot = Quaternion.LookRotation(lookTarget);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, turnSpeed * Time.deltaTime);
+        if(lookTarget != Vector3.zero) {
+            Quaternion targetRot = Quaternion.LookRotation(lookTarget);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, turnSpeed * Time.deltaTime);
+        }
         rigidbody.MovePosition(transform.position + offset);
         currentVelocity = offset / Time.deltaTime;
         if(anim) {

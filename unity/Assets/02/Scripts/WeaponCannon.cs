@@ -23,6 +23,9 @@ public class WeaponCannon : WeaponRanged {
         line.enabled = false;
 	}
 	new void Update () {
+        if(!isActive) {
+            return;
+        }
         base.Update();
         DrawLine();
         HandleFiring();

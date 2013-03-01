@@ -11,6 +11,8 @@ public class ShootableThing : MonoBehaviour {
     public float healthbarScale = 1f;
     public AudioClip deathSound;
     public GameObject deathEffect;
+    [HideInInspector]
+    public bool defaultDieAction = true;
 
     private bool isActive = true;
     private ProgressCircle pc = null;
@@ -28,12 +30,6 @@ public class ShootableThing : MonoBehaviour {
         health = MaxHealth;
         anim = GetComponentInChildren<Animator>();
 	}
-    void Update() {
-        //Health = MaxHealth - (int)(20 * Time.time);
-        if(Input.GetKeyDown(KeyCode.Space)) {
-            Die();
-        }
-    }
 
     public void GotHit(WeaponBase attacker) {
         Health -= attacker.Damage;
@@ -81,6 +77,8 @@ public class ShootableThing : MonoBehaviour {
         Destroy(gameObject);
     }
     public virtual void Die() {
+        if(!defaultDieAction)
+            return;
         isActive = false;
         if (fragmentTemplate != null) {
             int num = MaxHealth / 20;
@@ -92,7 +90,10 @@ public class ShootableThing : MonoBehaviour {
         }
         SendMessage("IsDead", SendMessageOptions.DontRequireReceiver);
         if(deathSound != null) {
-            audio.PlayOneShot(deathSound);
+            // playoneshot stops when gameobject's destroyed,
+            // need to use the callback to keep the object around
+            AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position);
+            //audio.PlayOneShot(deathSound);
         }
         if(deathEffect) {
             Instantiate(deathEffect, transform.position, transform.rotation);

@@ -10,8 +10,8 @@ public abstract class WeaponBase : MonoBehaviour {
     public string TargetLayer;
     public GameObject effectTemplate;
     public AudioClip[] weaponSounds;
+    public bool isActive = true;
 
-    protected bool isActive = true;
     protected float cooldown=1f;
     protected int damage;
     protected float lastFired=-100;

@@ -13,17 +13,20 @@ public class HomePlayer : HomeBase {
         public float spawnTime;
     }
 
+    public bool isActive;
     public GUISkin skin;
+    public GUISkin titleSkin;
     public Texture coinImage;
     public Texture spawnBarImage;
-
+    public int coinCurrent = 0;
+    
     private int widgetWidth = 350;
     private int widgetSpace = 5;
     private int buttonHeight = 40;
     private int labelHeight = 20;
     private int spawnBarHeight = 12;
 
-    private int coinCurrent = 100;
+    private bool isDead = false;
     private float coinRegenCooldown = .2f;
     private int coinRegenAmount = 1;
     private float coinRegenLast = -100f;
@@ -43,13 +46,35 @@ public class HomePlayer : HomeBase {
         }
         warpCharge = sources[0];
         warpSuccess = sources[1];
+        GetComponent<ShootableThing>().defaultDieAction = false;
     }
     public void Update() {
-        HandleCoinRegen();
         HandlePickups();
-        HandleSpawning();
+        if(isActive) {
+            HandleCoinRegen();
+            HandleSpawning();
+        }
     }
     public void OnGUI() {
+        if(isDead) {
+            GUI.skin = titleSkin;
+            GUILayout.BeginArea(new Rect(0, 0, Screen.width, Screen.height));
+            GUILayout.BeginVertical();
+            GUILayout.FlexibleSpace();
+
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            GUILayout.Label("You've lost!  Trolls continue to run amok!");
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+
+            GUILayout.FlexibleSpace();
+            GUILayout.EndVertical();
+            GUILayout.EndArea();
+            return;
+        }
+        if(!isActive)
+            return;
         GUI.skin = skin;
         float currentPos = 5;
         GUI.DrawTexture(new Rect(6, currentPos, coinImage.width, coinImage.height), coinImage);
@@ -98,6 +123,13 @@ public class HomePlayer : HomeBase {
         GUI.enabled = true;
     }
 
+    public void Die() {
+        isActive = false;
+        transform.FindChild("HomeCannon").GetComponent<WeaponCannon>().isActive = false;
+        transform.FindChild("Cube").gameObject.SetActive(false);
+        isDead = true;
+        Time.timeScale = 0;
+    }
     private void DrawSpawnBar(float width, float offset) {
         float percent;
         if (spawnStart != -1) {
