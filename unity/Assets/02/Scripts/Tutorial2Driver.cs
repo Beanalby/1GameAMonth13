@@ -90,13 +90,23 @@ public class Tutorial2Driver : MonoBehaviour {
             () => { exampleEjector.SetActive(false); }
         );
 
+
+        bool jackSpawned = false, ejectorSpawned = false;
+        SpawnEventHandler WatchSpawns = delegate(GameObject spawned) {
+            switch(spawned.GetComponent<ShootableThing>().type) {
+                case ShootableThingType.Jack:
+                    jackSpawned = true; break;
+                case ShootableThingType.Ejector:
+                    ejectorSpawned = true; break;
+            }
+        };        
         AddState("introSpawn",
             new ControlItem(spawnMsg1, MouseButton.LeftClick),
             new ControlItem(spawnMsg2, KeyCode.Space),
             "complete",
-            () => { homePlayer.isActive = true; },
-            () => { return Input.GetKeyDown(KeyCode.Space); },
-            () => { homePlayer.isActive = false; }
+            () => { homePlayer.isActive = true; homePlayer.spawnListeners += WatchSpawns; },
+            () => { return jackSpawned && ejectorSpawned; },
+            () => { homePlayer.isActive = false; homePlayer.spawnListeners -= WatchSpawns; }
         );
         states["introSpawn"].control.position = ShowControlPosition.Bottom;
 

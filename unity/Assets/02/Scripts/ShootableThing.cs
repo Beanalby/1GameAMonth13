@@ -1,9 +1,12 @@
 using UnityEngine;
 using System.Collections;
 
+public enum ShootableThingType { None, Base, Jack, Ejector, Noob };
+
 [RequireComponent(typeof(AudioSource))]
 public class ShootableThing : MonoBehaviour {
 
+    public ShootableThingType type;
     public GameObject progressTemplate;
     public GameObject fragmentTemplate;
     public int MaxHealth = -1;

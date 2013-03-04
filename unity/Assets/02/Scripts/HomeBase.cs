@@ -1,10 +1,15 @@
 using UnityEngine;
 using System.Collections;
 
+public delegate void SpawnEventHandler(GameObject spawned);
+
 public abstract class HomeBase : MonoBehaviour {
+
 
     protected Quaternion spawnFacing;
     protected Transform spawnArea;
+
+    public event SpawnEventHandler spawnListeners;
 
 	// Use this for initialization
 	public void Start () {
@@ -28,6 +33,10 @@ public abstract class HomeBase : MonoBehaviour {
             z = spawnArea.position.z, dz = spawnArea.localScale.z / 2;
         Vector3 pos = new Vector3( Random.Range(x-dx,x+dx), 
             Random.Range(y-dy,y+dy), Random.Range(z-dz,z+dz));
-        Instantiate(template, pos, spawnFacing);
+        GameObject spawned = Instantiate(template, pos, spawnFacing) as GameObject;
+
+        if(spawnListeners != null) {
+            spawnListeners(spawned);
+        }
     }
 }
