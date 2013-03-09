@@ -1,17 +1,27 @@
 fileFormatVersion: 2
-guid: fba76116bde0ad84eae59902ee383962
+guid: a2d3dccce2f093045b91b743bd5b3112
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
     100000: //RootNode
+    100002: rimMesh
+    100004: rimMeshCollide
     400000: //RootNode
+    400002: rimMesh
+    400004: rimMeshCollide
     2300000: //RootNode
+    2300002: rimMesh
+    2300004: rimMeshCollide
     3300000: //RootNode
-    4300000: Sphere
+    3300002: rimMesh
+    3300004: rimMeshCollide
+    4300000: Torus
+    4300002: rimMeshCollide
+    4300004: rimMesh
     7400000: Default Take
     9500000: //RootNode
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
   animations:
@@ -38,11 +48,11 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
   tangentSpace:
-    normalSmoothAngle: 19
+    normalSmoothAngle: 60
     splitTangentsAcrossUV: 1
     normalImportMode: 0
     tangentImportMode: 1
-  importAnimation: 0
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     human: []
@@ -58,5 +68,5 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   additionalBone: 1
-  animationType: 0
+  animationType: 2
   userData: 

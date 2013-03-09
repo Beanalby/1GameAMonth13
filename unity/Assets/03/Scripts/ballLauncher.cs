@@ -23,7 +23,7 @@ public class ballLauncher : MonoBehaviour {
     private Vector3 startVelocity;
     private int lineSegments = 16;
     private float segmentScale = 1/8f;
-    private float lineStart = .5f;
+    private float lineStart = 0f;
     private float power = 10f;
     private float powerMin = 5f;
     private float powerMax = 20f;
