@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(AudioSource))]
 public class ShotDetector2 : MonoBehaviour {
 
     Vector3 reqVelocity;
@@ -8,9 +9,12 @@ public class ShotDetector2 : MonoBehaviour {
 
     public ShotDetector1 detector1;
 
+    private AudioSource source;
+
     void Start () {
         reqVelocity = -transform.up;
         reqPlane = new Plane(reqVelocity, Vector3.zero);
+        source = GetComponent<AudioSource>();
     }
     public void OnTriggerEnter(Collider col) {
         if(detector1 == null) {
@@ -24,6 +28,7 @@ public class ShotDetector2 : MonoBehaviour {
             if(detector1.passedObjects.Contains(col.gameObject)) {
                 Debug.Log(col.gameObject + " success!");
                 detector1.passedObjects.Remove(col.gameObject);
+                source.Play();
             }
         }
     }
