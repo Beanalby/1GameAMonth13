@@ -6,6 +6,8 @@ using System.Linq;
 [RequireComponent(typeof(LineRenderer))]
 public class ballLauncher : MonoBehaviour {
 
+    static float verticalWidth = .05f;
+
     private static Vector3 Simulate(Vector3 startPos, Vector3 velocity,
             float duration) {
         Vector3 endPos = startPos + velocity * duration;
@@ -14,6 +16,8 @@ public class ballLauncher : MonoBehaviour {
     }
 
     public GameObject ballTempalte;
+    public Material verticalMat;
+
     private float powerScale = 5f;
 
     private float angleVertical = 45f;
@@ -27,18 +31,29 @@ public class ballLauncher : MonoBehaviour {
     private float power = 10f;
     private float powerMin = 5f;
     private float powerMax = 20f;
+    private float radius;
 
-    private LineRenderer line;
+    private LineRenderer line, vertical;
     private List<float> checks;
 
-
     void Start() {
+        radius = ballTempalte.GetComponent<SphereCollider>().radius;
         cannonMesh = transform.Find("CannonMesh");
         launchPoint = cannonMesh.Find("LaunchPoint");
         line = GetComponent<LineRenderer>();
         checks = Enumerable.Range(0, lineSegments)
             .Select(x => x * segmentScale).ToList();
         line.SetVertexCount(lineSegments);
+
+        // make a dummy gameobj to hold the vertical's linerenderer
+        GameObject tmp = new GameObject("verticalLineHolder");
+        tmp.transform.parent = transform;
+        vertical = tmp.AddComponent<LineRenderer>();
+        Debug.Log("Made vertical=" + vertical);
+        vertical.material = verticalMat;
+        vertical.SetVertexCount(2);
+        vertical.SetWidth(verticalWidth, verticalWidth);
+        Debug.Log("line=" + line + ", vertical=" + vertical);
         UpdateTrajectory();
     }
     void Update() {
@@ -99,10 +114,35 @@ public class ballLauncher : MonoBehaviour {
         // the real launcher doesn't raise vertically for the angle, so
         // rotate the cannon mesh itself
         cannonMesh.localEulerAngles = new Vector3(-angleVertical, 0, 0);
+        Vector3 previous = launchPoint.position;
+        Ray ray;
+        line.SetVertexCount(checks.Count);
+        int mask = ~(1 << LayerMask.NameToLayer("Player"));
         for(int i = 0; i < checks.Count; i++) {
-            line.SetPosition(i,
-                Simulate(launchPoint.position, startVelocity, lineStart + checks[i]));
+            if(Input.GetKeyDown(KeyCode.Space)) {
+                Debug.Log("+++ segement #" + i + ", prev=" + previous);
+            }
+            Vector3 next = Simulate(launchPoint.position, startVelocity, lineStart + checks[i]);
+            // see if this will collide with anything
+            ray = new Ray(previous, next - previous);
+            float dist = (next - previous).magnitude;
+            RaycastHit[] hits = Physics.SphereCastAll(ray, radius, dist, mask);
+            foreach(RaycastHit hit in hits) {
+                if(Input.GetKeyDown(KeyCode.Space)) {
+                    Debug.Log("Iteration #" + i + " hit " + hit.collider.name + ", pos=" + hit.point + ", normal=" + hit.normal);
+                }
+                next = ray.GetPoint(hit.distance);
+                Debug.DrawRay(hit.point, hit.normal * 5, Color.green);
+                break;
+            }
+            line.SetPosition(i, next);
+            previous = next;
+            if(hits.Count() != 0) {
+                line.SetVertexCount(i + 1);
+                break;
+            }
         }
-
+        vertical.SetPosition(0, previous);
+        vertical.SetPosition(1, new Vector3(previous.x, 0, previous.z));
     }
 }
