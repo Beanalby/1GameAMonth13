@@ -15,6 +15,7 @@ public class ballLauncher : MonoBehaviour {
         return endPos;
     }
 
+    public GameObject aimCollisionTemplate;
     public GameObject ballTempalte;
     public Material verticalMat;
 
@@ -25,18 +26,28 @@ public class ballLauncher : MonoBehaviour {
     private Transform cannonMesh, launchPoint;
     private bool loaded = true;
     private Vector3 startVelocity;
-    private int lineSegments = 16;
+    private int lineSegments = 32;
     private float segmentScale = 1/8f;
     private float lineStart = 0f;
-    private float power = 10f;
-    private float powerMin = 5f;
-    private float powerMax = 20f;
+    private float maxRimDistance = 4f;
+    private float power = 7f;
+    private float powerMin = 6f;
+    private float powerMax = 8f;
     private float radius;
+
+    private GameObject aimCollision;
+    private Plane aimPlane, rimPlane;
+    private GameObject[] rims;
 
     private LineRenderer line, vertical;
     private List<float> checks;
 
     void Start() {
+        aimPlane = new Plane();
+        rims = GameObject.FindGameObjectsWithTag("Rim");
+        aimCollision = Instantiate(aimCollisionTemplate) as GameObject;
+        aimCollision.SetActive(false);
+
         radius = ballTempalte.GetComponent<SphereCollider>().radius;
         cannonMesh = transform.Find("CannonMesh");
         launchPoint = cannonMesh.Find("LaunchPoint");
@@ -49,11 +60,9 @@ public class ballLauncher : MonoBehaviour {
         GameObject tmp = new GameObject("verticalLineHolder");
         tmp.transform.parent = transform;
         vertical = tmp.AddComponent<LineRenderer>();
-        Debug.Log("Made vertical=" + vertical);
         vertical.material = verticalMat;
         vertical.SetVertexCount(2);
         vertical.SetWidth(verticalWidth, verticalWidth);
-        Debug.Log("line=" + line + ", vertical=" + vertical);
         UpdateTrajectory();
     }
     void Update() {
@@ -104,6 +113,26 @@ public class ballLauncher : MonoBehaviour {
         if(!loaded) {
             return;
         }
+        aimCollision.SetActive(false);
+        // figure out which rim is the closest to our aiming plane
+        aimPlane.SetNormalAndPosition(transform.right, transform.position);
+        GameObject closestRim = null;
+        float closestDistance = float.MaxValue, distance;
+        foreach(GameObject rim in rims) {
+            distance = aimPlane.GetDistanceToPoint(rim.transform.position);
+            if(Mathf.Abs(distance) < Mathf.Abs(closestDistance)) {
+                closestRim = rim;
+                closestDistance = distance;
+            }
+        }
+        Vector3 rimOnAimPlane = Vector3.zero;
+        if(closestRim != null) {
+            rimOnAimPlane = closestRim.transform.position - closestDistance * aimPlane.normal;
+            rimPlane.SetNormalAndPosition(closestRim.transform.up,
+                closestRim.transform.position);
+            // draw a line between the aimplane and the rim
+        }
+
         startVelocity = Quaternion.Euler(0, angleHorizontal, 0)
             * Vector3.forward;
         startVelocity = Vector3.Slerp(startVelocity, Vector3.up,
@@ -115,32 +144,47 @@ public class ballLauncher : MonoBehaviour {
         // rotate the cannon mesh itself
         cannonMesh.localEulerAngles = new Vector3(-angleVertical, 0, 0);
         Vector3 previous = launchPoint.position;
-        Ray ray;
         line.SetVertexCount(checks.Count);
         int mask = ~(1 << LayerMask.NameToLayer("Player"));
         for(int i = 0; i < checks.Count; i++) {
-            if(Input.GetKeyDown(KeyCode.Space)) {
-                Debug.Log("+++ segement #" + i + ", prev=" + previous);
-            }
             Vector3 next = Simulate(launchPoint.position, startVelocity, lineStart + checks[i]);
-            // see if this will collide with anything
-            ray = new Ray(previous, next - previous);
-            float dist = (next - previous).magnitude;
-            RaycastHit[] hits = Physics.SphereCastAll(ray, radius, dist, mask);
-            foreach(RaycastHit hit in hits) {
-                if(Input.GetKeyDown(KeyCode.Space)) {
-                    Debug.Log("Iteration #" + i + " hit " + hit.collider.name + ", pos=" + hit.point + ", normal=" + hit.normal);
+            // see if this goes through the rim's plane
+            if(closestRim != null && rimPlane.GetSide(previous) && !rimPlane.GetSide(next)) {
+                Ray aimRay = new Ray(previous, next - previous);
+                float rimPlaneDist;
+                rimPlane.Raycast(aimRay, out rimPlaneDist);
+                Vector3 aimPoint = aimRay.GetPoint(rimPlaneDist);
+                // don't bother unless it's within maxRimDistance away
+                float aimDistance = (aimPoint - closestRim.transform.position).magnitude;
+                if(aimDistance < maxRimDistance) {
+                    Debug.DrawLine(rimOnAimPlane, closestRim.transform.position, Color.yellow);
+                    Debug.DrawLine(aimPoint, rimOnAimPlane, Color.green);
+                    line.SetPosition(i, aimPoint);
+                    previous = aimPoint;
+                    line.SetVertexCount(i + 1);
+                    break;
                 }
-                next = ray.GetPoint(hit.distance);
-                Debug.DrawRay(hit.point, hit.normal * 5, Color.green);
-                break;
             }
-            line.SetPosition(i, next);
-            previous = next;
-            if(hits.Count() != 0) {
+
+            // see if this will collide with anything
+            RaycastHit hit;
+            Ray collideRay = new Ray(previous, next - previous);
+            float dist = (next - previous).magnitude;
+            if(Physics.SphereCast(collideRay, radius, out hit, dist, mask)) {
+                Vector3 hitPoint = collideRay.GetPoint(hit.distance);
+                Debug.DrawRay(hit.point, hit.normal * 5, Color.green);
+                aimCollision.transform.position = hit.point;
+                aimCollision.transform.rotation = Quaternion.LookRotation(-hit.normal);
+                aimCollision.SetActive(true);
+                line.SetPosition(i, hitPoint);
+                previous = hitPoint;
                 line.SetVertexCount(i + 1);
                 break;
             }
+
+            // nothing stopping this, contine on to the next segment
+            line.SetPosition(i, next);
+            previous = next;
         }
         vertical.SetPosition(0, previous);
         vertical.SetPosition(1, new Vector3(previous.x, 0, previous.z));

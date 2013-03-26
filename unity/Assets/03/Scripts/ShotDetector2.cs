@@ -4,14 +4,21 @@ using System.Collections;
 [RequireComponent(typeof(AudioSource))]
 public class ShotDetector2 : MonoBehaviour {
 
+    Rim rim;
     Vector3 reqVelocity;
     Plane reqPlane;
+    GameDriver3 driver;
 
     public ShotDetector1 detector1;
 
     private AudioSource source;
 
     void Start () {
+        rim = transform.parent.GetComponent<Rim>();
+        if(rim == null) {
+            Debug.LogError("!!! " + name + " can't find its rim!");
+        }
+        driver = GameObject.Find("GameDriver3").GetComponent<GameDriver3>();
         reqVelocity = -transform.up;
         reqPlane = new Plane(reqVelocity, Vector3.zero);
         source = GetComponent<AudioSource>();
@@ -26,9 +33,12 @@ public class ShotDetector2 : MonoBehaviour {
             // detector1.  Protects against very fast balls moving in
             // horizontally at a slightly negative angle.
             if(detector1.passedObjects.Contains(col.gameObject)) {
-                Debug.Log(col.gameObject + " success!");
                 detector1.passedObjects.Remove(col.gameObject);
-                source.Play();
+                Debug.Log(col.gameObject + " success!");
+                driver.SendMessage("ShotSuccess", rim);
+                if(col.gameObject.rigidbody.velocity.magnitude >= rim.minSoundVelocity) {
+                    source.Play();
+                }
             }
         }
     }
