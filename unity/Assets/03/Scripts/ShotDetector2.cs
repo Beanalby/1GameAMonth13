@@ -7,7 +7,6 @@ public class ShotDetector2 : MonoBehaviour {
     Rim rim;
     Vector3 reqVelocity;
     Plane reqPlane;
-    GameDriver3 driver;
 
     public ShotDetector1 detector1;
 
@@ -18,7 +17,6 @@ public class ShotDetector2 : MonoBehaviour {
         if(rim == null) {
             Debug.LogError("!!! " + name + " can't find its rim!");
         }
-        driver = GameObject.Find("GameDriver3").GetComponent<GameDriver3>();
         reqVelocity = -transform.up;
         reqPlane = new Plane(reqVelocity, Vector3.zero);
         source = GetComponent<AudioSource>();
@@ -34,8 +32,7 @@ public class ShotDetector2 : MonoBehaviour {
             // horizontally at a slightly negative angle.
             if(detector1.passedObjects.Contains(col.gameObject)) {
                 detector1.passedObjects.Remove(col.gameObject);
-                Debug.Log(col.gameObject + " success!");
-                driver.SendMessage("ShotSuccess", rim);
+                rim.SendMessage("ShotSuccess");
                 if(col.gameObject.rigidbody.velocity.magnitude >= rim.minSoundVelocity) {
                     source.Play();
                 }

@@ -15,8 +15,11 @@ public class Cart : MonoBehaviour {
     
     // Update is called once per frame
     void Update () {
-        if(transform.position.z >= max || transform.position.z <= min) {
-            direction *= -1;
+        if(transform.position.z >= max) {
+            direction = -1;
+        }
+        if(transform.position.z <= min) {
+            direction = 1;
         }
         rigidbody.velocity = new Vector3(0, 0, speed * direction);
     }

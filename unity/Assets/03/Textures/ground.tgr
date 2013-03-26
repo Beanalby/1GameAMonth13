@@ -1,0 +1,9 @@
+#NTEVersion 6
+#BeginNodes 1
+702 179
+engine.graphics.synthesis.texture.PatternPerlinNoise
+ExportName "" Transformation 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 Color_Mapping 4 0.8392157 0.8392157 0.8392157 1.0 0.0 0.8 0.8 0.8 1.0 0.20772946 0.8 0.8 0.8 1.0 0.43961352 0.6 0.6 0.6 1.0 0.9516908 ScaleX 4.0 ScaleY 5.0 ValueScale 1.0 Persistence 0.75 StartBand 1 EndBand 8 Seed 22 Periodic true endparameters
+#EndNodes
+#BeginConnections 0
+#EndConnections
+glpreview -1 -1 -1 -1 Object 1 Spec._Power 20.0 POM_Strength 0.25 Ambient 0.375 TexScale_U 4 TexScale_V 4 CamRotX 52.0 CamRotY 102.0 CamDist 3.2999995 endglpreview

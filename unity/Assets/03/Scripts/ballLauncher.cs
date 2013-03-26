@@ -22,7 +22,7 @@ public class ballLauncher : MonoBehaviour {
     private float powerScale = 5f;
 
     private float angleVertical = 45f;
-    private float angleHorizontal = 0f;
+    private float angleHorizontal = 90f;
     private Transform cannonMesh, launchPoint;
     private bool loaded = true;
     private Vector3 startVelocity;
@@ -145,6 +145,7 @@ public class ballLauncher : MonoBehaviour {
         cannonMesh.localEulerAngles = new Vector3(-angleVertical, 0, 0);
         Vector3 previous = launchPoint.position;
         line.SetVertexCount(checks.Count);
+        bool hadCollision = false;
         int mask = ~(1 << LayerMask.NameToLayer("Player"));
         for(int i = 0; i < checks.Count; i++) {
             Vector3 next = Simulate(launchPoint.position, startVelocity, lineStart + checks[i]);
@@ -179,6 +180,7 @@ public class ballLauncher : MonoBehaviour {
                 line.SetPosition(i, hitPoint);
                 previous = hitPoint;
                 line.SetVertexCount(i + 1);
+                hadCollision = true;
                 break;
             }
 
@@ -186,7 +188,14 @@ public class ballLauncher : MonoBehaviour {
             line.SetPosition(i, next);
             previous = next;
         }
-        vertical.SetPosition(0, previous);
-        vertical.SetPosition(1, new Vector3(previous.x, 0, previous.z));
+        if(!hadCollision) {
+            // Also draw a vertical line down to the ground to help
+            // place the hanging point in 3d space
+            vertical.gameObject.SetActive(true);
+            vertical.SetPosition(0, previous);
+            vertical.SetPosition(1, new Vector3(previous.x, 0, previous.z));
+        } else {
+            vertical.gameObject.SetActive(false);
+        }
     }
 }
