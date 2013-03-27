@@ -67,8 +67,10 @@ public class ballLauncher : MonoBehaviour {
     }
     void Update() {
         UpdatePower();
-        UpdateRotation();
         HandleFiring();
+    }
+    void LateUpdate() {
+        UpdateRotation();
     }
 
     public void FireBall() {
@@ -138,8 +140,12 @@ public class ballLauncher : MonoBehaviour {
         startVelocity = Vector3.Slerp(startVelocity, Vector3.up,
             angleVertical / 90);
         startVelocity *= power;
+        // apply the cart's rotation to where we're aiming
+        startVelocity = transform.parent.transform.rotation * startVelocity;
+
         Vector3 lookTarget = new Vector3(startVelocity.x, 0, startVelocity.z);
         transform.rotation = Quaternion.LookRotation(lookTarget);
+        //transform.rotation = transform.parent.transform.rotation * canonRotation;
         // the real launcher doesn't raise vertically for the angle, so
         // rotate the cannon mesh itself
         cannonMesh.localEulerAngles = new Vector3(-angleVertical, 0, 0);
