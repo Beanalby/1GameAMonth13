@@ -1,0 +1,31 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="compressorOriginal_data" version="1.3.0" audacityversion="2.0.0" sel0="0.0000000000" sel1="7.7301587302" vpos="0" h="0.0000000000" zoom="199.4786969291" rate="44100.0">
+	<tags/>
+	<wavetrack name="64099__benboncan__portable-compressor" channel="0" linked="1" mute="0" solo="0" height="150" minimized="0" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.00000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="340900">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000bdb.au" len="155586" min="-0.66037" max="0.694519" rms="0.153576"/>
+				</waveblock>
+				<waveblock start="155586">
+					<simpleblockfile filename="e0000255.au" len="185314" min="-0.615448" max="0.663971" rms="0.162943"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="64099__benboncan__portable-compressor" channel="1" linked="0" mute="0" solo="0" height="150" minimized="0" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.00000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="340900">
+				<waveblock start="0">
+					<simpleblockfile filename="e00001d4.au" len="155586" min="-0.570496" max="0.599884" rms="0.138079"/>
+				</waveblock>
+				<waveblock start="155586">
+					<simpleblockfile filename="e0000670.au" len="185314" min="-0.568542" max="0.625122" rms="0.14421"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>

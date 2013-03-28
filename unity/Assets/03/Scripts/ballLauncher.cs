@@ -22,7 +22,7 @@ public class ballLauncher : MonoBehaviour {
     private float powerScale = 5f;
 
     private float angleVertical = 45f;
-    private float angleHorizontal = 90f;
+    private float angleHorizontal = 0f;
     private Transform cannonMesh, launchPoint;
     private bool loaded = true;
     private Vector3 startVelocity;
@@ -101,8 +101,9 @@ public class ballLauncher : MonoBehaviour {
         }
 
         // 20% => -90, 80% => +90, capped at those values
-        angleHorizontal = Mathf.Min(90, Mathf.Max(-90,
-            300 * xPercent - 150));
+        // 20% => -135, 80% => 135, capped at those values
+        angleHorizontal = Mathf.Min(135, Mathf.Max(-135,
+            450 * xPercent - 225));
         
         // use 89 as max vertical instead of 90; going straight vertical
         // causes annoying issues with determining look direction.
@@ -145,7 +146,7 @@ public class ballLauncher : MonoBehaviour {
 
         Vector3 lookTarget = new Vector3(startVelocity.x, 0, startVelocity.z);
         transform.rotation = Quaternion.LookRotation(lookTarget);
-        //transform.rotation = transform.parent.transform.rotation * canonRotation;
+
         // the real launcher doesn't raise vertically for the angle, so
         // rotate the cannon mesh itself
         cannonMesh.localEulerAngles = new Vector3(-angleVertical, 0, 0);
