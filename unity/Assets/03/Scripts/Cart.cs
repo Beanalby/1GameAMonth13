@@ -10,23 +10,22 @@ public class Cart : MonoBehaviour {
     public AudioClip cartTurning;
     public TrackPoint startingTrack;
 
-    private float moveSpeed = 2f;
-    private float rotateSpeed = .5f;
+    private float moveSpeed = 5f;
+    private float rotateSpeed = 1f;
 
+    private GameObject gameDriver;
     private AudioSource audioSource;
     private CartState cartState = CartState.Moving;
     private float rotationPercent = 0;
     private TrackPoint currentTrack;
 
     void Start () {
+        gameDriver = GameObject.Find("GameDriver") as GameObject;
         audioSource = GetComponent<AudioSource>();
         cartState = CartState.Stopped;
         StartMove(startingTrack);
     }
     void Update () {
-        if(cartState == CartState.Stopped && Input.GetKeyDown(KeyCode.Space)) {
-            StartMove(startingTrack);
-        }
         HandleMovement();
     }
 
@@ -64,8 +63,19 @@ public class Cart : MonoBehaviour {
         cartState = CartState.Moving;
         audioSource.clip = cartMoving;
         audioSource.Play();
+        if(currentTrack.next.next == null) {
+            gameDriver.SendMessage("TrackFinished");
+        }
     }
     void StartTurn() {
+        if(currentTrack.next.next == null) {
+            cartState = CartState.Stopped;
+            audioSource.Stop();
+            return;
+        }
+        //if(currentTrack.transform.rotation == currentTrack.next.transform.rotation) {
+        //    StartMove(currentTrack.next);
+        //}
         transform.position = currentTrack.next.transform.position;
         rotationPercent = 0;
         cartState = CartState.Turning;

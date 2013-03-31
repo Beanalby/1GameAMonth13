@@ -12,10 +12,6 @@ public class TrackPoint : MonoBehaviour {
         get { return (transform.position - next.transform.position).magnitude; }
     }
 
-	// Update is called once per frame
-	void Update () {
-	
-	}
     public void OnDrawGizmos() {
         if(!next) {
             return;

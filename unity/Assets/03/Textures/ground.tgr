@@ -1,8 +1,8 @@
 #NTEVersion 6
 #BeginNodes 1
-702 179
+430 203
 engine.graphics.synthesis.texture.PatternPerlinNoise
-ExportName "" Transformation 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 Color_Mapping 4 0.8392157 0.8392157 0.8392157 1.0 0.0 0.8 0.8 0.8 1.0 0.20772946 0.8 0.8 0.8 1.0 0.43961352 0.6 0.6 0.6 1.0 0.9516908 ScaleX 4.0 ScaleY 5.0 ValueScale 1.0 Persistence 0.75 StartBand 1 EndBand 8 Seed 22 Periodic true endparameters
+ExportName "" Transformation 1.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 1.0 Color_Mapping 5 0.5764706 0.5411765 0.5019608 1.0 0.0 0.36862746 0.3529412 0.32156864 1.0 0.20772946 0.18998075 0.16630016 0.11761947 1.0 0.37681162 0.006127451 0.006127451 0.006127451 1.0 0.64734304 0.34901962 0.29803923 0.2627451 1.0 1.0 ScaleX 4.0 ScaleY 5.0 ValueScale 1.0 Persistence 0.75 StartBand 1 EndBand 8 Seed 22 Periodic true endparameters
 #EndNodes
 #BeginConnections 0
 #EndConnections

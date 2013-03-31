@@ -1,9 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
+public enum GameDriver3State { Running, Finished };
+
 public class GameDriver3 : MonoBehaviour {
 
     public GUISkin skin;
+
+    private GameDriver3State state = GameDriver3State.Running;
 
     private int score = 0;
     public void Start() {
@@ -17,6 +21,12 @@ public class GameDriver3 : MonoBehaviour {
     public void OnGUI() {
         GUI.skin = skin;
         GUI.Label(new Rect(0, 70, Screen.width, Screen.height), "Score: " + score);
+        if(state == GameDriver3State.Finished) {
+            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2, 200, 100), "Finished!");
+        }
+    }
+    public void TrackFinished() {
+        state = GameDriver3State.Finished;
     }
     public void ShotSuccess(Rim rim) {
         score += rim.value;

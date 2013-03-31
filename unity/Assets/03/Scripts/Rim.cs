@@ -8,14 +8,14 @@ public class Rim : MonoBehaviour {
     public int value = 2;
 
     private AudioSource audioSource;
-    private GameDriver3 driver;
+    private GameObject driver;
     private Transform shadow;
     private float shadowDistance;
     private Vector3 shadowPosition;
 
     void Start () {
         audioSource = GetComponent<AudioSource>();
-        driver = GameObject.Find("GameDriver3").GetComponent<GameDriver3>();
+        driver = GameObject.Find("GameDriver") as GameObject;
         shadow = transform.FindChild("RimShadow");
         shadowDistance = (transform.position - shadow.position).magnitude;
     }
