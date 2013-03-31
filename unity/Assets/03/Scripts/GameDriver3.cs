@@ -9,6 +9,10 @@ public class GameDriver3 : MonoBehaviour {
 
     private GameDriver3State state = GameDriver3State.Running;
 
+    public GameDriver3State State {
+        get { return state; }
+    }
+
     private int score = 0;
     public void Start() {
         ShowControls controls = ShowControls.CreateDocked(new ControlItem[] {

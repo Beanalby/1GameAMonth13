@@ -10,7 +10,7 @@ public class Cart : MonoBehaviour {
     public AudioClip cartTurning;
     public TrackPoint startingTrack;
 
-    private float moveSpeed = 5f;
+    private float moveSpeed = 1f;
     private float rotateSpeed = 1f;
 
     private GameObject gameDriver;

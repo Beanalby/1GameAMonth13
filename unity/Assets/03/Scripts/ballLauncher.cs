@@ -24,6 +24,7 @@ public class ballLauncher : MonoBehaviour {
     private float angleVertical = 45f;
     private float angleHorizontal = 0f;
     private Transform cannonMesh, launchPoint;
+    private bool isRunning = true;
     private bool loaded = true;
     private Vector3 startVelocity;
     private int lineSegments = 32;
@@ -32,17 +33,19 @@ public class ballLauncher : MonoBehaviour {
     private float maxRimDistance = 4f;
     private float power = 7f;
     private float powerMin = 6f;
-    private float powerMax = 8f;
+    private float powerMax = 10f;
     private float radius;
 
     private GameObject aimCollision;
     private Plane aimPlane, rimPlane;
+    private GameDriver3 gameDriver;
     private GameObject[] rims;
 
     private LineRenderer line, vertical;
     private List<float> checks;
 
     void Start() {
+        gameDriver = GameObject.Find("GameDriver").GetComponent<GameDriver3>();
         aimPlane = new Plane();
         rims = GameObject.FindGameObjectsWithTag("Rim");
         aimCollision = Instantiate(aimCollisionTemplate) as GameObject;
@@ -66,11 +69,15 @@ public class ballLauncher : MonoBehaviour {
         UpdateTrajectory();
     }
     void Update() {
-        UpdatePower();
-        HandleFiring();
+        if(isRunning) {
+            UpdatePower();
+            HandleFiring();
+        }
     }
     void LateUpdate() {
-        UpdateRotation();
+        if(isRunning) {
+            UpdateRotation();
+        }
     }
 
     public void FireBall() {
@@ -88,6 +95,14 @@ public class ballLauncher : MonoBehaviour {
         power = Mathf.Max(powerMin, Mathf.Min(powerMax, power));
     }
     public void UpdateRotation() {
+        if(gameDriver.State == GameDriver3State.Finished) {
+            // detach the camera so it doesn't follow into the tunnel
+            GetComponentInChildren<Camera>().transform.parent = null;
+            isRunning = false;
+            line.enabled = false;
+            vertical.enabled = false;
+            return;
+        }
         /// scale the X & Y mouse position for rotation such that mostly
         /// left / mostly right map to full left rotation / full
         /// right rotation, and mostly top / mostly bottom map to 90deg up /
