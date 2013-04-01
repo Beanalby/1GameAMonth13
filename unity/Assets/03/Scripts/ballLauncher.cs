@@ -6,6 +6,7 @@ using System.Linq;
 [RequireComponent(typeof(LineRenderer))]
 public class ballLauncher : MonoBehaviour {
 
+    public ProgressCircle pc;
     static float verticalWidth = .05f;
 
     private static Vector3 Simulate(Vector3 startPos, Vector3 velocity,
@@ -16,6 +17,7 @@ public class ballLauncher : MonoBehaviour {
     }
 
     public GameObject aimCollisionTemplate;
+    public float fireCooldown = 1f;
     public GameObject ballTempalte;
     public Material verticalMat;
     public bool isRunning = false;
@@ -25,6 +27,7 @@ public class ballLauncher : MonoBehaviour {
     private float angleVertical = 45f;
     private float angleHorizontal = 0f;
     private Transform cannonMesh, launchPoint;
+    private float lastFired = -1f;
     private bool loaded = true;
     private Vector3 startVelocity;
     private int lineSegments = 32;
@@ -84,9 +87,23 @@ public class ballLauncher : MonoBehaviour {
         GameObject ball = Instantiate(ballTempalte,
             launchPoint.position, transform.rotation) as GameObject;
         ball.rigidbody.velocity = startVelocity;
+        lastFired = Time.time;
+        pc.Percent = 0;
+        pc.gameObject.SetActive(true);
     }
     public void HandleFiring() {
-        if(Input.GetButtonDown("Fire1")) {
+        if(lastFired != -1) {
+            float percent = (Time.time - lastFired) / fireCooldown;
+            Debug.Log("Now " + pc.Percent.ToString(".00"));
+            if(percent >= 1) {
+                lastFired = -1;
+                pc.gameObject.SetActive(false);
+                pc.Percent = 0;
+            } else {
+                pc.Percent = percent;
+            }
+        }
+        if(lastFired == -1 && Input.GetButtonDown("Fire1")) {
             FireBall();
         }
     }

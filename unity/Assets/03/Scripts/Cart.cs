@@ -11,7 +11,7 @@ public class Cart : MonoBehaviour {
     public TrackPoint startingTrack;
     public CartState cartState = CartState.Stopped;
 
-    private float moveSpeed = 3f;
+    private float moveSpeed = 1f;
     private float rotateSpeed = 15f;
     
     private GameObject gameDriver;
