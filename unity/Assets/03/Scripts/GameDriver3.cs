@@ -53,10 +53,10 @@ public class GameDriver3 : MonoBehaviour {
             case GameDriver3State.Finished:
                 GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2, 200, 100), "Finished!");
                 GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 100, 200, 100), "Score: " + score);
-                if(GUI.Button(new Rect(Screen.width / 2 - 200, Screen.height / 2 + 200, 100, 50), "Try Again")) {
+                if(GUI.Button(new Rect(Screen.width / 2 - 200, Screen.height / 2 + 200, 200, 75), "Try Again")) {
                     Application.LoadLevel(Application.loadedLevel);
                 }
-                if(GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 200, 100, 50), "Choose Stage")) {
+                if(GUI.Button(new Rect(Screen.width / 2, Screen.height / 2 + 200, 200, 75), "Choose Stage")) {
                     Application.LoadLevel("stageSelect");
                 }
                 break;

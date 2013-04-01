@@ -94,7 +94,6 @@ public class ballLauncher : MonoBehaviour {
     public void HandleFiring() {
         if(lastFired != -1) {
             float percent = (Time.time - lastFired) / fireCooldown;
-            Debug.Log("Now " + pc.Percent.ToString(".00"));
             if(percent >= 1) {
                 lastFired = -1;
                 pc.gameObject.SetActive(false);
@@ -118,6 +117,7 @@ public class ballLauncher : MonoBehaviour {
             isRunning = false;
             line.enabled = false;
             vertical.enabled = false;
+            pc.gameObject.SetActive(false);
             return;
         }
         /// scale the X & Y mouse position for rotation such that mostly

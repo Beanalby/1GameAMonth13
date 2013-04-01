@@ -24,7 +24,7 @@ public class ProgressCircle : MonoBehaviour {
         renderer.materials[1].color = Color.Lerp(EmptyColor, FullColor, percent);
         // keep this rotated such that it's facing the same direction
         // todo: see if we can keep it towards the camera?
-        Vector3 tmp = transform.rotation.eulerAngles;
+        //Vector3 tmp = transform.rotation.eulerAngles;
         //tmp.y = 180;
         //transform.rotation = Quaternion.Euler(tmp);
     }

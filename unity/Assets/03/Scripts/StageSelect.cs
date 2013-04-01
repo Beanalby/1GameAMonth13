@@ -31,13 +31,13 @@ public class StageSelect : MonoBehaviour {
         int current = 0;
         int height = 50;
         GUI.skin = skin;
-        Rect playNow = new Rect(Screen.width - 150, Screen.height - height,
+        Rect playNow = new Rect(Screen.width - 350, Screen.height - height-50,
             150, height);
         Rect titlePos = new Rect(0, 0, Screen.width, height);
         Rect stageTitlePos = new Rect(Screen.width / 2, 10 + height,
             Screen.width / 2, height);
 
-        GUI.Label(titlePos, "Minecart Basketball");
+        GUI.Label(titlePos, "Minecart Basketball!");
         foreach(Stage stage in stages) {
             Rect rect = new Rect(50, current * height + 50, 300, height);
             if(GUI.Button(rect, new GUIContent(stage.name, stage.preview))) {
