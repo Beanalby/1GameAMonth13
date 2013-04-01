@@ -18,13 +18,13 @@ public class ballLauncher : MonoBehaviour {
     public GameObject aimCollisionTemplate;
     public GameObject ballTempalte;
     public Material verticalMat;
-
+    public bool isRunning = false;
+    
     private float powerScale = 5f;
 
     private float angleVertical = 45f;
     private float angleHorizontal = 0f;
     private Transform cannonMesh, launchPoint;
-    private bool isRunning = true;
     private bool loaded = true;
     private Vector3 startVelocity;
     private int lineSegments = 32;

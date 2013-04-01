@@ -33,8 +33,11 @@ public class StageSelect : MonoBehaviour {
         GUI.skin = skin;
         Rect playNow = new Rect(Screen.width - 150, Screen.height - height,
             150, height);
-        Rect titlePos = new Rect(Screen.width / 2, 10,
+        Rect titlePos = new Rect(0, 0, Screen.width, height);
+        Rect stageTitlePos = new Rect(Screen.width / 2, 10 + height,
             Screen.width / 2, height);
+
+        GUI.Label(titlePos, "Minecart Basketball");
         foreach(Stage stage in stages) {
             Rect rect = new Rect(50, current * height + 50, 300, height);
             if(GUI.Button(rect, new GUIContent(stage.name, stage.preview))) {
@@ -43,13 +46,13 @@ public class StageSelect : MonoBehaviour {
             current++;
         }
         if(selected == null) {
-            GUI.Label(titlePos, "Choose a Stage");
+            GUI.Label(stageTitlePos, "Choose a Stage");
             GUI.enabled = false;
             GUI.Button(playNow, "Play Now!");
             GUI.enabled = true;
         } else {
-            GUI.Label(titlePos, selected.name);
-            current = (int)(titlePos.y + titlePos.height);
+            GUI.Label(stageTitlePos, selected.name);
+            current = (int)(stageTitlePos.y + stageTitlePos.height);
             Texture img = selected.preview;
             Rect previewPos = new Rect(Screen.width * .75f - img.width / 2f,
                 current, img.width, img.height);
@@ -57,7 +60,9 @@ public class StageSelect : MonoBehaviour {
             current += img.height;
             GUI.Label(new Rect(Screen.width / 2, current,
                 Screen.width / 2, 400), selected.description, skin.customStyles[0]);
-            GUI.Button(playNow, "Play Now!");
+            if(GUI.Button(playNow, "Play Now!")) {
+                Application.LoadLevel(selected.scene);
+            }
         }
 
     }

@@ -9,17 +9,13 @@ public class Cart : MonoBehaviour {
     public AudioClip cartMoving;
     public AudioClip cartTurning;
     public TrackPoint startingTrack;
+    public CartState cartState = CartState.Stopped;
 
     private float moveSpeed = 3f;
-    /// <summary>
-    /// Rotation speed, degrees per second
-    /// </summary>
     private float rotateSpeed = 15f;
     
     private GameObject gameDriver;
     private AudioSource audioSource;
-    private CartState cartState = CartState.Moving;
-    //private float rotationPercent = 0;
     private float rotationStart;
     private TrackPoint currentTrack;
     private float currentRotationDuration;
@@ -28,7 +24,8 @@ public class Cart : MonoBehaviour {
         gameDriver = GameObject.Find("GameDriver") as GameObject;
         audioSource = GetComponent<AudioSource>();
         cartState = CartState.Stopped;
-        StartMove(startingTrack);
+        //currentTrack = startingTrack;
+        //StartMove(startingTrack);
     }
     void Update () {
         HandleMovement();
@@ -44,7 +41,6 @@ public class Cart : MonoBehaviour {
     void ApplyTurn() {
         float rotationPercent = (Time.time - rotationStart) / currentRotationDuration;
         if(rotationPercent >= 1) {
-            Debug.Log(Time.time + ": turn finished");
             StartMove(currentTrack.next);
         } else {
             Vector3 dir = Vector3.Slerp(currentTrack.direction,
@@ -62,7 +58,7 @@ public class Cart : MonoBehaviour {
         }
     }
 
-    void StartMove(TrackPoint newTrack) {
+    public void StartMove(TrackPoint newTrack) {
         transform.position = newTrack.transform.position;
         transform.rotation = Quaternion.LookRotation(newTrack.direction);
         currentTrack = newTrack;
@@ -81,14 +77,8 @@ public class Cart : MonoBehaviour {
         }
         float distance = Vector3.Angle(currentTrack.direction, currentTrack.next.direction);
         currentRotationDuration = distance / rotateSpeed;
-        Debug.Log(Time.time + ": Turning " + distance + " over " + currentRotationDuration + " sec");
-
-        //if(currentTrack.transform.rotation == currentTrack.next.transform.rotation) {
-        //    StartMove(currentTrack.next);
-        //}
         transform.position = currentTrack.next.transform.position;
         rotationStart = Time.time;
-        //rotationPercent = 0;
         cartState = CartState.Turning;
         audioSource.clip = cartTurning;
         audioSource.Play();
