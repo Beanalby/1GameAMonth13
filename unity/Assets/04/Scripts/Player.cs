@@ -4,6 +4,10 @@ using System.Collections;
 [RequireComponent(typeof(BoxCollider))]
 public class Player : MonoBehaviour {
 
+    private GameObject lastSpawnPoint = null;
+
+    private bool isDead = false;
+
     private float colWidth;
     private float distanceToGround = .5f;
     private float jumpSpeed = 7f;
@@ -11,8 +15,12 @@ public class Player : MonoBehaviour {
 
     bool isGrounded {
         get {
-            return Physics.Raycast(new Ray(transform.position, Vector3.down), distanceToGround + .1f);
+            return Physics.Raycast(new Ray(transform.position, Vector3.down),
+                distanceToGround + .1f);
         }
+    }
+    private bool canControl {
+        get { return !isDead; }
     }
 
     void Start() {
@@ -43,9 +51,33 @@ public class Player : MonoBehaviour {
             }
         }
 
-        if(Input.GetButtonUp("Jump")) {
+        if(canControl && Input.GetButtonUp("Jump") && isGrounded) {
             velocity.y = jumpSpeed;
         }
         rigidbody.velocity = velocity;
+    }
+
+    IEnumerator Respawn() {
+        if(lastSpawnPoint == null) {
+            Debug.LogError("Dead with no spawn point!");
+        }
+        yield return new WaitForSeconds(3f);
+        transform.position = lastSpawnPoint.transform.position;
+        rigidbody.velocity = Vector3.zero;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        isDead = false;
+    }
+    public void Die() {
+        Debug.Log("Blarg I am dead!");
+        isDead = true;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
+        StartCoroutine(Respawn());
+    }
+    void OnTriggerEnter(Collider other) {
+        if(!isDead && other.tag == "DeathBox") {
+            Die();
+        } else if(other.tag == "SpawnPoint") {
+            lastSpawnPoint = other.gameObject;
+        }
     }
 }
