@@ -1,17 +1,19 @@
 using UnityEngine;
 using System.Collections;
 
+public delegate void ResetHandler();
+
 [RequireComponent(typeof(BoxCollider))]
 public class Player : MonoBehaviour {
 
-    private GameObject lastSpawnPoint = null;
 
-    private bool isDead = false;
+    public event ResetHandler resetListeners;
 
     private float colWidth;
     private float distanceToGround = .5f;
+    private bool isDead = false;
     private float jumpSpeed = 7f;
-    private float treadmillSpeed = 2f;
+    private GameObject lastSpawnPoint = null;
 
     bool isGrounded {
         get {
@@ -27,57 +29,62 @@ public class Player : MonoBehaviour {
         colWidth = GetComponent<BoxCollider>().bounds.size.x;
     }
     void Update() {
-        Vector3 velocity = rigidbody.velocity;
         // check if either our left or right edge is over a treadmill
         if(rigidbody.velocity.y <= 0.1) {
             Vector3 pos = transform.position;
             float dist = distanceToGround + .1f;
-            bool isOnTreadmill = false;
+            bool gotHit = false;
             foreach(float offset in new float[] { colWidth, -colWidth }) {
                 pos = transform.position;
                 pos.x += offset;
                 Ray ray = new Ray(pos, Vector3.down);
                 foreach(RaycastHit hit in Physics.RaycastAll(ray, dist)) {
-                    if(hit.collider.tag == "Treadmill") {
-                        isOnTreadmill = true;
-                    }
+                    hit.collider.gameObject.SendMessage("LandedOn", this,
+                        SendMessageOptions.DontRequireReceiver);
+                    gotHit = true;
                 }
-                if(isOnTreadmill) {
+                if(gotHit) {
                     break;
                 }
-            }
-            if(isOnTreadmill) {
-                velocity.x = treadmillSpeed;
             }
         }
 
         if(canControl && Input.GetButtonUp("Jump") && isGrounded) {
+            Vector3 velocity = rigidbody.velocity;
             velocity.y = jumpSpeed;
+            rigidbody.velocity = velocity;
         }
-        rigidbody.velocity = velocity;
+        if(Input.GetKeyDown(KeyCode.R)) {
+            Respawn();
+        }
     }
 
-    IEnumerator Respawn() {
+    void Respawn() {
         if(lastSpawnPoint == null) {
             Debug.LogError("Dead with no spawn point!");
         }
-        yield return new WaitForSeconds(3f);
         transform.position = lastSpawnPoint.transform.position;
         rigidbody.velocity = Vector3.zero;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         isDead = false;
+        if(resetListeners != null) {
+            resetListeners();
+        }
     }
     public void Die() {
+        StartCoroutine(_Die());
+    }
+    private IEnumerator _Die() {
+        if(isDead) {
+            yield break;
+        }
         Debug.Log("Blarg I am dead!");
         isDead = true;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
-        StartCoroutine(Respawn());
+        yield return new WaitForSeconds(3f);
+        Respawn();
     }
-    void OnTriggerEnter(Collider other) {
-        if(!isDead && other.tag == "DeathBox") {
-            Die();
-        } else if(other.tag == "SpawnPoint") {
-            lastSpawnPoint = other.gameObject;
-        }
+    void SetSpawnPoint(GameObject spawnPoint) {
+        this.lastSpawnPoint = spawnPoint;
     }
 }
