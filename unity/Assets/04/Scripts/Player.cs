@@ -6,14 +6,19 @@ public delegate void ResetHandler();
 [RequireComponent(typeof(BoxCollider))]
 public class Player : MonoBehaviour {
 
-
     public event ResetHandler resetListeners;
+    public bool IsDead {
+        get { return isDead; }
+    }
+
+    public SpawnPoint spawnPoint = null;
 
     private float colWidth;
     private float distanceToGround = .5f;
     private bool isDead = false;
+    private bool doJump = false;
     private float jumpSpeed = 7f;
-    private GameObject lastSpawnPoint = null;
+    private float respawnDelay = 2f;
 
     bool isGrounded {
         get {
@@ -27,6 +32,12 @@ public class Player : MonoBehaviour {
 
     void Start() {
         colWidth = GetComponent<BoxCollider>().bounds.size.x;
+        transform.position = spawnPoint.transform.position;
+    }
+    void Update() {
+        if(canControl && Input.GetButtonUp("Jump") && isGrounded) {
+            doJump = true;
+        }
     }
     void FixedUpdate() {
         // check if either our left or right edge is over a treadmill
@@ -49,26 +60,28 @@ public class Player : MonoBehaviour {
             }
         }
 
-        if(canControl && Input.GetButtonUp("Jump") && isGrounded) {
+        if(doJump) {
             Vector3 velocity = rigidbody.velocity;
             velocity.y = jumpSpeed;
             rigidbody.velocity = velocity;
+            doJump = false;
         }
         if(Input.GetKeyDown(KeyCode.R)) {
             Respawn();
         }
     }
     void Respawn() {
-        if(lastSpawnPoint == null) {
+        if(spawnPoint == null) {
             Debug.LogError("Dead with no spawn point!");
         }
-        transform.position = lastSpawnPoint.transform.position;
+        transform.position = spawnPoint.transform.position;
         rigidbody.velocity = Vector3.zero;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         isDead = false;
         if(resetListeners != null) {
             resetListeners();
         }
+        CameraManager.instance.Current = spawnPoint.activeCamera;
     }
     public void Die() {
         StartCoroutine(_Die());
@@ -80,7 +93,7 @@ public class Player : MonoBehaviour {
         Debug.Log("Blarg I am dead!");
         isDead = true;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(respawnDelay);
         Respawn();
     }
     public void OnCollisionEnter(Collision col) {
@@ -97,7 +110,11 @@ public class Player : MonoBehaviour {
             rigidbody.velocity = v;
         }
     }
-    void SetSpawnPoint(GameObject spawnPoint) {
-        this.lastSpawnPoint = spawnPoint;
+    void SetSpawnPoint(SpawnPoint spawnPoint) {
+        if(isDead) {
+            return;
+        }
+        this.spawnPoint = spawnPoint;
+        spawnPoint.activeCamera = CameraManager.instance.Current;
     }
 }
