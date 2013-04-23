@@ -9,16 +9,13 @@ public enum TriggerType { LandedOn, Switch };
 public class MovingPlatform : MonoBehaviour {
     public float speed = 2f;
     public TriggerType triggerType;
-    public bool MovingOnStart = false;
 
     private Player player;
     private Vector3 originalPosition;
     private bool isMoving = false;
 
-
     void Start() {
         originalPosition = transform.position;
-        isMoving = MovingOnStart;
         player = GameObject.Find("Player").GetComponent<Player>();
     }
     void Update() {
@@ -40,7 +37,7 @@ public class MovingPlatform : MonoBehaviour {
         renderer.enabled = false;
     }
     public void OnReset() {
-        isMoving = MovingOnStart;
+        isMoving = false;
         transform.position = originalPosition;
         collider.enabled = true;
         renderer.enabled = true;
