@@ -28,7 +28,7 @@ public class Player : MonoBehaviour {
     void Start() {
         colWidth = GetComponent<BoxCollider>().bounds.size.x;
     }
-    void Update() {
+    void FixedUpdate() {
         // check if either our left or right edge is over a treadmill
         if(rigidbody.velocity.y <= 0.1) {
             Vector3 pos = transform.position;
@@ -58,7 +58,6 @@ public class Player : MonoBehaviour {
             Respawn();
         }
     }
-
     void Respawn() {
         if(lastSpawnPoint == null) {
             Debug.LogError("Dead with no spawn point!");
@@ -83,6 +82,20 @@ public class Player : MonoBehaviour {
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
         yield return new WaitForSeconds(3f);
         Respawn();
+    }
+    public void OnCollisionEnter(Collision col) {
+        // collisions on the ground have a tendency to "nudge" the player
+        // to the side.  If the direction of this collision was mostly up,
+        // Set our horizontal velocity to theirs (if any) to avoid drift.
+        if(Vector3.Angle(Vector3.up, col.relativeVelocity) < 20) {
+            Vector3 v = rigidbody.velocity;
+            if(col.rigidbody) {
+                v.x = col.rigidbody.velocity.x;
+            } else {
+                v.x = 0;
+            }
+            rigidbody.velocity = v;
+        }
     }
     void SetSpawnPoint(GameObject spawnPoint) {
         this.lastSpawnPoint = spawnPoint;
