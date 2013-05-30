@@ -98,9 +98,11 @@ public class Player : MonoBehaviour {
     }
     public void OnCollisionEnter(Collision col) {
         // collisions on the ground have a tendency to "nudge" the player
-        // to the side.  If the direction of this collision was mostly up,
-        // Set our horizontal velocity to theirs (if any) to avoid drift.
-        if(Vector3.Angle(Vector3.up, col.relativeVelocity) < 20) {
+        // to the side.  If the direction of this collision was mostly up
+        // (for landing straight down) or mostly down (for going up through
+        // a platform), set our horizontal velocity to theirs (if any)
+        float angle = Vector3.Angle(Vector3.up, col.relativeVelocity);
+        if(angle < 20 || angle > 170) {
             Vector3 v = rigidbody.velocity;
             if(col.rigidbody) {
                 v.x = col.rigidbody.velocity.x;
