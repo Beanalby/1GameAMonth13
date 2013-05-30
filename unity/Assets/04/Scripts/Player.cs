@@ -14,7 +14,7 @@ public class Player : MonoBehaviour {
     public SpawnPoint spawnPoint = null;
 
     private float colWidth;
-    private float distanceToGround = .5f;
+    private float distanceToGround = 0f;
     private bool isDead = false;
     private bool doJump = false;
     private float jumpSpeed = 7f;
@@ -33,6 +33,10 @@ public class Player : MonoBehaviour {
     void Start() {
         colWidth = GetComponent<BoxCollider>().bounds.size.x;
         transform.position = spawnPoint.transform.position;
+        if (spawnPoint.activeCamera != null) {
+            CameraManager.instance.Current = spawnPoint.activeCamera;
+        }
+        rigidbody.velocity = new Vector3(3, 0, 0);
     }
     void Update() {
         if(canControl && Input.GetButtonUp("Jump") && isGrounded) {

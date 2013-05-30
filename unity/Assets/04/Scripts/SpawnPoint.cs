@@ -3,7 +3,6 @@ using System.Collections;
 
 public class SpawnPoint : MonoBehaviour {
 
-    [HideInInspector]
     public GameObject activeCamera;
 
     public void OnTriggerEnter(Collider other) {
