@@ -18,6 +18,7 @@ public class Player : MonoBehaviour {
 
     public SpawnPoint spawnPoint = null;
 
+    private Transform capsule; // used for what should be an animation in this GameObject
     private float colWidth;
     private float distanceToGround = 0f;
     private bool isDead = false;
@@ -43,6 +44,7 @@ public class Player : MonoBehaviour {
         if (spawnPoint.activeCamera != null) {
             CameraManager.instance.Current = spawnPoint.activeCamera;
         }
+        capsule = transform.FindChild("Capsule");
         //rigidbody.velocity = new Vector3(3, 0, 0);
     }
     void Update() {
@@ -65,6 +67,7 @@ public class Player : MonoBehaviour {
                 pos.x += offset;
                 Ray ray = new Ray(pos, Vector3.down);
                 foreach(RaycastHit hit in Physics.RaycastAll(ray, dist)) {
+                    Debug.Log("Sending LandedOn to " + hit.collider.gameObject.name);
                     hit.collider.gameObject.SendMessage("LandedOn", this,
                         SendMessageOptions.DontRequireReceiver);
                     gotHit = true;
@@ -74,7 +77,7 @@ public class Player : MonoBehaviour {
                 }
             }
         }
-
+        Debug.Log("FU: v=" + rigidbody.velocity);
         if(doJump) {
             Vector3 velocity = rigidbody.velocity;
             velocity.y = jumpSpeed;
@@ -93,7 +96,7 @@ public class Player : MonoBehaviour {
         pos.y += NUDGE_UP;
         transform.position = pos;
         rigidbody.velocity = Vector3.zero;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        capsule.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         isDead = false;
         if(resetListeners != null) {
             resetListeners();
@@ -107,9 +110,10 @@ public class Player : MonoBehaviour {
         if(isDead) {
             yield break;
         }
-        Debug.Log("Blarg I am dead!");
+        //Debug.Log("Blarg I am dead!");
         isDead = true;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
+        //Debug.Log("NOT rotating.");
+        capsule.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
         yield return new WaitForSeconds(respawnDelay);
         Respawn();
     }
