@@ -28,10 +28,7 @@ public class Player : MonoBehaviour {
 
     bool isGrounded {
         get {
-            Vector3 pos = transform.position;
-            pos.y += .1f;
-            return Physics.Raycast(new Ray(pos, Vector3.down),
-                distanceToGround + .2f);
+            return GetGround() != null;
         }
     }
     private bool canControl {
@@ -56,28 +53,29 @@ public class Player : MonoBehaviour {
             }
         }
     }
+    private GameObject GetGround() {
+        Vector3 pos = transform.position;
+        float dist = distanceToGround + .1f;
+        foreach(float offset in new float[] { colWidth, -colWidth }) {
+            pos = transform.position;
+            pos.x += offset;
+            Ray ray = new Ray(pos, Vector3.down);
+            foreach(RaycastHit hit in Physics.RaycastAll(ray, dist)) {
+                return hit.collider.gameObject;
+            }
+        }
+        return null;
+    }
+
     void FixedUpdate() {
         // check if either our left or right edge is over a treadmill
         if(rigidbody.velocity.y <= 0.1) {
-            Vector3 pos = transform.position;
-            float dist = distanceToGround + .1f;
-            bool gotHit = false;
-            foreach(float offset in new float[] { colWidth, -colWidth }) {
-                pos = transform.position;
-                pos.x += offset;
-                Ray ray = new Ray(pos, Vector3.down);
-                foreach(RaycastHit hit in Physics.RaycastAll(ray, dist)) {
-                    Debug.Log("Sending LandedOn to " + hit.collider.gameObject.name);
-                    hit.collider.gameObject.SendMessage("LandedOn", this,
-                        SendMessageOptions.DontRequireReceiver);
-                    gotHit = true;
-                }
-                if(gotHit) {
-                    break;
-                }
+            GameObject ground = GetGround();
+            if(ground != null) {
+                ground.SendMessage("LandedOn", this,
+                    SendMessageOptions.DontRequireReceiver);
             }
         }
-        Debug.Log("FU: v=" + rigidbody.velocity);
         if(doJump) {
             Vector3 velocity = rigidbody.velocity;
             velocity.y = jumpSpeed;
