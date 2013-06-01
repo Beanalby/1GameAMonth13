@@ -17,7 +17,10 @@ public class Player : MonoBehaviour {
     }
 
     public SpawnPoint spawnPoint = null;
+    public AudioClip jumpSound;
+    public AudioClip deathSound;
 
+    private CameraManager cam;
     private Transform capsule; // used for what should be an animation in this GameObject
     private float colWidth;
     private float distanceToGround = 0f;
@@ -36,10 +39,11 @@ public class Player : MonoBehaviour {
     }
 
     void Start() {
+        cam = CameraManager.instance;
         colWidth = GetComponent<BoxCollider>().bounds.size.x;
         transform.position = spawnPoint.transform.position;
         if (spawnPoint.activeCamera != null) {
-            CameraManager.instance.Current = spawnPoint.activeCamera;
+            cam.Current = spawnPoint.activeCamera;
         }
         capsule = transform.FindChild("Capsule");
         //rigidbody.velocity = new Vector3(3, 0, 0);
@@ -55,10 +59,13 @@ public class Player : MonoBehaviour {
     }
     private GameObject GetGround() {
         Vector3 pos = transform.position;
-        float dist = distanceToGround + .1f;
+        float dist = distanceToGround + .2f;
         foreach(float offset in new float[] { colWidth, -colWidth }) {
             pos = transform.position;
             pos.x += offset;
+            // move our source up JUUUST a hare, in case we've temporarily
+            // sunk down into the platform
+            pos.y += .1f;
             Ray ray = new Ray(pos, Vector3.down);
             foreach(RaycastHit hit in Physics.RaycastAll(ray, dist)) {
                 return hit.collider.gameObject;
@@ -81,6 +88,8 @@ public class Player : MonoBehaviour {
             velocity.y = jumpSpeed;
             rigidbody.velocity = velocity;
             doJump = false;
+            AudioSource.PlayClipAtPoint(jumpSound,
+                cam.Current.transform.position);
         }
         if(Input.GetKeyDown(KeyCode.R)) {
             Respawn();
@@ -112,6 +121,7 @@ public class Player : MonoBehaviour {
         isDead = true;
         //Debug.Log("NOT rotating.");
         capsule.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
+        AudioSource.PlayClipAtPoint(deathSound, cam.Current.transform.position);
         yield return new WaitForSeconds(respawnDelay);
         Respawn();
     }

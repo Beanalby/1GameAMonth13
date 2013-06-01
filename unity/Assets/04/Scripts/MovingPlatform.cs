@@ -12,10 +12,12 @@ public class MovingPlatform : MonoBehaviour {
     private Player player;
     private Vector3 originalPosition;
     private bool isMoving = false;
+    private Renderer myRenderer;
 
     void Start() {
         originalPosition = transform.position;
         player = GameObject.Find("Player").GetComponent<Player>();
+        myRenderer = GetComponentInChildren<Renderer>();
     }
     void FixedUpdate() {
         if(isMoving) {
@@ -44,13 +46,13 @@ public class MovingPlatform : MonoBehaviour {
     public void Die() {
         isMoving = false;
         collider.enabled = false;
-        renderer.enabled = false;
+        myRenderer.enabled = false;
     }
     public void OnReset() {
         isMoving = false;
         transform.position = originalPosition;
         collider.enabled = true;
-        renderer.enabled = true;
+        myRenderer.enabled = true;
         player.resetListeners -= OnReset;
     }
     public void SwitchToggled(bool state) {
