@@ -6,6 +6,11 @@ public delegate void ResetHandler();
 [RequireComponent(typeof(BoxCollider))]
 public class Player : MonoBehaviour {
 
+    // when we want to place the player "on" something, need to put
+    // him just above it.  Otherwise, his box will already intersect
+    // the ground, and he'll just fall through.
+    public static float NUDGE_UP = .01f;
+
     public event ResetHandler resetListeners;
     public bool IsDead {
         get { return isDead; }
@@ -22,8 +27,10 @@ public class Player : MonoBehaviour {
 
     bool isGrounded {
         get {
-            return Physics.Raycast(new Ray(transform.position, Vector3.down),
-                distanceToGround + .1f);
+            Vector3 pos = transform.position;
+            pos.y += .1f;
+            return Physics.Raycast(new Ray(pos, Vector3.down),
+                distanceToGround + .2f);
         }
     }
     private bool canControl {
@@ -36,11 +43,15 @@ public class Player : MonoBehaviour {
         if (spawnPoint.activeCamera != null) {
             CameraManager.instance.Current = spawnPoint.activeCamera;
         }
-        rigidbody.velocity = new Vector3(3, 0, 0);
+        //rigidbody.velocity = new Vector3(3, 0, 0);
     }
     void Update() {
-        if(canControl && Input.GetButtonUp("Jump") && isGrounded) {
-            doJump = true;
+        if(canControl && Input.GetButtonUp("Jump")) {
+            if (isGrounded) {
+                doJump = true;
+            } else {
+                Debug.Log("Trying to jump, not grounded! pos=" + transform.position.ToString(".000"));
+            }
         }
     }
     void FixedUpdate() {
@@ -78,7 +89,9 @@ public class Player : MonoBehaviour {
         if(spawnPoint == null) {
             Debug.LogError("Dead with no spawn point!");
         }
-        transform.position = spawnPoint.transform.position;
+        Vector3 pos = spawnPoint.transform.position;
+        pos.y += NUDGE_UP;
+        transform.position = pos;
         rigidbody.velocity = Vector3.zero;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         isDead = false;
@@ -99,22 +112,6 @@ public class Player : MonoBehaviour {
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
         yield return new WaitForSeconds(respawnDelay);
         Respawn();
-    }
-    public void OnCollisionEnter(Collision col) {
-        // collisions on the ground have a tendency to "nudge" the player
-        // to the side.  If the direction of this collision was mostly up
-        // (for landing straight down) or mostly down (for going up through
-        // a platform), set our horizontal velocity to theirs (if any)
-        float angle = Vector3.Angle(Vector3.up, col.relativeVelocity);
-        if(angle < 20 || angle > 170) {
-            Vector3 v = rigidbody.velocity;
-            if(col.rigidbody) {
-                v.x = col.rigidbody.velocity.x;
-            } else {
-                v.x = 0;
-            }
-            rigidbody.velocity = v;
-        }
     }
     void SetSpawnPoint(SpawnPoint spawnPoint) {
         if(isDead) {
