@@ -49,7 +49,7 @@ public class Player : MonoBehaviour {
         //rigidbody.velocity = new Vector3(3, 0, 0);
     }
     void Update() {
-        if(canControl && Input.GetButtonUp("Jump")) {
+        if(canControl && Input.GetButtonDown("Jump")) {
             if (isGrounded) {
                 doJump = true;
             } else {
