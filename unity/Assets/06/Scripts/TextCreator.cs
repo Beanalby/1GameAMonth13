@@ -20,7 +20,7 @@ public class TextCreator : MonoBehaviour {
         Debug.Log("Finished awake, populated with " + letters.Keys.Count + " letters");
     }
     public GameObject[] GetText(Transform parent, string text) {
-        float step = .5f;
+        float step = .4f;
         float baseOffset = -step * text.Length / 2;
         GameObject[] ret = new GameObject[text.Length];
         Debug.Log("pulling from " + letters.Keys.Count + " letters");
@@ -35,6 +35,7 @@ public class TextCreator : MonoBehaviour {
             ret[i].transform.parent = parent;
             ret[i].transform.localPosition = new Vector3(baseOffset + step * i, 0, 0);
             ret[i].transform.rotation = Quaternion.Euler(0, 180,0);
+            ret[i].name = i.ToString() + "-" + text[i];
         }
         return ret;
     }
