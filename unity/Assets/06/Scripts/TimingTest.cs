@@ -1,39 +1,67 @@
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(AudioSource))]
 public class TimingTest : MonoBehaviour {
 
     private AudioSource song;
-    float lastPress = -1;
-    // Use this for initialization
-    string[] lines;
-    float delay = 3.418f;
-    int index = 0;
+    private string[] lines;
+    private float sectionDelay = 3.428f;
+    private float initalDelayScale = .3f;
+    private int sampleRate = 44100;
+    private int samplesPerSection;
+    private int nextSection;
+
+    int lyricsIndex = -1;
     void Start () {
         InitLines();
-        StartCoroutine(ChangeText());
+        samplesPerSection = (int)(sampleRate * sectionDelay);
+        Debug.Log("set samplesPerSection=" + samplesPerSection);
         song = GetComponent<AudioSource>();
+        JumpToSection(0);
         song.Play();
     }
-    
-    // Update is called once per frame
     void Update () {
-        if(Input.GetKeyDown(KeyCode.Space)) {
-            if(lastPress != -1) {
-                Debug.Log(Time.time.ToString(".000") + " - diff " + (Time.time - lastPress).ToString(".000"));
+        CheckSectionBySamples();
+    }
+
+    private void JumpToSection(int section) {
+        if(section == 0) {
+            song.timeSamples = 0;
+            nextSection = (int)(samplesPerSection * initalDelayScale);
+        } else {
+            int offset = (int)(samplesPerSection * initalDelayScale)
+                + samplesPerSection * (section * 4);
+            // pull audio start back by a second, helps flesh out the start
+            song.timeSamples = offset - sampleRate;
+            nextSection = offset;
+            lyricsIndex = section * 4 - 1;
+        }
+    }
+
+    private void CheckSectionBySamples() {
+        if(song.timeSamples >= nextSection) {
+            if(!AdvanceSection()) {
+                Debug.Log("All Done!");
+                song.Stop();
+                Destroy(gameObject);
+                return;
             }
-            lastPress = Time.time;
+            nextSection += samplesPerSection;
         }
     }
-    private IEnumerator ChangeText() {
-        yield return new WaitForSeconds(delay * .30f);
-        while(true) {
-            Debug.Log(Time.time.ToString(".000") + " (" + song.timeSamples + ") - " + lines[index]);
-            index++;
-            //index = ++index % 8;
-            yield return new WaitForSeconds(delay);
+
+    private bool AdvanceSection() {
+        lyricsIndex++;
+        if(lyricsIndex == lines.Length) {
+            return false;
         }
+        Debug.Log(Time.time.ToString(".000")
+            + " (" + song.timeSamples + " > " + nextSection + ") #"
+            + lyricsIndex + "-" + lines[lyricsIndex]);
+        return true;
     }
+
     private void InitLines() {
         lines = new string[] {
             "Because you're not afraid to take a chance",
