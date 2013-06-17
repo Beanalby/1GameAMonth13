@@ -1,0 +1,161 @@
+using UnityEngine;
+using System.Collections;
+
+public class TimingTest : MonoBehaviour {
+
+    private AudioSource song;
+    float lastPress = -1;
+    // Use this for initialization
+    string[] lines;
+    float delay = 3.418f;
+    int index = 0;
+    void Start () {
+        InitLines();
+        StartCoroutine(ChangeText());
+        song = GetComponent<AudioSource>();
+        song.Play();
+    }
+    
+    // Update is called once per frame
+    void Update () {
+        if(Input.GetKeyDown(KeyCode.Space)) {
+            if(lastPress != -1) {
+                Debug.Log(Time.time.ToString(".000") + " - diff " + (Time.time - lastPress).ToString(".000"));
+            }
+            lastPress = Time.time;
+        }
+    }
+    private IEnumerator ChangeText() {
+        yield return new WaitForSeconds(delay * .30f);
+        while(true) {
+            Debug.Log(Time.time.ToString(".000") + " (" + song.timeSamples + ") - " + lines[index]);
+            index++;
+            //index = ++index % 8;
+            yield return new WaitForSeconds(delay);
+        }
+    }
+    private void InitLines() {
+        lines = new string[] {
+            "Because you're not afraid to take a chance",
+            "When dangers near you always hold your stance",
+            "As you race through the great expanse",
+            "Omega",
+            "While others flee you still advance",
+            "Thrust forth like an ancient lance",
+            "Fighting like a modern dance",
+            "Omega",
+            "The universe knows you can't be beat",
+            "Passing every test and you never cheat",
+            "Star milk dripping from your metal teats",
+            "Omega",
+            "Your death makes love as it kills a fleet",
+            "Of starships thinking that they could compete",
+            "with the power of our ancient meat",
+            "Omega",
+            "You haven't got an ejection seat",
+            "Only cowards run from the heat",
+            "You make the universe complete",
+            "Omega",
+            "And so we frolic with a jaunty prance",
+            "We get erotic with a snakey dance",
+            "Help us out of our pants",
+            "Omega",
+            "We're talkin' tickets and a cash advance",
+            "For a trip inside your sweet romance",
+            "Oh baby, do a little belly dance",
+            "Omega",
+            "You never play by the books",
+            "Omega, even all the lives you took",
+            "Heartbreaker, sexy as a cozy nook",
+            "Omega",
+            "And when your shine like a silver beats",
+            "Serving up your sexy catastrophic feast",
+            "Your ball bearings need their grease",
+            "Omega",
+            "You know space pirates sure like to brawl",
+            "Shooting laser holes right through the wall",
+            "But none shall breach your hull",
+            "Omega",
+            "You're the best ship we've ever seen",
+            "Posing on the cover of a magazine",
+            "Gasoline and Vaseline",
+            "Omega",
+            "Your thrusters are burning bright",
+            "Your force fields are mighty tight",
+            "Your hard drives have mega-bites",
+            "Omega",
+            "You leave space pirates in your cosmic dust",
+            "As your warp drives writhe and thrust",
+            "Light speed towards our lust",
+            "Omega",
+            "You're old but you'll never rust",
+            "You've got sweet jugs but you'll never bust",
+            "You were our first, so we'll always trust",
+            "Omega",
+            "In war you never tire",
+            "And when it comes down to the wire",
+            "You were built for death and fire",
+            "Omega",
+            "You take worlds and you take control",
+            "With your guns and your heart and soul",
+            "We're so glad you're out on parole",
+            "Omega",
+            "We're shy but we had to ask",
+            "For your autograph on our cast",
+            "And could we give your engines a blast",
+            "Omega",
+            "Because you're like a big horny yacht",
+            "That's flying through space a lot",
+            "Tell us about the wars you fought",
+            "Omega",
+            "You know we were distraught",
+            "When we heard about your dry rot",
+            "Infesting your expansion slot",
+            "Omega",
+            "You're more than just a ship",
+            "Got the universe in your grip",
+            "When you bite your pouty lip",
+            "Omega",
+            "We're sure every docking bay",
+            "Prays that you'll come their way",
+            "They want to party in your gamma rays",
+            "Omega",
+            "Your metals stained in blood",
+            "There's a pentagram on your H.U.D.",
+            "Turning cities to mud",
+            "Omega",
+            "Party hearty like you just don't care",
+            "Throw your rockets up in the air",
+            "We'd kill to have your hair",
+            "Omega",
+            "There's one thing that you should know",
+            "As far as star fighters go",
+            "You're quite the vicious ho",
+            "Omega",
+            "You got moxy and you go the skills",
+            "For a hundred million billion kills",
+            "We'll leave you in our wills",
+            "Omega",
+            "You're a spaceship and a whore",
+            "Built to kill stuff in war",
+            "You get what you pay for",
+            "Omega",
+            "Hear her engines roar",
+            "Like a burning liquor store",
+            "With beautiful french doors",
+            "Omega",
+            "",
+            "",
+            "",
+            "Omega",
+            "",
+            "",
+            "",
+            "Omega",
+            "",
+            "",
+            "",
+            "Omega"
+        };
+    }
+}
