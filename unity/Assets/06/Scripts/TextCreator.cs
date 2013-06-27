@@ -5,37 +5,39 @@ using System.Collections.Generic;
 
 public class TextCreator : MonoBehaviour {
 
+    private static float LETTER_SPACING = .4f;
     public GameObject TextMesh;
 
-    Dictionary<char, GameObject> letters;
+    Dictionary<char, Mesh> letters;
 
     public void Awake() {
         InitLetters();
     }
 
     private void InitLetters() {
-        letters = new Dictionary<char, GameObject>();
+        letters = new Dictionary<char, Mesh>();
         foreach(Transform t in TextMesh.transform) {
-            letters[(char)int.Parse(t.name)] = t.gameObject;
+            char letter = (char)int.Parse(t.name);
+            letters[letter] = t.GetComponent<MeshFilter>().sharedMesh;
         }
     }
-    public GameObject[] GetText(Transform parent, string text) {
+
+    public GameObject MakeLetter(Wave parent, string text, int index) {
         if(letters == null) {
             InitLetters();
         }
-        float step = .4f;
-        float baseOffset = -step * text.Length / 2;
-        GameObject[] ret = new GameObject[text.Length];
-        for(int i=0;i<text.Length;i++) {
-            if(text[i] == ' ') {
-                continue;
-            }
-            ret[i] = (GameObject)Instantiate(letters[text[i]]);
-            ret[i].transform.parent = parent;
-            ret[i].transform.localPosition = new Vector3(baseOffset + step * i, 0, 0);
-            ret[i].transform.rotation = Quaternion.Euler(0, 180,0);
-            ret[i].name = i.ToString() + "-" + text[i];
+        if(text[index] == ' ') {
+            return null;
         }
-        return ret;
+        float baseOffset = -LETTER_SPACING * text.Length / 2;
+        GameObject obj = Instantiate(parent.GetLetterPrefab(text, index)) as GameObject;
+        obj.transform.parent = parent.transform;
+        obj.transform.localPosition =
+            new Vector3(baseOffset + LETTER_SPACING * index, 0, 0);
+        obj.transform.rotation = Quaternion.Euler(0, 180, 0);
+        obj.name = index.ToString() + "-" + text[index];
+        MeshFilter mf = obj.GetComponent<MeshFilter>();
+        mf.mesh = letters[text[index]];
+        return obj;
     }
 }
