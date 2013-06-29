@@ -6,6 +6,7 @@ public class WaveDriver : MonoBehaviour {
 
     public TextCreator tc;
     public Wave waveNormalPrefab;
+    public Wave waveKillerWordPrefab;
 
     private AudioSource song;
     private string[] lines;
@@ -20,7 +21,6 @@ public class WaveDriver : MonoBehaviour {
     void Start () {
         InitLines();
         samplesPerSection = (int)(sampleRate * sectionDelay);
-        Debug.Log("set samplesPerSection=" + samplesPerSection);
         song = GetComponent<AudioSource>();
         JumpToSection(0);
         song.Play();
@@ -72,13 +72,12 @@ public class WaveDriver : MonoBehaviour {
     }
 
     private GameObject CreateWave(int waveIndex) {
-        string text = lines[waveIndex];
-        GameObject wave = Instantiate(waveNormalPrefab.gameObject) as GameObject;
-        wave.transform.position = transform.position;
-        for(int i = 0; i < lines[waveIndex].Length; i++) {
-            tc.MakeLetter(wave.GetComponent<Wave>(), text, i);
-        }
-        return wave;
+        GameObject obj = Instantiate(waveKillerWordPrefab.gameObject) as GameObject;
+        obj.transform.position = transform.position;
+        Wave wave = obj.GetComponent<Wave>();
+        wave.text = lines[waveIndex];
+        wave.tc = tc;
+        return wave.gameObject;
     }
 
     private void InitLines() {

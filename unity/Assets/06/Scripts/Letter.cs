@@ -1,18 +1,54 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(ParticleSystem))]
 public class Letter : MonoBehaviour {
 
+    public float MaxHealth = 100;
+    public Material HitFlashMaterial;
+
+    private float currentHealth;
+
+    private Stack<Material> previousMaterial;
+
     [HideInInspector]
     public bool invincible = true;
+
+    private float hitFlashDuration = .05f;
 
     private float deathFlingStrength = 10f;
     private float deathSpinStrength = 20f;
     private float deathDuration = 1f;
 
-    public IEnumerator GotHit(GameObject bullet) {
+    protected bool isAlive = true;
+
+    public void Start() {
+        currentHealth = MaxHealth;
+        previousMaterial = new Stack<Material>();
+    }
+
+    public IEnumerator HitFlash() {
+        previousMaterial.Push(renderer.material);
+        renderer.material = HitFlashMaterial;
+        yield return new WaitForSeconds(hitFlashDuration);
+        renderer.material = previousMaterial.Pop();
+    }
+    public void TakeDamage(Bullet bullet) {
+        if(!invincible) {
+            currentHealth = Mathf.Max(0, currentHealth - bullet.damage);
+            if(currentHealth == 0) {
+                StartCoroutine(DeathRattle(bullet.gameObject));
+            } else {
+                StartCoroutine(HitFlash());
+            }
+        }
+        Destroy(bullet.gameObject);
+    }
+
+    public IEnumerator DeathRattle(GameObject bullet) {
+        isAlive = false;
         GetComponent<ParticleSystem>().Play();
          // don't cause collisions with anything else as we fling
         GetComponent<Collider>().enabled = false;
@@ -31,10 +67,4 @@ public class Letter : MonoBehaviour {
         yield return new WaitForSeconds(deathDuration);
         Destroy(gameObject);
     }
-    public void OnTriggerEnter(Collider other) {
-        Destroy(other.gameObject);
-        if(!invincible) {
-            StartCoroutine(GotHit(other.gameObject));
-        }
-    }
-}
+  }

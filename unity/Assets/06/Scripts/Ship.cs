@@ -5,6 +5,14 @@ public class Ship : MonoBehaviour {
 
     public GameObject bulletPrefab;
 
+    public GameObject shipHitEffect;
+    public GameObject shipDeadEffect;
+
+    private float maxHealth = 100;
+    private float currentHealth;
+
+    public static Ship ship= null;
+
     private float bulletCooldown = .1f;
 
     private Transform bulletLaunch;
@@ -13,9 +21,15 @@ public class Ship : MonoBehaviour {
     private float turnAmount = .3f;
     private float xRange = 8f;
 
-    public float lastFired = -1;
+    private float lastFired = -1;
 
     public void Start() {
+        if(Ship.ship != null) {
+            Debug.LogError("Multiple ships found!");
+            Destroy(gameObject);
+        }
+        Ship.ship = this;
+        currentHealth = maxHealth;
         bulletLaunch = transform.FindChild("BulletLaunch");
     }
 
@@ -47,5 +61,19 @@ public class Ship : MonoBehaviour {
         bullet.transform.rotation = transform.rotation;
         bullet.transform.position = bulletLaunch.transform.position;
         bullet.rigidbody.velocity = transform.forward * bulletSpeed;
+    }
+    public void TakeDamage(LetterKiller letter) {
+        Debug.Log("Ship got hit by " + letter.name + "! OW!");
+
+        currentHealth = Mathf.Max(0, currentHealth - letter.kaminazeDamage);
+        if(currentHealth == 0) {
+            Debug.Log("Player dead!");
+            Destroy(gameObject);
+        } else {
+            Debug.Log("Player took " + letter.kaminazeDamage + ", down to " + currentHealth);
+            GameObject tmp = Instantiate(shipHitEffect) as GameObject;
+            tmp.transform.position = letter.transform.position;
+        }
+        Destroy(letter.gameObject);
     }
 }
