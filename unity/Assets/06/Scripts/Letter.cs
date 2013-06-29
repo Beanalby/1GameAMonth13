@@ -24,7 +24,8 @@ public class Letter : MonoBehaviour {
 
     protected bool isAlive = true;
 
-    public void Start() {
+    public virtual void Start() {
+        Debug.Log("Letter starting up");
         currentHealth = MaxHealth;
         previousMaterial = new Stack<Material>();
     }
