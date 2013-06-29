@@ -78,7 +78,7 @@ public class WaveDriver : MonoBehaviour {
     }
 
     private GameObject CreateWave(int waveIndex) {
-        GameObject obj = Instantiate(waveKillerWordPrefab.gameObject) as GameObject;
+        GameObject obj = Instantiate(waveNormalPrefab.gameObject) as GameObject;
         obj.transform.position = transform.position;
         Wave wave = obj.GetComponent<Wave>();
         wave.text = lines[waveIndex];

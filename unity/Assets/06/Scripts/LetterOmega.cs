@@ -5,6 +5,5 @@ public class LetterOmega : Letter {
 
     public override void Start() {
         base.Start();
-        invincible = false;
     }
 }

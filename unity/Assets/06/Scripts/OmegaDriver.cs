@@ -10,7 +10,7 @@ public class OmegaDriver : MonoBehaviour {
     private Vector3 hiddenPos;
     private Vector3 livePos;
     private float totalDist;
-    private float baseOffset = 8;
+    private float baseOffset = 9;
 
     private float slop;
 
@@ -35,7 +35,6 @@ public class OmegaDriver : MonoBehaviour {
             }
             // slow speed as it gets closer
             Vector3 delta = (livePos - transform.position) * .2f;
-            Debug.Log("Time=" + (Time.time - showStart) + ", dist=" + (transform.position - livePos).magnitude);
             transform.position += delta;
         }
         if(hideStart != -1) {
