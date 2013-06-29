@@ -10,7 +10,7 @@ public abstract class Wave : MonoBehaviour {
 
     private float invincibleGracePeriod = .5f;
     protected float speed = 1f;
-    protected float duration = 4f;
+    protected float duration = 3.428f;
 
     private GameObject[] letters;
 

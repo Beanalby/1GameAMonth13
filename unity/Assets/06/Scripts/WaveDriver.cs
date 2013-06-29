@@ -17,6 +17,7 @@ public class WaveDriver : MonoBehaviour {
     private int nextSection;
     private int lyricsIndex = -1;
     private bool isRunning = true;
+    private OmegaDriver omega;
 
     void Start () {
         InitLines();
@@ -24,6 +25,7 @@ public class WaveDriver : MonoBehaviour {
         song = GetComponent<AudioSource>();
         JumpToSection(0);
         song.Play();
+        omega = GameObject.Find("Omega").GetComponent<OmegaDriver>();
     }
 
     void Update () {
@@ -67,7 +69,11 @@ public class WaveDriver : MonoBehaviour {
         Debug.Log(Time.time.ToString(".000")
             + " (" + song.timeSamples + " > " + nextSection + ") #"
             + lyricsIndex + "-" + lines[lyricsIndex]);
-        CreateWave(lyricsIndex);
+        if(lines[lyricsIndex] == "Omega") {
+            omega.ShowOmega((lyricsIndex - 3) % 4);
+        } else {
+            CreateWave(lyricsIndex);
+        }
         return true;
     }
 
