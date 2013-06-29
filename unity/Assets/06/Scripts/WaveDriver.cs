@@ -73,6 +73,7 @@ public class WaveDriver : MonoBehaviour {
     private GameObject CreateWave(int waveIndex) {
         string text = lines[waveIndex];
         GameObject wave = Instantiate(waveNormalPrefab.gameObject) as GameObject;
+        wave.transform.position = transform.position;
         for(int i = 0; i < lines[waveIndex].Length; i++) {
             tc.MakeLetter(wave.GetComponent<Wave>(), text, i);
         }

@@ -34,7 +34,7 @@ public class TextCreator : MonoBehaviour {
         obj.transform.parent = parent.transform;
         obj.transform.localPosition =
             new Vector3(baseOffset + LETTER_SPACING * index, 0, 0);
-        obj.transform.rotation = Quaternion.Euler(0, 180, 0);
+        obj.transform.rotation = Quaternion.Euler(315, 180, 0);
         obj.name = index.ToString() + "-" + text[index];
         MeshFilter mf = obj.GetComponent<MeshFilter>();
         mf.mesh = letters[text[index]];

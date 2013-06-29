@@ -7,4 +7,9 @@ public class Letter : MonoBehaviour {
         Debug.Log("[" + name + " is dead!");
         Destroy(gameObject);
     }
+
+    public void OnTriggerEnter(Collider other) {
+        Destroy(gameObject);
+        Destroy(other.gameObject);
+    }
 }
