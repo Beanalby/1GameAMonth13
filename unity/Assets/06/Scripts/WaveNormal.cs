@@ -4,10 +4,13 @@ using System.Collections;
 public class WaveNormal : Wave {
     public GameObject letterPrefab;
 
+    private float invincibleGracePeriod = .5f;
+
     public void Start() {
         foreach(Transform t in transform) {
             t.gameObject.AddComponent<Letter>();
         }
+        StartCoroutine(RemoveInvincibility());
         StartCoroutine(KillSelf());
     }
     void Update() {
@@ -27,5 +30,12 @@ public class WaveNormal : Wave {
             Destroy(t.gameObject);
         }
         Destroy(gameObject);
+    }
+
+    private IEnumerator RemoveInvincibility() {
+        yield return new WaitForSeconds(invincibleGracePeriod);
+        foreach(Transform t in transform) {
+            t.GetComponent<Letter>().invincible = false;
+        }
     }
 }

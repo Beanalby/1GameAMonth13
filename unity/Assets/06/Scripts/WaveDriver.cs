@@ -25,6 +25,7 @@ public class WaveDriver : MonoBehaviour {
         JumpToSection(0);
         song.Play();
     }
+
     void Update () {
         if(isRunning) {
             CheckNextSection();
