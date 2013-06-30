@@ -8,6 +8,8 @@ public class Ship : MonoBehaviour {
     public GameObject shipHitEffect;
     public GameObject shipDeadEffect;
 
+    public AudioClip fireSound;
+
     private float maxHealth = 100;
     private float currentHealth;
 
@@ -61,6 +63,7 @@ public class Ship : MonoBehaviour {
         bullet.transform.rotation = transform.rotation;
         bullet.transform.position = bulletLaunch.transform.position;
         bullet.rigidbody.velocity = transform.forward * bulletSpeed;
+        AudioSource.PlayClipAtPoint(fireSound, Camera.main.transform.position);
     }
     public void TakeDamage(LetterKiller letter) {
         Debug.Log("Ship got hit by " + letter.name + "! OW!");

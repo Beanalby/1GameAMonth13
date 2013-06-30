@@ -9,6 +9,9 @@ public class Letter : MonoBehaviour {
     public float MaxHealth = 100;
     public Material HitFlashMaterial;
 
+    public AudioClip HitSound;
+    public AudioClip NoEffectSound;
+
     private float currentHealth;
 
     private Stack<Material> previousMaterial;
@@ -43,6 +46,11 @@ public class Letter : MonoBehaviour {
             } else {
                 StartCoroutine(HitFlash());
             }
+            AudioSource.PlayClipAtPoint(HitSound,
+                Camera.main.transform.position);
+        } else {
+            AudioSource.PlayClipAtPoint(NoEffectSound,
+                Camera.main.transform.position);
         }
         Destroy(bullet.gameObject);
     }
