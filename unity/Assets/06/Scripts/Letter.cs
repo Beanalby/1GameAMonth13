@@ -25,7 +25,7 @@ public class Letter : MonoBehaviour {
     private float deathSpinStrength = 20f;
     private float deathDuration = 1f;
 
-    protected bool isAlive = true;
+    public bool isAlive = true;
 
     public virtual void Start() {
         currentHealth = MaxHealth;
@@ -42,7 +42,7 @@ public class Letter : MonoBehaviour {
         if(!invincible) {
             currentHealth = Mathf.Max(0, currentHealth - bullet.damage);
             if(currentHealth == 0) {
-                StartCoroutine(DeathRattle(bullet.gameObject));
+                HandleDeath(bullet);
             } else {
                 StartCoroutine(HitFlash());
             }
@@ -55,6 +55,9 @@ public class Letter : MonoBehaviour {
         Destroy(bullet.gameObject);
     }
 
+    protected virtual void HandleDeath(Bullet bullet) {
+        StartCoroutine(DeathRattle(bullet.gameObject));
+    }
     public IEnumerator DeathRattle(GameObject bullet) {
         isAlive = false;
         GetComponent<ParticleSystem>().Play();

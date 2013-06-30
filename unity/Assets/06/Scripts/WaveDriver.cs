@@ -4,28 +4,34 @@ using System.Collections;
 [RequireComponent(typeof(AudioSource))]
 public class WaveDriver : MonoBehaviour {
 
+    public const float WAVE_DURATION = 3.428f;
+
     public TextCreator tc;
     public Wave waveNormalPrefab;
     public Wave waveKillerWordPrefab;
 
+    public OmegaNormal omegaNormal;
+    public OmegaMean omegaMean;
+    
     private AudioSource song;
     private string[] lines;
-    private float sectionDelay = 3.428f;
     private float initalDelayScale = .3f;
     private int sampleRate = 44100;
     private int samplesPerSection;
     private int nextSection;
     private int lyricsIndex = -1;
     private bool isRunning = true;
-    private OmegaDriver omega;
+    private OmegaDriver omegaCurrent;
 
     void Start () {
         InitLines();
-        samplesPerSection = (int)(sampleRate * sectionDelay);
+        samplesPerSection = (int)(sampleRate * WAVE_DURATION);
         song = GetComponent<AudioSource>();
-        JumpToSection(0);
+        JumpToSection(3);
+        // +++ JumpToSection(0);
         song.Play();
-        omega = GameObject.Find("Omega").GetComponent<OmegaDriver>();
+        omegaCurrent = omegaNormal;
+        omegaMean.enabled = false;
     }
 
     void Update () {
@@ -61,7 +67,8 @@ public class WaveDriver : MonoBehaviour {
     }
 
     private bool AdvanceSection() {
-        lyricsIndex++;
+         // +++ lyricsIndex++;
+        lyricsIndex += 4;
         if(lyricsIndex == lines.Length) {
             return false;
         }
@@ -70,7 +77,7 @@ public class WaveDriver : MonoBehaviour {
             + " (" + song.timeSamples + " > " + nextSection + ") #"
             + lyricsIndex + "-" + lines[lyricsIndex]);
         if(lines[lyricsIndex] == "Omega") {
-            omega.ShowOmega((lyricsIndex - 3) % 4);
+            omegaCurrent.ShowOmega((lyricsIndex - 3) / 4);
         } else {
             CreateWave(lyricsIndex);
         }
@@ -84,6 +91,16 @@ public class WaveDriver : MonoBehaviour {
         wave.text = lines[waveIndex];
         wave.tc = tc;
         return wave.gameObject;
+    }
+
+    public void OmegaDead() {
+        if(omegaCurrent == omegaNormal) {
+            // omegaNormal's down, time for omegamean.
+            omegaCurrent = omegaMean;
+            omegaMean.enabled = true;
+        } else {
+            Debug.Log("BLLASEGSRBIURBNOLBRIN#FIHFJF!");
+        }
     }
 
     private void InitLines() {

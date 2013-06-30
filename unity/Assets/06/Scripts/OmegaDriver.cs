@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class OmegaDriver : MonoBehaviour {
 
-    private float showDuration = 3.428f;
     private float showStart = -1;
     private float hideStart = -1;
 
@@ -14,7 +14,7 @@ public class OmegaDriver : MonoBehaviour {
 
     private float slop;
 
-    public void Start() {
+    public virtual void Start() {
         livePos = transform.position;
         hiddenPos = transform.position;
         hiddenPos.z += baseOffset;
@@ -29,7 +29,7 @@ public class OmegaDriver : MonoBehaviour {
 
     private void HandleMovement() {
         if(showStart != -1) {
-            if(Time.time > showStart + showDuration) {
+            if(Time.time > showStart + WaveDriver.WAVE_DURATION-.1f) {
                 showStart = -1;
                 hideStart = Time.time;
             }
@@ -51,7 +51,18 @@ public class OmegaDriver : MonoBehaviour {
         }
     }
 
-    public void ShowOmega(int index) {
+    public void LetterDisabled() {
+        foreach(Transform t in transform) {
+            if(t.GetComponent<LetterOmega>().isAlive) {
+                return;
+            }
+        }
+        Debug.Log("BLAAAARG DEAD!");
+        GameObject.Find("WaveDriver").SendMessage("OmegaDead");
+    }
+
+    public virtual void ShowOmega(int index) {
+        Debug.Log(name + " Showing omega wave #" + index);
         hideStart = -1;
         showStart = Time.time;
     }

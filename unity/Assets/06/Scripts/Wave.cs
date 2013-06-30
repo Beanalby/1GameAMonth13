@@ -10,7 +10,6 @@ public abstract class Wave : MonoBehaviour {
 
     private float invincibleGracePeriod = .5f;
     protected float speed = 1f;
-    protected float duration = 3.428f;
 
     private GameObject[] letters;
 
@@ -38,7 +37,7 @@ public abstract class Wave : MonoBehaviour {
     }
 
     IEnumerator KillSelf() {
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(WaveDriver.WAVE_DURATION);
         // make a copy of the children array; WaveEnd might remove us as
         // their parent, which screws up the iteration
         Transform[]children = new Transform[transform.childCount];
