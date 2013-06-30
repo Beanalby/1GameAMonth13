@@ -27,8 +27,8 @@ public class WaveDriver : MonoBehaviour {
         InitLines();
         samplesPerSection = (int)(sampleRate * WAVE_DURATION);
         song = GetComponent<AudioSource>();
-        JumpToSection(3);
-        // +++ JumpToSection(0);
+        //+++ JumpToSection(3);
+        JumpToSection(0);
         song.Play();
         omegaCurrent = omegaNormal;
         omegaMean.gameObject.SetActive(false);
@@ -69,8 +69,8 @@ public class WaveDriver : MonoBehaviour {
     }
 
     private bool AdvanceSection() {
-         // +++ lyricsIndex++;
-        lyricsIndex += 4;
+        lyricsIndex++;
+        // +++ lyricsIndex += 4;
         if(lyricsIndex == lines.Length) {
             return false;
         }
