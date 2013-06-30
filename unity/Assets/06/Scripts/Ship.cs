@@ -1,6 +1,15 @@
 using UnityEngine;
 using System.Collections;
 
+public struct Damage {
+    public int amount;
+    public Transform attacker;
+    public Damage(Transform attacker, int amount) {
+        this.attacker = attacker;
+        this.amount = amount;
+    }
+}
+
 public class Ship : MonoBehaviour {
 
     public GameObject bulletPrefab;
@@ -65,18 +74,18 @@ public class Ship : MonoBehaviour {
         bullet.rigidbody.velocity = transform.forward * bulletSpeed;
         AudioSource.PlayClipAtPoint(fireSound, Camera.main.transform.position);
     }
-    public void TakeDamage(LetterKiller letter) {
-        Debug.Log("Ship got hit by " + letter.name + "! OW!");
 
-        currentHealth = Mathf.Max(0, currentHealth - letter.kaminazeDamage);
+    public void TakeDamage(Damage damage) {
+        currentHealth = Mathf.Max(0, currentHealth - damage.amount);
+        Debug.Log(name + " going to take " + damage.amount
+                + " from " + damage.attacker
+                + ", currently at " + currentHealth);
         if(currentHealth == 0) {
             Debug.Log("Player dead!");
             Destroy(gameObject);
         } else {
-            Debug.Log("Player took " + letter.kaminazeDamage + ", down to " + currentHealth);
             GameObject tmp = Instantiate(shipHitEffect) as GameObject;
-            tmp.transform.position = letter.transform.position;
+            tmp.transform.position = damage.attacker.position;
         }
-        Destroy(letter.gameObject);
     }
 }

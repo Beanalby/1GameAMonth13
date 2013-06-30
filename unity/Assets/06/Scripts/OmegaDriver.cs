@@ -57,7 +57,6 @@ public class OmegaDriver : MonoBehaviour {
                 return;
             }
         }
-        Debug.Log("BLAAAARG DEAD!");
         GameObject.Find("WaveDriver").SendMessage("OmegaDead");
     }
 
@@ -65,5 +64,8 @@ public class OmegaDriver : MonoBehaviour {
         Debug.Log(name + " Showing omega wave #" + index);
         hideStart = -1;
         showStart = Time.time;
+        foreach(Transform t in transform) {
+            t.SendMessage("ShowOmega", SendMessageOptions.DontRequireReceiver);
+        }
     }
 }

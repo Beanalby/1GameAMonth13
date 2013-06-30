@@ -31,7 +31,9 @@ public class WaveDriver : MonoBehaviour {
         // +++ JumpToSection(0);
         song.Play();
         omegaCurrent = omegaNormal;
-        omegaMean.enabled = false;
+        omegaMean.gameObject.SetActive(false);
+        //omegaCurrent = omegaMean;
+        //omegaNormal.enabled = false;
     }
 
     void Update () {
@@ -97,7 +99,7 @@ public class WaveDriver : MonoBehaviour {
         if(omegaCurrent == omegaNormal) {
             // omegaNormal's down, time for omegamean.
             omegaCurrent = omegaMean;
-            omegaMean.enabled = true;
+            omegaMean.gameObject.SetActive(true);
         } else {
             Debug.Log("BLLASEGSRBIURBNOLBRIN#FIHFJF!");
         }

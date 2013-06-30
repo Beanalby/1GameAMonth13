@@ -38,11 +38,11 @@ public class Letter : MonoBehaviour {
         yield return new WaitForSeconds(hitFlashDuration);
         renderer.material = previousMaterial.Pop();
     }
-    public void TakeDamage(Bullet bullet) {
+    public void TakeDamage(Damage damage) {
         if(!invincible) {
-            currentHealth = Mathf.Max(0, currentHealth - bullet.damage);
+            currentHealth = Mathf.Max(0, currentHealth - damage.amount);
             if(currentHealth == 0) {
-                HandleDeath(bullet);
+                HandleDeath(damage);
             } else {
                 StartCoroutine(HitFlash());
             }
@@ -52,13 +52,12 @@ public class Letter : MonoBehaviour {
             AudioSource.PlayClipAtPoint(NoEffectSound,
                 Camera.main.transform.position);
         }
-        Destroy(bullet.gameObject);
     }
 
-    protected virtual void HandleDeath(Bullet bullet) {
-        StartCoroutine(DeathRattle(bullet.gameObject));
+    protected virtual void HandleDeath(Damage damage) {
+        StartCoroutine(DeathRattle(damage.attacker));
     }
-    public IEnumerator DeathRattle(GameObject bullet) {
+    public IEnumerator DeathRattle(Transform attacker) {
         isAlive = false;
         GetComponent<ParticleSystem>().Play();
          // don't cause collisions with anything else as we fling
@@ -66,7 +65,7 @@ public class Letter : MonoBehaviour {
         // clear our parent Wave so we aren't "pulled forward" anymore
         transform.parent = null;
         // throw ourselves backward based on the bullet's forward
-        Vector3 dir = bullet.transform.forward;
+        Vector3 dir = attacker.forward;
         dir.y = Random.Range(.3f, .6f);
         dir *= deathFlingStrength;
         rigidbody.velocity = dir;
@@ -78,4 +77,13 @@ public class Letter : MonoBehaviour {
         yield return new WaitForSeconds(deathDuration);
         Destroy(gameObject);
     }
-  }
+
+
+    /// <summary>
+    /// Not used in live game, lets us set the health low to test transitions
+    /// </summary>
+    /// <param name="amount"></param>
+    public void DebugSetHealth(int amount) {
+        currentHealth = amount;
+    }
+}

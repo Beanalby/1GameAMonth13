@@ -5,16 +5,17 @@ public class LetterOmega : Letter {
 
     public Material disabedMaterial;
 
-    private float spinAmount = .1f;
+    private float spinAmount = .15f;
     private Quaternion baseRotation;
 
     public override void Start() {
         base.Start();
         baseRotation = transform.localRotation;
         invincible = true;
+        DebugSetHealth(10); // +++ die fast for testing
     }
 
-    protected override void HandleDeath(Bullet bullet) {
+    protected override void HandleDeath(Damage damage) {
         // just note the fact that we're dead instead of leaving
         invincible = true;
         isAlive = false;
