@@ -136,7 +136,6 @@ public class SpeakingDriver : MonoBehaviour {
         } else if(pos < 96.5) {
             return Speaking.CallerScared;
         } else {
-            Debug.Log("LOADING!");
             Application.LoadLevel("06-game");
             return Speaking.CallerScared;
         }
