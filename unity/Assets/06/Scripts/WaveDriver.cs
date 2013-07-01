@@ -9,7 +9,7 @@ public class WaveDriver : MonoBehaviour {
     public TextCreator tc;
     public Wave waveNormalPrefab;
     public Wave waveKillerWordPrefab;
-    public GUISkin retrySkin;
+    public GUISkin skin;
 
     public OmegaNormal omegaNormal;
     public OmegaMean omegaMean;
@@ -17,6 +17,8 @@ public class WaveDriver : MonoBehaviour {
 
     private AudioSource song;
     private string[] lines;
+    private string[] waveLabels;
+
     private float initalDelayScale = .3f;
     private int sampleRate = 44100;
     private int samplesPerSection;
@@ -38,7 +40,8 @@ public class WaveDriver : MonoBehaviour {
         omegaHappy.gameObject.SetActive(false);
 
         SetActiveOmega(omegaMean);
-        lyricsIndex = 3; // +++ omega-only
+        //lyricsIndex = 3; // +++ omega-only
+        //song.volume = 0; // FOR SANITY 
     }
 
     public void Update () {
@@ -60,13 +63,20 @@ public class WaveDriver : MonoBehaviour {
     }
 
     public void OnGUI() {
+        GUI.skin = skin;
+        DrawWaveLabel();
         if(!isRunning) {
             DrawRetryGUI();
         }
     }
 
+    public void DrawWaveLabel() {
+        if(lyricsIndex >= 0 && lyricsIndex < waveLabels.Length) {
+            GUI.Label(new Rect(5, 5, Screen.width, 50),
+                "Wave: " + waveLabels[lyricsIndex], skin.customStyles[0]);
+        }
+    }
     public void DrawRetryGUI() {
-        GUI.skin = retrySkin;
         GUILayout.BeginArea(new Rect(0, 0, Screen.width, Screen.height));
         GUILayout.BeginVertical();
 
@@ -120,25 +130,28 @@ public class WaveDriver : MonoBehaviour {
     private void CheckNextSection() {
         if(song.timeSamples >= nextSection) {
             if(!AdvanceSection()) {
-                song.Stop();
-                isRunning = false;
-                Application.LoadLevel("06-Finish");
+                StartCoroutine(LoadFinish());
                 return;
             }
             nextSection += samplesPerSection;
         }
     }
 
+    private IEnumerator LoadFinish() {
+        yield return new WaitForSeconds(2f);
+        Application.LoadLevel("06-Finish");
+    }
+
     private bool AdvanceSection() {
-        // lyricsIndex++;
-        lyricsIndex += 4; // +++ omega-only
-        if(lyricsIndex == lines.Length) {
+        lyricsIndex++;
+        //lyricsIndex += 4; // +++ omega-only
+        if(lyricsIndex >= lines.Length) {
             return false;
         }
 
-        Debug.Log(Time.time.ToString(".000")
-            + " (" + song.timeSamples + " > " + nextSection + ") #"
-            + lyricsIndex + "-" + lines[lyricsIndex]);
+        //Debug.Log(Time.time.ToString(".000")
+        //    + " (" + song.timeSamples + " > " + nextSection + ") #"
+        //    + lyricsIndex + "-" + lines[lyricsIndex]);
         if(lines[lyricsIndex] == "Omega") {
             omegaCurrent.ShowOmega((lyricsIndex - 3) / 4);
         } else {
@@ -301,6 +314,128 @@ public class WaveDriver : MonoBehaviour {
             "Spilling Water: Morgan the Cat",
             "Annoying Meow: Kirby the Cat",
             "Omega"
+        };
+        waveLabels = new string[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "Omega",
+            "28",
+            "29",
+            "30",
+            "Omega!",
+            "32",
+            "33",
+            "34",
+            "OMEGA!",
+            "36",
+            "37",
+            "38",
+            "Omeeeegaaaaa",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44",
+            "45",
+            "46",
+            "47",
+            "48",
+            "Knock knock.",
+            "Who's there?",
+            "OOOMMEEEEGGAAA",
+            "52",
+            "53",
+            "54",
+            "55",
+            "56",
+            "Two rocks walk into a bar.",
+            "The bartender says,",
+            "OMEGA!",
+            "60",
+            "61",
+            "62",
+            "63",
+            "64",
+            "65",
+            "Is anyone gonna read this?",
+            "Probably not",
+            "68",
+            "So much wasted effort",
+            "All for naught!",
+            "*sob*",
+            "72",
+            "73",
+            "74",
+            "75",
+            "But you'll read it, won't you?",
+            "I know you will.",
+            "78",
+            "79",
+            "80",
+            "81",
+            "82",
+            "83",
+            "Keep it goin!",
+            "85",
+            "86",
+            "Stayin alive!",
+            "88",
+            "89",
+            "90",
+            "91",
+            "Is the song stuck in your head yet?",
+            "93",
+            "Think about how it is FOR ME.",
+            "95",
+            "I've lost count of how many times I've heard it.",
+            "97",
+            "I started humming it randomly throughout the day.",
+            "99",
+            "I fear I'll never be free of its lyrical grasp.",
+            "101",
+            "102",
+            "Almost there...",
+            "104",
+            "105",
+            "106",
+            "107",
+            "108",
+            "109",
+            "110",
+            "111",
+            "112",
+            "113",
+            "114",
+            "115",
+            "116",
+            "117",
+            "118",
+            "Thanks for playing!"
         };
     }
 }
