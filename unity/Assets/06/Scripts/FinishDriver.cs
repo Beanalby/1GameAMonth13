@@ -33,6 +33,9 @@ public class FinishDriver : MonoBehaviour {
         GUILayoutOption[] opts = new GUILayoutOption[] {
             GUILayout.Width(200), GUILayout.Height(50)};
         if(GUILayout.Button("Play Again", opts)) {
+            if(Ship.ship != null) {
+                Destroy(Ship.ship.gameObject);
+            }
             Application.LoadLevel("06-title");
         }
         GUILayout.FlexibleSpace();

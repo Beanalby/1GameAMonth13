@@ -49,6 +49,7 @@ public class Ship : MonoBehaviour {
         currentHealth = maxHealth;
         bulletLaunch = transform.FindChild("BulletLaunch");
 
+        GameObject.DontDestroyOnLoad(ship);
         healthStyle = new GUIStyle(skin.customStyles[0]);
         healthStyle.alignment = TextAnchor.LowerRight;
         StartCoroutine(RegenHealth());

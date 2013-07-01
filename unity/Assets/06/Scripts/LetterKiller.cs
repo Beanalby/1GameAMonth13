@@ -3,8 +3,7 @@ using System.Collections;
 
 /* like a normal letter, but it goes after the ship if alive at wave end */
 public class LetterKiller : Letter {
-    [HideInInspector]
-    public int kamikazeDamage = 30;
+    private int kamikazeDamage = 10;
     private float kamikazeSpeed = 6f;
     private bool isPursuing = false;
 

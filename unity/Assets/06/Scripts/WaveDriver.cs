@@ -33,7 +33,7 @@ public class WaveDriver : MonoBehaviour {
         InitLines();
         samplesPerSection = (int)(sampleRate * WAVE_DURATION);
         song = GetComponent<AudioSource>();
-        JumpToSection(80);
+        JumpToSection(110);
         song.Play();
         omegaNormal.gameObject.SetActive(false);
         omegaMean.gameObject.SetActive(false);
@@ -176,7 +176,7 @@ public class WaveDriver : MonoBehaviour {
             float healChance = .25f;
             tmp = Random.Range(0f, 1f);
             Debug.Log("Heal: " + tmp + " < " + killerChance + "?");
-            if(tmp < .25f) {
+            if(tmp < healChance) {
                 obj.GetComponent<WaveKillerWord>().isKiller = false;
             }
         } else {
