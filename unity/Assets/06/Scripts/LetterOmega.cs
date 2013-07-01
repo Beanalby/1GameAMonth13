@@ -12,7 +12,7 @@ public class LetterOmega : Letter {
         base.Start();
         baseRotation = transform.localRotation;
         invincible = true;
-        DebugSetHealth(10); // +++ die fast for testing
+        //DebugSetHealth(10); // +++ die fast for testing
     }
 
     protected override void HandleDeath(Damage damage) {

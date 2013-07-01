@@ -4,7 +4,7 @@ using System.Collections;
 /* like a normal letter, but it goes after the ship if alive at wave end */
 public class LetterKiller : Letter {
     [HideInInspector]
-    public float kaminazeDamage = 30f;
+    public int kamikazeDamage = 30;
     private float kamikazeSpeed = 6f;
     private bool isPursuing = false;
 
@@ -30,8 +30,10 @@ public class LetterKiller : Letter {
 
     public void OnTriggerEnter(Collider other) {
         if(Ship.ship != null && other.gameObject == Ship.ship.gameObject) {
-            Ship.ship.SendMessage("TakeDamage", this,
-                SendMessageOptions.RequireReceiver);
+            
+            Ship.ship.SendMessage("TakeDamage",
+                new Damage(transform, kamikazeDamage));
+            Destroy(gameObject);
         }
     }
 }

@@ -20,8 +20,11 @@ public class Ship : MonoBehaviour {
     public AudioClip fireSound;
     public AudioClip deadSound;
 
+    public GUISkin skin;
+
     private float maxHealth = 100;
     private float currentHealth;
+    private float regenCooldown = .5f;
 
     public static Ship ship = null;
 
@@ -34,6 +37,7 @@ public class Ship : MonoBehaviour {
     private float xRange = 8f;
 
     private float lastFired = -1;
+    private GUIStyle healthStyle;
 
     public void Start() {
         if(Ship.ship != null) {
@@ -43,7 +47,23 @@ public class Ship : MonoBehaviour {
         Ship.ship = this;
         currentHealth = maxHealth;
         bulletLaunch = transform.FindChild("BulletLaunch");
-        currentHealth = 1; // +++ DIE NAO
+
+        healthStyle = new GUIStyle(skin.customStyles[0]);
+        healthStyle.alignment = TextAnchor.LowerRight;
+        StartCoroutine(RegenHealth());
+    }
+
+    public void OnGUI() {
+        DrawHealth();
+    }
+
+    public void AddHealth(int amount) {
+        currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
+    }
+
+    public void DrawHealth() {
+        GUI.Label(new Rect(Screen.width - 100, Screen.height - 35, 95, 25),
+            "Health: " + currentHealth, healthStyle);
     }
 
     public void Update() {
@@ -90,6 +110,14 @@ public class Ship : MonoBehaviour {
         }
     }
 
+    public IEnumerator RegenHealth() {
+        while(true) {
+            if(currentHealth < maxHealth) {
+                currentHealth++;
+            }
+            yield return new WaitForSeconds(regenCooldown);
+        }
+    }
     public void DestroyShip() {
         AudioSource.PlayClipAtPoint(deadSound, Camera.main.transform.position);
         GameObject tmp = Instantiate(shipDeadEffect) as GameObject;

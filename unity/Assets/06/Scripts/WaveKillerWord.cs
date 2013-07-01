@@ -4,6 +4,9 @@ using System.Collections;
 public class WaveKillerWord : Wave {
     public GameObject letterNormalPrefab;
     public GameObject letterKillerPrefab;
+    public GameObject letterHealPrefab;
+
+    public bool isKiller = true;
 
     private int killerWordStart, killerWordEnd;
 
@@ -48,7 +51,11 @@ public class WaveKillerWord : Wave {
 
     public override GameObject GetLetterPrefab(string text, int index) {
         if(index >= killerWordStart && index < killerWordEnd) {
-            return letterKillerPrefab;
+            if(isKiller) {
+                return letterKillerPrefab;
+            } else {
+                return letterHealPrefab;
+            }
         } else {
             return letterNormalPrefab;
         }

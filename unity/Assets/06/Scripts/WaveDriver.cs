@@ -33,7 +33,7 @@ public class WaveDriver : MonoBehaviour {
         InitLines();
         samplesPerSection = (int)(sampleRate * WAVE_DURATION);
         song = GetComponent<AudioSource>();
-        JumpToSection(0);
+        JumpToSection(80);
         song.Play();
         omegaNormal.gameObject.SetActive(false);
         omegaMean.gameObject.SetActive(false);
@@ -51,7 +51,6 @@ public class WaveDriver : MonoBehaviour {
             if(stopRunningBegin != -1) {
                 // fade out the music
                 float percent = 1 - ((Time.time - stopRunningBegin) / musicFadeDuration);
-                Debug.Log("percent=" + percent);
                 if(percent >= 1) {
                     song.Stop();
                     stopRunningBegin = -1;
@@ -72,7 +71,7 @@ public class WaveDriver : MonoBehaviour {
 
     public void DrawWaveLabel() {
         if(lyricsIndex >= 0 && lyricsIndex < waveLabels.Length) {
-            GUI.Label(new Rect(5, 5, Screen.width, 50),
+            GUI.Label(new Rect(5, Screen.height - 30, Screen.width, 25),
                 "Wave: " + waveLabels[lyricsIndex], skin.customStyles[0]);
         }
     }
@@ -161,7 +160,27 @@ public class WaveDriver : MonoBehaviour {
     }
 
     private GameObject CreateWave(int waveIndex) {
-        GameObject obj = Instantiate(waveNormalPrefab.gameObject) as GameObject;
+        GameObject obj;
+
+        // later stages have higher chance of killerWord waves,
+        // and also higher chance of killerWord waves being heal instead
+        float stagePercent = ((float)lyricsIndex / 120);
+        float killerChance = Mathf.Lerp(.4f, .9f, stagePercent);
+        float tmp = Random.Range(0f, 1f);
+        Debug.Log("killer: " + tmp + " < " + killerChance + "?");
+        if( tmp < killerChance) {
+            Debug.Log("Making killer!");
+            obj = Instantiate(waveKillerWordPrefab.gameObject) as GameObject;
+            // also check for flipping to heal instead
+            tmp = Random.Range(0f, 1f);
+            Debug.Log("Heal: " + tmp + " < " + killerChance + "?");
+            if(tmp < killerChance) {
+                obj.GetComponent<WaveKillerWord>().isKiller = false;
+            }
+        } else {
+            obj = Instantiate(waveNormalPrefab.gameObject)
+                as GameObject;
+        }
         obj.transform.position = transform.position;
         Wave wave = obj.GetComponent<Wave>();
         wave.text = lines[waveIndex];
@@ -171,10 +190,8 @@ public class WaveDriver : MonoBehaviour {
 
     public void OmegaDead() {
         if(omegaCurrent == omegaNormal) {
-            Debug.Log("+++ OmegaDead, going to mean!");
             SetActiveOmega(omegaMean);
         } else {
-            Debug.Log("+++ OmegaDead, going to happy!");
             SetActiveOmega(omegaHappy);
         }
     }
