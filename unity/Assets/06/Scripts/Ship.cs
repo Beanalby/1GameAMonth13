@@ -18,11 +18,12 @@ public class Ship : MonoBehaviour {
     public GameObject shipDeadEffect;
 
     public AudioClip fireSound;
+    public AudioClip deadSound;
 
     private float maxHealth = 100;
     private float currentHealth;
 
-    public static Ship ship= null;
+    public static Ship ship = null;
 
     private float bulletCooldown = .1f;
 
@@ -42,6 +43,7 @@ public class Ship : MonoBehaviour {
         Ship.ship = this;
         currentHealth = maxHealth;
         bulletLaunch = transform.FindChild("BulletLaunch");
+        currentHealth = 1; // +++ DIE NAO
     }
 
     public void Update() {
@@ -81,11 +83,18 @@ public class Ship : MonoBehaviour {
                 + " from " + damage.attacker
                 + ", currently at " + currentHealth);
         if(currentHealth == 0) {
-            Debug.Log("Player dead!");
-            Destroy(gameObject);
+            DestroyShip();
         } else {
             GameObject tmp = Instantiate(shipHitEffect) as GameObject;
             tmp.transform.position = damage.attacker.position;
         }
+    }
+
+    public void DestroyShip() {
+        AudioSource.PlayClipAtPoint(deadSound, Camera.main.transform.position);
+        GameObject tmp = Instantiate(shipDeadEffect) as GameObject;
+        tmp.transform.position = transform.position;
+        GameObject.Find("WaveDriver").SendMessage("StopRunning");
+        Destroy(gameObject);
     }
 }

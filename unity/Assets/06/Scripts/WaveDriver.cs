@@ -9,6 +9,7 @@ public class WaveDriver : MonoBehaviour {
     public TextCreator tc;
     public Wave waveNormalPrefab;
     public Wave waveKillerWordPrefab;
+    public GUISkin retrySkin;
 
     public OmegaNormal omegaNormal;
     public OmegaMean omegaMean;
@@ -23,6 +24,8 @@ public class WaveDriver : MonoBehaviour {
     private int lyricsIndex = -1;
     private bool isRunning = true;
     private OmegaDriver omegaCurrent;
+    private float stopRunningBegin = -1f;
+    private float musicFadeDuration = 5f;
 
     void Start () {
         InitLines();
@@ -34,14 +37,70 @@ public class WaveDriver : MonoBehaviour {
         omegaMean.gameObject.SetActive(false);
         omegaHappy.gameObject.SetActive(false);
 
-        SetActiveOmega(omegaNormal);
+        SetActiveOmega(omegaMean);
         lyricsIndex = 3; // +++ omega-only
     }
 
-    void Update () {
+    public void Update () {
         if(isRunning) {
             CheckNextSection();
+        } else {
+            if(stopRunningBegin != -1) {
+                // fade out the music
+                float percent = 1 - ((Time.time - stopRunningBegin) / musicFadeDuration);
+                Debug.Log("percent=" + percent);
+                if(percent >= 1) {
+                    song.Stop();
+                    stopRunningBegin = -1;
+                } else {
+                    song.volume = percent;
+                }
+            }
         }
+    }
+
+    public void OnGUI() {
+        if(!isRunning) {
+            DrawRetryGUI();
+        }
+    }
+
+    public void DrawRetryGUI() {
+        GUI.skin = retrySkin;
+        GUILayout.BeginArea(new Rect(0, 0, Screen.width, Screen.height));
+        GUILayout.BeginVertical();
+
+        GUILayout.FlexibleSpace();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.FlexibleSpace();
+        GUILayout.Label("You're dead!");
+        GUILayout.FlexibleSpace();
+        GUILayout.EndHorizontal();
+
+        GUILayout.FlexibleSpace();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.FlexibleSpace();
+        GUILayout.Label("Not Crescent Fresh.");
+        GUILayout.FlexibleSpace();
+        GUILayout.EndHorizontal();
+
+        GUILayout.FlexibleSpace();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.FlexibleSpace();
+        GUILayoutOption[] opts = new GUILayoutOption[] {
+            GUILayout.Width(200), GUILayout.Height(50)};
+        if(GUILayout.Button("Retry", opts)) {
+            Application.LoadLevel("06-game");
+        }
+        GUILayout.FlexibleSpace();
+        GUILayout.EndHorizontal();
+
+        GUILayout.FlexibleSpace();
+        GUILayout.EndVertical();
+        GUILayout.EndArea();
     }
 
     private void JumpToSection(int section) {
@@ -113,6 +172,11 @@ public class WaveDriver : MonoBehaviour {
         //omegaNormal.gameObject.SetActive(omegaCurrent == omegaNormal);
         //omegaMean.gameObject.SetActive(omegaCurrent == omegaMean);
         //omegaHappy.gameObject.SetActive(omegaCurrent == omegaHappy);
+    }
+
+    public void StopRunning() {
+        isRunning = false;
+        stopRunningBegin = Time.time;
     }
 
     private void InitLines() {
