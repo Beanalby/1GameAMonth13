@@ -12,7 +12,8 @@ public class WaveDriver : MonoBehaviour {
 
     public OmegaNormal omegaNormal;
     public OmegaMean omegaMean;
-    
+    public OmegaHappy omegaHappy;
+
     private AudioSource song;
     private string[] lines;
     private float initalDelayScale = .3f;
@@ -27,13 +28,14 @@ public class WaveDriver : MonoBehaviour {
         InitLines();
         samplesPerSection = (int)(sampleRate * WAVE_DURATION);
         song = GetComponent<AudioSource>();
-        //+++ JumpToSection(3);
         JumpToSection(0);
         song.Play();
-        omegaCurrent = omegaNormal;
+        omegaNormal.gameObject.SetActive(false);
         omegaMean.gameObject.SetActive(false);
-        //omegaCurrent = omegaMean;
-        //omegaNormal.enabled = false;
+        omegaHappy.gameObject.SetActive(false);
+
+        SetActiveOmega(omegaNormal);
+        lyricsIndex = 3; // +++ omega-only
     }
 
     void Update () {
@@ -48,11 +50,11 @@ public class WaveDriver : MonoBehaviour {
             nextSection = (int)(samplesPerSection * initalDelayScale);
         } else {
             int offset = (int)(samplesPerSection * initalDelayScale)
-                + samplesPerSection * (section * 4);
+                + samplesPerSection * section;
             // pull audio start back by a second, helps flesh out the start
             song.timeSamples = offset - sampleRate;
             nextSection = offset;
-            lyricsIndex = section * 4 - 1;
+            lyricsIndex = section-1;
         }
     }
 
@@ -69,8 +71,8 @@ public class WaveDriver : MonoBehaviour {
     }
 
     private bool AdvanceSection() {
-        lyricsIndex++;
-        // +++ lyricsIndex += 4;
+        // lyricsIndex++;
+        lyricsIndex += 4; // +++ omega-only
         if(lyricsIndex == lines.Length) {
             return false;
         }
@@ -97,12 +99,20 @@ public class WaveDriver : MonoBehaviour {
 
     public void OmegaDead() {
         if(omegaCurrent == omegaNormal) {
-            // omegaNormal's down, time for omegamean.
-            omegaCurrent = omegaMean;
-            omegaMean.gameObject.SetActive(true);
+            Debug.Log("+++ OmegaDead, going to mean!");
+            SetActiveOmega(omegaMean);
         } else {
-            Debug.Log("BLLASEGSRBIURBNOLBRIN#FIHFJF!");
+            Debug.Log("+++ OmegaDead, going to happy!");
+            SetActiveOmega(omegaHappy);
         }
+    }
+
+    private void SetActiveOmega(OmegaDriver newDriver) {
+        omegaCurrent = newDriver;
+        omegaCurrent.gameObject.SetActive(true);
+        //omegaNormal.gameObject.SetActive(omegaCurrent == omegaNormal);
+        //omegaMean.gameObject.SetActive(omegaCurrent == omegaMean);
+        //omegaHappy.gameObject.SetActive(omegaCurrent == omegaHappy);
     }
 
     private void InitLines() {

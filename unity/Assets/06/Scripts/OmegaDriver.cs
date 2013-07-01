@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class OmegaDriver : MonoBehaviour {
 
-    private float showStart = -1;
-    private float hideStart = -1;
+    protected float showStart = -1;
+    protected float hideStart = -1;
 
     private Vector3 hiddenPos;
     private Vector3 livePos;
