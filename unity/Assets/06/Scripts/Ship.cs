@@ -71,9 +71,9 @@ public class Ship : MonoBehaviour {
     }
 
     public void DrawHealth() {
-        GUI.Label(new Rect(Screen.width - 100, Screen.height - 70, 95, 25),
+        GUI.Label(new Rect(Screen.width - 100, Screen.height - 70, 80, 25),
             "Score: " + score, healthStyle);
-        GUI.Label(new Rect(Screen.width - 100, Screen.height - 35, 95, 25),
+        GUI.Label(new Rect(Screen.width - 100, Screen.height - 35, 80, 25),
             "Health: " + currentHealth, healthStyle);
     }
 

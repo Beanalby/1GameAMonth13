@@ -35,11 +35,13 @@ public class WaveDriver : MonoBehaviour {
         InitLines();
         samplesPerSection = (int)(sampleRate * WAVE_DURATION);
         song = GetComponent<AudioSource>();
+        JumpToSection(0);
         song.Play();
         omegaNormal.gameObject.SetActive(false);
         omegaMean.gameObject.SetActive(false);
         omegaHappy.gameObject.SetActive(false);
         SetActiveOmega(omegaNormal);
+        //SetActiveOmega(omegaMean);
         //lyricsIndex = 3; // +++ omega-only
         //song.volume = 0; // FOR SANITY 
     }

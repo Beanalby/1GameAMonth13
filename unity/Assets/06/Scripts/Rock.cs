@@ -3,10 +3,12 @@ using System.Collections;
 
 public class Rock : MonoBehaviour {
 
+    [HideInInspector]
     public Transform target;
 
     private int damage = 25;
-    private float speed=12f;
+    [HideInInspector]
+    public float speed=10f;
 
     private Vector3 dir;
     private Transform plane;

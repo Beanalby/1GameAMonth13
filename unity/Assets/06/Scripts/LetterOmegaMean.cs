@@ -4,7 +4,7 @@ using System.Collections;
 public class LetterOmegaMean : LetterOmega {
 
     public GameObject rockPrefab;
-    private float rockCooldown = 2f;
+    private float rockCooldown = 3f;
 
     private float nextRock = -1;
 
@@ -20,12 +20,10 @@ public class LetterOmegaMean : LetterOmega {
     }
 
     public void ShowOmega() {
-        if(!isAlive) {
-            // start chucking meteors!
-            SetNextRock(.1f, .5f);
-            StartCoroutine(HideOmega());
-        }
+        SetNextRock(.1f, .5f);
+        StartCoroutine(HideOmega());
     }
+
     private IEnumerator HideOmega() {
         yield return new WaitForSeconds(WaveDriver.WAVE_DURATION-.5f);
         nextRock = -1;
@@ -37,12 +35,20 @@ public class LetterOmegaMean : LetterOmega {
             + (scale * Random.Range(0, rockCooldown));
     }
 
+    protected override void HandleDeath(Damage damage) {
+        base.HandleDeath(damage);
+        rockCooldown = rockCooldown / 2f;
+    }
+
     private void ThrowRock() {
         if(Ship.ship != null) {
             GameObject obj = Instantiate(rockPrefab) as GameObject;
             obj.transform.position = transform.position;
             Rock rock = obj.GetComponent<Rock>();
             rock.target = Ship.ship.transform;
+            if(!isAlive) {
+                rock.speed *= 2;
+            }
             SetNextRock(.5f, 1);
         }
     }
