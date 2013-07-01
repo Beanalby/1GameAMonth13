@@ -8,6 +8,11 @@ public class LetterKiller : Letter {
     private float kamikazeSpeed = 6f;
     private bool isPursuing = false;
 
+    public override void Start() {
+        base.Start();
+        scoreValue = 5;
+    }
+
     public void Update() {
         if(isAlive && isPursuing) {
             PursueShip();

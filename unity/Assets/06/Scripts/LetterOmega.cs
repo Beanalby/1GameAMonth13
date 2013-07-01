@@ -12,10 +12,14 @@ public class LetterOmega : Letter {
         base.Start();
         baseRotation = transform.localRotation;
         invincible = true;
+        scoreValue = 100;
         //DebugSetHealth(10); // +++ die fast for testing
     }
 
     protected override void HandleDeath(Damage damage) {
+        if(Ship.ship != null) {
+            Ship.ship.AddScore(scoreValue);
+        }
         // just note the fact that we're dead instead of leaving
         invincible = true;
         isAlive = false;

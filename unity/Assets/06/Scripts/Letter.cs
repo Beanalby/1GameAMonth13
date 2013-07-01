@@ -12,8 +12,9 @@ public class Letter : MonoBehaviour {
     public AudioClip HitSound;
     public AudioClip NoEffectSound;
 
-    private float currentHealth;
+    protected int scoreValue=1;
 
+    private float currentHealth;
     private Stack<Material> previousMaterial;
 
     [HideInInspector]
@@ -55,6 +56,9 @@ public class Letter : MonoBehaviour {
     }
 
     protected virtual void HandleDeath(Damage damage) {
+        if(Ship.ship != null) {
+            Ship.ship.AddScore(scoreValue);
+        }
         StartCoroutine(DeathRattle(damage.attacker));
     }
     public IEnumerator DeathRattle(Transform attacker) {

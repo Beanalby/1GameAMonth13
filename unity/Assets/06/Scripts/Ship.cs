@@ -35,6 +35,7 @@ public class Ship : MonoBehaviour {
     private float moveSpeed = 5f;
     private float turnAmount = .3f;
     private float xRange = 8f;
+    private int score = 0;
 
     private float lastFired = -1;
     private GUIStyle healthStyle;
@@ -62,6 +63,8 @@ public class Ship : MonoBehaviour {
     }
 
     public void DrawHealth() {
+        GUI.Label(new Rect(Screen.width - 100, Screen.height - 70, 95, 25),
+            "Score: " + score, healthStyle);
         GUI.Label(new Rect(Screen.width - 100, Screen.height - 35, 95, 25),
             "Health: " + currentHealth, healthStyle);
     }
@@ -108,6 +111,10 @@ public class Ship : MonoBehaviour {
             GameObject tmp = Instantiate(shipHitEffect) as GameObject;
             tmp.transform.position = damage.attacker.position;
         }
+    }
+
+    public void AddScore(int amount) {
+        score += amount;
     }
 
     public IEnumerator RegenHealth() {

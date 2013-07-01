@@ -75,6 +75,7 @@ public class WaveDriver : MonoBehaviour {
                 "Wave: " + waveLabels[lyricsIndex], skin.customStyles[0]);
         }
     }
+
     public void DrawRetryGUI() {
         GUILayout.BeginArea(new Rect(0, 0, Screen.width, Screen.height));
         GUILayout.BeginVertical();
@@ -172,9 +173,10 @@ public class WaveDriver : MonoBehaviour {
             Debug.Log("Making killer!");
             obj = Instantiate(waveKillerWordPrefab.gameObject) as GameObject;
             // also check for flipping to heal instead
+            float healChance = .25f;
             tmp = Random.Range(0f, 1f);
             Debug.Log("Heal: " + tmp + " < " + killerChance + "?");
-            if(tmp < killerChance) {
+            if(tmp < .25f) {
                 obj.GetComponent<WaveKillerWord>().isKiller = false;
             }
         } else {
