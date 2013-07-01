@@ -61,9 +61,9 @@ public class WaveDriver : MonoBehaviour {
     private void CheckNextSection() {
         if(song.timeSamples >= nextSection) {
             if(!AdvanceSection()) {
-                Debug.Log("All Done!");
                 song.Stop();
                 isRunning = false;
+                Application.LoadLevel("06-Finish");
                 return;
             }
             nextSection += samplesPerSection;
