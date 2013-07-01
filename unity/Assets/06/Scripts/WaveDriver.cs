@@ -29,17 +29,17 @@ public class WaveDriver : MonoBehaviour {
     private float stopRunningBegin = -1f;
     private float musicFadeDuration = 5f;
 
+    private bool DebugOmegaOnly = false;
+
     void Start () {
         InitLines();
         samplesPerSection = (int)(sampleRate * WAVE_DURATION);
         song = GetComponent<AudioSource>();
-        JumpToSection(110);
         song.Play();
         omegaNormal.gameObject.SetActive(false);
         omegaMean.gameObject.SetActive(false);
         omegaHappy.gameObject.SetActive(false);
-
-        SetActiveOmega(omegaMean);
+        SetActiveOmega(omegaNormal);
         //lyricsIndex = 3; // +++ omega-only
         //song.volume = 0; // FOR SANITY 
     }
@@ -143,7 +143,11 @@ public class WaveDriver : MonoBehaviour {
     }
 
     private bool AdvanceSection() {
-        lyricsIndex++;
+        if(DebugOmegaOnly) {
+            lyricsIndex += 4;
+        } else {
+            lyricsIndex++;
+        }
         //lyricsIndex += 4; // +++ omega-only
         if(lyricsIndex >= lines.Length) {
             return false;

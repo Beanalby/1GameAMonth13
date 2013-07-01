@@ -53,6 +53,13 @@ public class Ship : MonoBehaviour {
         healthStyle = new GUIStyle(skin.customStyles[0]);
         healthStyle.alignment = TextAnchor.LowerRight;
         StartCoroutine(RegenHealth());
+
+        ShowControls sc = ShowControls.CreateDocked(new ControlItem[] {
+            new ControlItem("Move Omega", CustomDisplay.arrows),
+            new ControlItem("Hold to fire Omega's guns", KeyCode.Space)
+        });
+        sc.showDuration = 10;
+        sc.Show();
     }
 
     public void OnGUI() {
