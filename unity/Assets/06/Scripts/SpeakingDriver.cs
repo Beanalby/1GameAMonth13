@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public enum Speaking { None, Caller, Sifl, Ollie, CallerScared };
+public enum Speaking { None, Caller, Sifl, Olly, CallerScared };
 
 [RequireComponent(typeof(AudioSource))]
 public class SpeakingDriver : MonoBehaviour {
@@ -11,8 +11,8 @@ public class SpeakingDriver : MonoBehaviour {
     public Texture CallerClosed;
     public Texture CallerOpen;
 
-    public Texture OllieClosed;
-    public Texture OllieOpen;
+    public Texture OllyClosed;
+    public Texture OllyOpen;
     public Texture SiflClosed;
     public Texture SiflOpen;
     public Texture Microphone;
@@ -23,15 +23,17 @@ public class SpeakingDriver : MonoBehaviour {
     private float mouthCooldown = .25f;
 
     private AudioSource sound;
-    private Rect rectSifl, rectOllie, rectCaller;
+    private Rect rectSifl, rectOlly, rectCaller, rectMicrophone;
 
     public void Start() {
-        float size = OllieClosed.width;
+        float size = OllyClosed.width;
         rectSifl = new Rect(0, Screen.height - size, size, size);
-        rectOllie = new Rect(Screen.width - size, Screen.height - size,
+        rectOlly = new Rect(Screen.width - size, Screen.height - size,
             size, size);
         rectCaller = new Rect(Screen.width /2 - size / 2, Screen.height - size,
             size, size);
+        rectMicrophone = new Rect(Screen.width / 2 - Microphone.width / 2,
+            Screen.height - Microphone.height, Microphone.width, Microphone.height);
 
         sound = GetComponent<AudioSource>();
         //Debug.Log("Jumping to " + (sound.clip.frequency * 118));
@@ -44,24 +46,27 @@ public class SpeakingDriver : MonoBehaviour {
         //Debug.Log(sound.timeSamples + " (" + ((float)sound.timeSamples / sound.clip.frequency) + ")=" + current);
         switch(current) {
             case Speaking.None:
+                GUI.DrawTexture(rectMicrophone, Microphone);
                 GUI.DrawTexture(rectSifl, SiflClosed);
-                GUI.DrawTexture(rectOllie, OllieClosed);
+                GUI.DrawTexture(rectOlly, OllyClosed);
                 break;
-            case Speaking.Ollie:
+            case Speaking.Olly:
+                GUI.DrawTexture(rectMicrophone, Microphone);
                 GUI.DrawTexture(rectSifl, SiflClosed);
                 if(isMouthOpen) {
-                    GUI.DrawTexture(rectOllie, OllieOpen);
+                    GUI.DrawTexture(rectOlly, OllyOpen);
                 } else {
-                    GUI.DrawTexture(rectOllie, OllieClosed);
+                    GUI.DrawTexture(rectOlly, OllyClosed);
                 }
                 break;
             case Speaking.Sifl:
+                GUI.DrawTexture(rectMicrophone, Microphone);
                 if(isMouthOpen) {
                     GUI.DrawTexture(rectSifl, SiflOpen);
                 } else {
                     GUI.DrawTexture(rectSifl, SiflClosed);
                 }
-                GUI.DrawTexture(rectOllie, OllieClosed);
+                GUI.DrawTexture(rectOlly, OllyClosed);
                 break;
             case Speaking.Caller:
                 if(isMouthOpen) {
@@ -110,7 +115,7 @@ public class SpeakingDriver : MonoBehaviour {
         } else if(pos < 18) {
             return Speaking.Caller;
         } else if(pos < 22.8) {
-            return Speaking.Ollie;
+            return Speaking.Olly;
         } else if(pos < 28.6) {
             return Speaking.Sifl;
         } else if(pos < 36) {
@@ -118,21 +123,21 @@ public class SpeakingDriver : MonoBehaviour {
         } else if(pos < 42.9) {
             return Speaking.Sifl;
         } else if(pos < 53.6) {
-            return Speaking.Ollie;
+            return Speaking.Olly;
         } else if(pos < 57.6) {
             return Speaking.Sifl;
         } else if(pos < 78.7) {
-            return Speaking.Ollie;
+            return Speaking.Olly;
         } else if(pos < 79.4) {
             return Speaking.None;
         } else if(pos < 82.5) {  // yeah well he kinda deserves it
             return Speaking.Sifl;
         } else if(pos < 90.25) {
-            return Speaking.Ollie;
+            return Speaking.Olly;
         } else if(pos < 93) {
             return Speaking.Caller;
         } else if(pos < 95.4) {
-            return Speaking.Ollie;
+            return Speaking.Olly;
         } else if(pos < 96.5) {
             return Speaking.CallerScared;
         } else {
