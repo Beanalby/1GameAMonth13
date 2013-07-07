@@ -29,8 +29,8 @@ public class WaveDriver : MonoBehaviour {
     private float stopRunningBegin = -1f;
     private float musicFadeDuration = 5f;
 
-    public static bool DebugOmegaOnly = false;
-    public static bool DebugMuteTheDamnSong = false;
+    public static bool DebugOmegaOnly = true;
+    public static bool DebugMuteTheDamnSong = true;
 
     void Start () {
         InitLines();

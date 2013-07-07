@@ -12,13 +12,15 @@ public class LetterOmega : Letter {
 
     private Vector3 basePos;
     private bool isShaking = false;
-
+    public GameObject shakeEffectPrefab;
+    private GameObject shakeEffectInstance;
+    
     public override void Start() {
         base.Start();
         baseRotation = transform.localRotation;
         invincible = true;
         scoreValue = 100;
-        //DebugSetHealth(10); // +++ die fast for testing
+        DebugSetHealth(10); // +++ die fast for testing
     }
 
     public virtual void Update() {
@@ -71,6 +73,12 @@ public class LetterOmega : Letter {
         if(!isShaking) {
             isShaking = true;
             basePos = transform.localPosition;
+            if(shakeEffectPrefab) {
+                shakeEffectInstance = Instantiate(shakeEffectPrefab) as GameObject;
+                shakeEffectInstance.transform.parent = transform;
+                shakeEffectInstance.transform.localRotation = Quaternion.identity;
+                shakeEffectInstance.transform.localPosition = new Vector3(0, 3.5f, 0);
+            }
         }
     }
     private void ShakeLetter() {
@@ -85,5 +93,8 @@ public class LetterOmega : Letter {
     private void StopShaking() {
         isShaking = false;
         transform.localPosition = basePos;
+        if(shakeEffectInstance) {
+            shakeEffectInstance.SendMessage("StopShaking");
+        }
     }
 }
