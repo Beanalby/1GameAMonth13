@@ -20,7 +20,9 @@ public class LetterOmega : Letter {
         baseRotation = transform.localRotation;
         invincible = true;
         scoreValue = 100;
-        DebugSetHealth(10); // +++ die fast for testing
+        if(WaveDriver.DebugOmegaEasy) {
+            DebugSetHealth(10); // +++ die fast for testing
+        }
     }
 
     public virtual void Update() {

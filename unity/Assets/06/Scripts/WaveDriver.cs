@@ -29,8 +29,9 @@ public class WaveDriver : MonoBehaviour {
     private float stopRunningBegin = -1f;
     private float musicFadeDuration = 5f;
 
-    public static bool DebugOmegaOnly = true;
-    public static bool DebugMuteTheDamnSong = true;
+    public static bool DebugOmegaOnly = false;
+    public static bool DebugOmegaEasy = false;
+    public static bool DebugMuteTheDamnSong = false;
 
     void Start () {
         InitLines();
@@ -42,6 +43,7 @@ public class WaveDriver : MonoBehaviour {
         omegaMean.gameObject.SetActive(false);
         omegaHappy.gameObject.SetActive(false);
         SetActiveOmega(omegaNormal);
+        //SetActiveOmega(omegaMean);
         if(DebugOmegaOnly) {
             lyricsIndex = 3;
         }
@@ -61,7 +63,9 @@ public class WaveDriver : MonoBehaviour {
                     song.Stop();
                     stopRunningBegin = -1;
                 } else {
-                    song.volume = percent;
+                    if(!DebugMuteTheDamnSong) {
+                        song.volume = percent;
+                    }
                 }
             }
         }
