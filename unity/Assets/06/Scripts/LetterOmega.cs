@@ -6,7 +6,12 @@ public class LetterOmega : Letter {
     public Material disabedMaterial;
 
     private float spinAmount = .15f;
+    private float shakeAmount = .1f;
+
     private Quaternion baseRotation;
+
+    private Vector3 basePos;
+    private bool isShaking = false;
 
     public override void Start() {
         base.Start();
@@ -16,6 +21,16 @@ public class LetterOmega : Letter {
         //DebugSetHealth(10); // +++ die fast for testing
     }
 
+    public virtual void Update() {
+        ShakeLetter();
+    }
+
+    public void Hidden() {
+        if(isShaking) {
+            StopShaking();
+        }
+    }
+
     protected override void HandleDeath(Damage damage) {
         if(Ship.ship != null) {
             Ship.ship.AddScore(scoreValue);
@@ -23,6 +38,7 @@ public class LetterOmega : Letter {
         // just note the fact that we're dead instead of leaving
         invincible = true;
         isAlive = false;
+        StartShaking();
         renderer.material = disabedMaterial;
         SendMessageUpwards("LetterDisabled");
     }
@@ -49,5 +65,25 @@ public class LetterOmega : Letter {
         invincible = true;
         rigidbody.angularVelocity = Vector3.zero;
         transform.localRotation = baseRotation;
+    }
+
+    public void StartShaking() {
+        if(!isShaking) {
+            isShaking = true;
+            basePos = transform.localPosition;
+        }
+    }
+    private void ShakeLetter() {
+        if(isShaking) {
+            // add some random positions to the base position
+            transform.localPosition = new Vector3(
+                basePos.x + Random.Range(-shakeAmount, shakeAmount),
+                basePos.y + Random.Range(-shakeAmount, shakeAmount),
+                basePos.z + Random.Range(-shakeAmount, shakeAmount));
+        }
+    }
+    private void StopShaking() {
+        isShaking = false;
+        transform.localPosition = basePos;
     }
 }

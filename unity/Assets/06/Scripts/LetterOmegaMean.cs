@@ -13,7 +13,8 @@ public class LetterOmegaMean : LetterOmega {
         // mean omega letters are always vunlerable
         invincible = false;
     }
-    public void Update() {
+    public override void Update() {
+        base.Update();
         if(nextRock != -1 && Time.time > nextRock) {
             ThrowRock();
         }
