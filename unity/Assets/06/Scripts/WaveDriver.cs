@@ -261,7 +261,7 @@ public class WaveDriver : MonoBehaviour {
             "Omega, even all the lives you took",
             "Heartbreaker, sexy as a cozy nook",
             "Omega",
-            "And when your shine like a silver beats",
+            "And when your shine like a silver beast",
             "Serving up your sexy catastrophic feast",
             "Your ball bearings need their grease",
             "Omega",
