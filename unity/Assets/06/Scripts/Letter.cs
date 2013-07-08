@@ -7,45 +7,34 @@ using System.Collections.Generic;
 public class Letter : MonoBehaviour {
 
     public float MaxHealth = 100;
-    public Material HitFlashMaterial;
 
     public AudioClip HitSound;
     public AudioClip NoEffectSound;
+    public AudioClip deathSound;
 
     protected int scoreValue=1;
 
     private float currentHealth;
-    private Stack<Material> previousMaterial;
 
     [HideInInspector]
     public bool invincible = true;
-
-    private float hitFlashDuration = .05f;
 
     private float deathFlingStrength = 10f;
     private float deathSpinStrength = 20f;
     private float deathDuration = 1f;
 
+    [HideInInspector]
     public bool isAlive = true;
 
     public virtual void Start() {
         currentHealth = MaxHealth;
-        previousMaterial = new Stack<Material>();
     }
 
-    public IEnumerator HitFlash() {
-        previousMaterial.Push(renderer.material);
-        renderer.material = HitFlashMaterial;
-        yield return new WaitForSeconds(hitFlashDuration);
-        renderer.material = previousMaterial.Pop();
-    }
     public void TakeDamage(Damage damage) {
         if(!invincible) {
             currentHealth = Mathf.Max(0, currentHealth - damage.amount);
             if(currentHealth == 0) {
-                HandleDeath(damage);
-            } else {
-                StartCoroutine(HitFlash());
+                SendMessage("HandleDeath", damage);
             }
             AudioSource.PlayClipAtPoint(HitSound,
                 Camera.main.transform.position);
@@ -58,6 +47,9 @@ public class Letter : MonoBehaviour {
     protected virtual void HandleDeath(Damage damage) {
         if(Ship.ship != null) {
             Ship.ship.AddScore(scoreValue);
+        }
+        if(deathSound != null) {
+            AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position);
         }
         StartCoroutine(DeathRattle(damage.attacker));
     }

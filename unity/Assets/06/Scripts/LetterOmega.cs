@@ -21,7 +21,7 @@ public class LetterOmega : Letter {
         invincible = true;
         scoreValue = 100;
         if(WaveDriver.DebugOmegaEasy) {
-            DebugSetHealth(10); // +++ die fast for testing
+            DebugSetHealth(30); // +++ die fast for testing
         }
     }
 
@@ -38,6 +38,9 @@ public class LetterOmega : Letter {
     protected override void HandleDeath(Damage damage) {
         if(Ship.ship != null) {
             Ship.ship.AddScore(scoreValue);
+        }
+        if(deathSound != null) {
+            AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position);
         }
         // just note the fact that we're dead instead of leaving
         invincible = true;

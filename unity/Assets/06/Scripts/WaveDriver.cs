@@ -4,6 +4,12 @@ using System.Collections;
 [RequireComponent(typeof(AudioSource))]
 public class WaveDriver : MonoBehaviour {
 
+    public static bool DebugOmegaOnly = false;
+    public static bool DebugStartOnMean = false;
+    public static bool DebugOmegaEasy = false;
+    public static bool DebugAllKillerWords = false;
+    public static bool DebugMuteTheDamnSong = false;
+
     public const float WAVE_DURATION = 3.428f;
 
     public TextCreator tc;
@@ -29,10 +35,6 @@ public class WaveDriver : MonoBehaviour {
     private float stopRunningBegin = -1f;
     private float musicFadeDuration = 5f;
 
-    public static bool DebugOmegaOnly = false;
-    public static bool DebugOmegaEasy = false;
-    public static bool DebugMuteTheDamnSong = false;
-
     void Start () {
         InitLines();
         samplesPerSection = (int)(sampleRate * WAVE_DURATION);
@@ -42,8 +44,11 @@ public class WaveDriver : MonoBehaviour {
         omegaNormal.gameObject.SetActive(false);
         omegaMean.gameObject.SetActive(false);
         omegaHappy.gameObject.SetActive(false);
-        SetActiveOmega(omegaNormal);
-        //SetActiveOmega(omegaMean);
+        if(DebugStartOnMean) {
+            SetActiveOmega(omegaMean);
+        } else {
+            SetActiveOmega(omegaNormal);
+        }
         if(DebugOmegaOnly) {
             lyricsIndex = 3;
         }
@@ -182,14 +187,14 @@ public class WaveDriver : MonoBehaviour {
         float stagePercent = ((float)lyricsIndex / 120);
         float killerChance = Mathf.Lerp(.4f, .9f, stagePercent);
         float tmp = Random.Range(0f, 1f);
-        Debug.Log("killer: " + tmp + " < " + killerChance + "?");
+        if(DebugAllKillerWords) {
+            tmp = 0;
+        }
         if( tmp < killerChance) {
-            Debug.Log("Making killer!");
             obj = Instantiate(waveKillerWordPrefab.gameObject) as GameObject;
             // also check for flipping to heal instead
             float healChance = .25f;
             tmp = Random.Range(0f, 1f);
-            Debug.Log("Heal: " + tmp + " < " + killerChance + "?");
             if(tmp < healChance) {
                 obj.GetComponent<WaveKillerWord>().isKiller = false;
             }
@@ -215,9 +220,6 @@ public class WaveDriver : MonoBehaviour {
     private void SetActiveOmega(OmegaDriver newDriver) {
         omegaCurrent = newDriver;
         omegaCurrent.gameObject.SetActive(true);
-        //omegaNormal.gameObject.SetActive(omegaCurrent == omegaNormal);
-        //omegaMean.gameObject.SetActive(omegaCurrent == omegaMean);
-        //omegaHappy.gameObject.SetActive(omegaCurrent == omegaHappy);
     }
 
     public void StopRunning() {

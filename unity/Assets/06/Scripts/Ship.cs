@@ -15,6 +15,8 @@ public class Ship : MonoBehaviour {
     public GameObject bulletPrefab;
 
     public GameObject shipHitEffect;
+    public AudioClip shipHitSound;
+
     public GameObject shipDeadEffect;
 
     public AudioClip fireSound;
@@ -116,6 +118,7 @@ public class Ship : MonoBehaviour {
         if(currentHealth == 0) {
             DestroyShip();
         } else {
+            AudioSource.PlayClipAtPoint(shipHitSound, Camera.main.transform.position);
             GameObject tmp = Instantiate(shipHitEffect) as GameObject;
             tmp.transform.position = damage.attacker.position;
         }

@@ -3,6 +3,9 @@ using System.Collections;
 
 public class Rock : MonoBehaviour {
 
+    public AudioClip rockGotHit;
+    public GameObject rockHitEffect;
+
     [HideInInspector]
     public Transform target;
 
@@ -37,6 +40,8 @@ public class Rock : MonoBehaviour {
 
     public void TakeDamage(Damage damage) {
         // we hit a bullet / a bullet hit us, both go away
+        AudioSource.PlayClipAtPoint(rockGotHit, Camera.main.transform.position);
+        Instantiate(rockHitEffect, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 
