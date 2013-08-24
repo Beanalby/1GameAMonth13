@@ -80,7 +80,7 @@ public class GameDriver : MonoBehaviour {
     public void BoardClear() {
         stageState = StageState.Complete;
         // Destroy any enemies that may be left
-        foreach(TinyEnemyController enemy in GameObject.FindSceneObjectsOfType(typeof(TinyEnemyController))) {
+        foreach(TinyEnemyController enemy in GameObject.FindObjectsOfType(typeof(TinyEnemyController))) {
             enemy.KillSelf();
         }
         lastSpawn = -1;

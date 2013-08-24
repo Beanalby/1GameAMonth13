@@ -133,7 +133,7 @@ public abstract class WeaponBase : MonoBehaviour {
         if(node.name == name) {
             return node;
         }
-        for(int i = 0; i < node.GetChildCount(); i++) {
+        for(int i = 0; i < node.childCount; i++) {
             Transform result = FindChild(node.GetChild(i), name);
             if(result != null) {
                 return result;

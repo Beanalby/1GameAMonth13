@@ -23,7 +23,7 @@ public class TutorialDriver : MonoBehaviour {
         player = GameObject.Find("Player").GetComponent<PlayerController>();
         player.canCharge = false;
         player.driver = gameObject;
-        enemies = GameObject.FindSceneObjectsOfType(typeof(TinyEnemyController)) as TinyEnemyController[];
+        enemies = GameObject.FindObjectsOfType(typeof(TinyEnemyController)) as TinyEnemyController[];
     }
     void Update() {
         if(state == TutorialState.Attack && !AnyEnemiesExist()) {
