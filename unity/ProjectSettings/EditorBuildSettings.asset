@@ -49,3 +49,5 @@ EditorBuildSettings:
     path: Assets/08/Scenes/levelTest3.unity
   - enabled: 1
     path: Assets/08/Scenes/levelTest4.unity
+  - enabled: 1
+    path: Assets/08/Scenes/reduceTime.unity

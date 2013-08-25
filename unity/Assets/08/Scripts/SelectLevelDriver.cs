@@ -17,7 +17,7 @@ public class SelectLevelDriver : MonoBehaviour {
     private bool loadWhenMoved = false;
     public void Awake() {
         driver = GameDriver8.instance;
-
+        
         // fixup left & bottom links based on top & right links
         Object[] tmp = Resources.FindObjectsOfTypeAll(typeof(Level));
         Level[] levels = System.Array.ConvertAll(tmp, o => (Level)o);
