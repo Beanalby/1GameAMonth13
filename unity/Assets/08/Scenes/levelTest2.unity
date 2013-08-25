@@ -3402,6 +3402,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 2054333026}
   - 114: {fileID: 2054333027}
+  - 114: {fileID: 2054333030}
+  - 114: {fileID: 2054333029}
   - 114: {fileID: 2054333028}
   m_Layer: 0
   m_Name: LevelDriver
@@ -3433,6 +3435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aa4abb305afbab46aa721ee8c20a5d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skin: {fileID: 11400000, guid: 21d3d5c5767a6a244936615c49a0ee26, type: 2}
   zoomButton: {fileID: 186719980}
 --- !u!114 &2054333028
 MonoBehaviour:
@@ -3447,6 +3450,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Color: {r: 1, g: 0, b: 0, a: 0}
   pulseRate: 2
+--- !u!114 &2054333029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 937c73856042a6c438020934dff19793,
+    type: 2}
+  m_PrefabInternal: {fileID: 2118594567}
+  m_GameObject: {fileID: 2054333025}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6105d1ca81db9ee4592fa4fa1c5de65b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Color: {r: 1, g: 0, b: 0, a: 0}
+  pulseRate: 2
+--- !u!114 &2054333030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400002, guid: 937c73856042a6c438020934dff19793,
+    type: 2}
+  m_PrefabInternal: {fileID: 2118594567}
+  m_GameObject: {fileID: 2054333025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27025b9edda139345b91dfab21b7ad8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skin: {fileID: 11400000, guid: 35a61e38499bdd0469157bc9dbb744b1, type: 2}
+  message: Entering the code segment leaves you vulnerable to detection.  Please make
+    your way through quickly.
 --- !u!1001 &2118594567
 Prefab:
   m_ObjectHideFlags: 0
@@ -3486,6 +3518,11 @@ Prefab:
       propertyPath: zoomButton
       value: 
       objectReference: {fileID: 186719980}
+    - target: {fileID: 11400002, guid: 937c73856042a6c438020934dff19793, type: 2}
+      propertyPath: message
+      value: Entering the code segment leaves you vulnerable to detection.  Please
+        make your way through quickly.
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 937c73856042a6c438020934dff19793, type: 2}
   m_RootGameObject: {fileID: 2054333025}

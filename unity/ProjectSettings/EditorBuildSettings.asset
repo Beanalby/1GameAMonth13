@@ -40,7 +40,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/08/Scenes/selectLevel.unity
   - enabled: 1
-    path: Assets/08/Scenes/levelTest1.unity
+    path: Assets/08/Scenes/level1.unity
   - enabled: 1
     path: Assets/08/Scenes/levelTest2.unity
   - enabled: 0
