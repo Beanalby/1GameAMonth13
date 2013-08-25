@@ -3,12 +3,16 @@ using System.Collections;
 
 public class PlayerDriver : MonoBehaviour {
 
+    [HideInInspector]
+    public bool EnableInput = true;
+
     private float moveDuration = .3f;
 
     private bool movingForward = false;
     private float moveStart=-1;
     private Vector3 moveFrom, moveDelta;
     private Interpolate.Function ease = Interpolate.Ease(Interpolate.EaseType.EaseOutCubic);
+
     public void Update() {
         HandleMovementInput();
     }
@@ -18,7 +22,7 @@ public class PlayerDriver : MonoBehaviour {
     }
 
     private void HandleMovementInput() {
-        if(moveStart != -1) {
+        if(moveStart != -1 || !EnableInput) {
             return;
         }
         float horizontal = Input.GetAxisRaw("Horizontal"),

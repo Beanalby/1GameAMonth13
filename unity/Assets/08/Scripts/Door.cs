@@ -25,6 +25,9 @@ public class Door : MonoBehaviour {
     }
 
     public void OnDrawGizmos() {
+        if(button == null) {
+            return;
+        }
         Gizmos.color = button.color;
         // draw from the middle of the door, not on the ground
         Vector3 pos = transform.position;

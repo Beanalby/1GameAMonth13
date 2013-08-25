@@ -7,7 +7,7 @@ public class LevelEditor : Editor {
     public override void OnInspectorGUI() {
         DrawDefaultInspector();
         Level level = (Level)target;
-        string newName = "level-" + level.level;
+        string newName = level.scene;
         if(level.name != newName) {
             level.name = newName;
         }

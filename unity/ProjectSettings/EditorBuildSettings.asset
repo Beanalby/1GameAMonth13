@@ -29,11 +29,23 @@ EditorBuildSettings:
     path: Assets/03/Scenes/stage-zigZag.unity
   - enabled: 0
     path: Assets/05/Scenes/game.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/06/Scenes/06-title.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/06/Scenes/06-speaking.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/06/Scenes/06-game.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/06/Scenes/06-finish.unity
+  - enabled: 1
+    path: Assets/08/Scenes/selectLevel.unity
+  - enabled: 1
+    path: Assets/08/Scenes/levelTest1.unity
+  - enabled: 1
+    path: Assets/08/Scenes/levelTest2.unity
+  - enabled: 0
+    path: Assets/08/Scenes/levelTest2bonus.unity
+  - enabled: 1
+    path: Assets/08/Scenes/levelTest3.unity
+  - enabled: 1
+    path: Assets/08/Scenes/levelTest4.unity

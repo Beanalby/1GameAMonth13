@@ -3,31 +3,38 @@ using System.Collections;
 
 
 public class Level : MonoBehaviour {
+    public GUISkin skin;
     public LevelLink linkPrefab;
 
-    public string level;
+    public string label;
+    public string scene;
     public Level levelTop, levelRight;
     [HideInInspector]
     public Level levelBottom, levelLeft;
+    [HideInInspector]
+    public bool ShowLabel = true;
 
     private float spinSpeed = .5f;
+    private bool isSelected = false;
 
-    private Transform mesh;
+    private GameObject mesh;
 
     public void Awake() {
-        name = "level " + level;
-        mesh = transform.Find("levelMesh");
+        mesh = transform.Find("levelMesh").gameObject;
     }
 
     public void Start() {
         // make links to the top & right
+        if(levelRight != null) {
+            CreateLink(levelRight);
+        }
         if(levelTop != null) {
-            levelTop.levelBottom = this;
             CreateLink(levelTop);
         }
-        if(levelRight != null) {
-            levelRight.levelLeft = this;
-            CreateLink(levelRight);
+        if(GameDriver8.instance.IsLevelFinished(this)) {
+            Color color = mesh.renderer.material.color;
+            color /= 5;
+            mesh.renderer.material.color = color;
         }
     }
 
@@ -37,10 +44,22 @@ public class Level : MonoBehaviour {
         link.levelTarget = otherLevel;
     }
 
+    public void OnGUI() {
+        GUI.skin = skin;
+        if(isSelected && ShowLabel) {
+            Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
+            pos.y = Screen.height - pos.y;
+            GUI.Box(new Rect(pos.x - 200, pos.y + 50, 400, 40),
+                (label!="" ? label : (":" + scene)) );
+        }
+    }
+
     public void Selected() {
+        isSelected = true;
         StartSpin();
     }
     public void Unselected() {
+        isSelected = false;
         StopSpin();
     }
 
