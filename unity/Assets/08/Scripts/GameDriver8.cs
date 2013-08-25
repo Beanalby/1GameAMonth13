@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class GameDriver8 : MonoBehaviour {
     private static string FIRST_LEVEL = "level1";
 
-    private float totalTime = 10f;
+    private float totalTime;
     public float TotalTime {
         get { return totalTime; }
     }
@@ -28,7 +28,7 @@ public class GameDriver8 : MonoBehaviour {
     private List<string> finishedLevels, specialExits;
     private List<string> pickups;
 
-    public string displayPickup = null;
+    public string displayPickup;
 
     private string lastLevel;
     public string LastLevel {
@@ -43,9 +43,7 @@ public class GameDriver8 : MonoBehaviour {
     }
 
     public GameDriver8() {
-        finishedLevels = new List<string>();
-        pickups = new List<string>();
-        specialExits = new List<string>();
+        InitData();
     }
 
     public void AddPickup(string name) {
@@ -55,8 +53,20 @@ public class GameDriver8 : MonoBehaviour {
     public void DecrementTime(float amount) {
         amount = Mathf.Min(amount, lastLevelTime);
         lastLevelTime -= amount;
-        totalTime -= amount / 10;
+        totalTime = Mathf.Max(0, totalTime - amount / 10);
     }
+    public bool GotAllPickups() {
+        return pickups.Count == 2;
+    }
+    private void InitData() {
+        finishedLevels = new List<string>();
+        pickups = new List<string>();
+        specialExits = new List<string>();
+        lastLevelTime = -1f;
+        totalTime = 10f;
+        displayPickup = null;
+    }
+
     public void LevelFinished(float duration, string specialExit) {
         finishedLevels.Add(Application.loadedLevelName);
         if(specialExit != null && specialExit != "") {
@@ -67,6 +77,9 @@ public class GameDriver8 : MonoBehaviour {
         Application.LoadLevel("reduceTime");
     }
 
+    public void LoadSelectLevel() {
+        Application.LoadLevel("selectLevel");
+    }
     public void LoadLevel(Level level) {
         lastLevel = level.scene;
         Application.LoadLevel(level.scene);
@@ -84,6 +97,14 @@ public class GameDriver8 : MonoBehaviour {
         return finishedLevels.Contains(level.scene);
     }
     public void ReduceFinished() {
-        Application.LoadLevel("selectLevel");
+        if(totalTime <= 0) {
+            Application.LoadLevel("levelLose");
+        } else {
+            Application.LoadLevel("selectLevel");
+        }
+    }
+    public void Restart() {
+        InitData();
+        Application.LoadLevel("title");
     }
 }

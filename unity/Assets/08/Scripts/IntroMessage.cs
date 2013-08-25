@@ -6,6 +6,9 @@ public class IntroMessage : MonoBehaviour {
     public GUISkin skin;
 
     public string message;
+    public string retryText;
+    public bool hideWhenDone = true;
+
     private float amount = 0;
     private float displayDuration = 3f;
     private float introStart = -1, introDone = -1f;
@@ -19,7 +22,7 @@ public class IntroMessage : MonoBehaviour {
         isFastRate = Input.GetButton("Fire1");
         float delta = (Time.deltaTime) * charsPerSecond;
         if(isFastRate) {
-            delta *= 2;
+            delta *= 5;
         }
         // 6C617374686F7065
         amount = Mathf.Min(message.Length, amount + delta);
@@ -27,17 +30,27 @@ public class IntroMessage : MonoBehaviour {
     public void OnGUI() {
         GUI.skin = skin;
 
-        if(introDone != -1 && (Time.time - introDone) > displayDuration) {
+        if(hideWhenDone && introDone != -1 && (Time.time - introDone) > displayDuration) {
             return;
         }
         if(introStart == -1) {
             return;
         }
         string smallMsg = message.Substring(0, (int)amount);
-        GUI.Box(new Rect(128, Screen.height - 100, Screen.width - 128, 100),
+        GUI.Box(new Rect(0, Screen.height - 100, Screen.width, 100),
             smallMsg);
-        if(amount == message.Length && introDone == -1) {
-            introDone = Time.time;
+        if(amount == message.Length) {
+            if(introDone == -1) {
+                introDone = Time.time;
+            }
+        }
+        if(introDone != -1  && retryText != "") {
+            int width = 200, height = 50;
+            Rect retryRect = new Rect(Screen.width / 2 - width / 2,
+                Screen.height / 2 - height / 2, width, height);
+            if(GUI.Button(retryRect, retryText)) {
+                GameDriver8.instance.Restart();
+            }
         }
     }
 }

@@ -38,6 +38,8 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/06/Scenes/06-finish.unity
   - enabled: 1
+    path: Assets/08/Scenes/title.unity
+  - enabled: 1
     path: Assets/08/Scenes/selectLevel.unity
   - enabled: 1
     path: Assets/08/Scenes/level1.unity
@@ -61,3 +63,5 @@ EditorBuildSettings:
     path: Assets/08/Scenes/levelFinished.unity
   - enabled: 1
     path: Assets/08/Scenes/reduceTime.unity
+  - enabled: 1
+    path: Assets/08/Scenes/levelLose.unity
