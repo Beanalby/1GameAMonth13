@@ -33,9 +33,11 @@ public class LevelDriver : MonoBehaviour {
     private GameObject playerLights, roomLights;
     private List<Light> playerGroundLights;
     private bool isExiting = false;
+    private GameDriver8 driver;
     Camera cam;
 
     public void Start() {
+        driver = GameDriver8.instance;
         player = GameObject.Find("Player").GetComponent<PlayerDriver>();
         playerLights = player.transform.Find("PlayerLights").gameObject;
         roomLights = GameObject.Find("RoomLights");
@@ -82,8 +84,13 @@ public class LevelDriver : MonoBehaviour {
     }
     public void DrawExitMessage() {
         completeStyle.normal.textColor = new Color(1, 1, 1, fadeCurrent);
-        GUI.Box(new Rect(0, 50, Screen.width, 100), "Level\nComplete",
-            completeStyle);
+        Rect r = new Rect(0, 50, Screen.width, 100);
+        string msg = "Level\nComplete";
+        if(driver.displayPickup != null) {
+            r.height += 100;
+            msg += "\n" + driver.displayPickup + " Acquired";
+        }
+        GUI.Box(r, msg, completeStyle);
     }
     public void ExitActivated() {
         moveStart = Time.time;
@@ -110,7 +117,7 @@ public class LevelDriver : MonoBehaviour {
             cam.transform.position = moveStartPos + moveDelta;
             moveStart = -1;
             if(isExiting) {
-                GameDriver8.instance.LevelFinished(timeLevel);
+                driver.LevelFinished(timeLevel);
             }
         } else {
             cam.transform.position = Interpolate.Ease(moveEase,

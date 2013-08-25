@@ -26,6 +26,9 @@ public class GameDriver8 : MonoBehaviour {
         }
     }
     private List<string> finishedLevels;
+    private List<string> pickups;
+
+    public string displayPickup = null;
 
     private string lastLevel;
     public string LastLevel {
@@ -41,11 +44,16 @@ public class GameDriver8 : MonoBehaviour {
 
     public GameDriver8() {
         finishedLevels = new List<string>();
+        pickups = new List<string>();
         lastLevelTime = 8.632f;
         //finishedLevels.Add("levelTest1");
         //finishedLevels.Add("levelTest2");
     }
 
+    public void AddPickup(string name) {
+        pickups.Add(name);
+        displayPickup = name;
+    }
     public void DecrementTime(float amount) {
         amount = Mathf.Min(amount, lastLevelTime);
         lastLevelTime -= amount;
