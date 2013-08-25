@@ -5,6 +5,7 @@ public class PlayerDriver : MonoBehaviour {
 
     private float moveDuration = .3f;
 
+    private bool movingForward = false;
     private float moveStart=-1;
     private Vector3 moveFrom, moveDelta;
     private Interpolate.Function ease = Interpolate.Ease(Interpolate.EaseType.EaseOutCubic);
@@ -33,6 +34,7 @@ public class PlayerDriver : MonoBehaviour {
         }
         if(moveDelta != Vector3.zero) {
             moveStart = Time.time;
+            movingForward = true;
             moveFrom = transform.position;
         }
     }
@@ -55,13 +57,12 @@ public class PlayerDriver : MonoBehaviour {
         if(col.collider.name == "Ground") {
             return;
         }
-        if(moveStart != -1) {
+        if(moveStart != -1 && movingForward) {
             // undo the movement
-            Debug.Log("Undoing movement");
             moveStart = Time.time;
             moveDelta = moveFrom - transform.position;
             moveFrom = transform.position;
+            movingForward = false;
         }
-        Debug.Log("Collided with " + col.collider.name);
     }
 }

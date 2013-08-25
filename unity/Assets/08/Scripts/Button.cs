@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public delegate void ButtonPressHandler(bool isPressed);
+
 public class Button : MonoBehaviour {
 
     public Color color;
     public Material unpressedMat, pressedMat;
+
+    public event ButtonPressHandler buttonListeners;
 
     private float lightMax = 1, lightMin = .5f;
     private Color dim;
@@ -18,8 +22,10 @@ public class Button : MonoBehaviour {
 
     private float buttonPressStart = -1;
     private float buttonPressDuration = .25f;
+    private float buttonResetStart = -1f;
     private Vector3 buttonPosOn, buttonPosOff, buttonPosBottom;
     private Transform button;
+
     public bool IsPressed {
         get { return isPressed; }
         set {
@@ -48,16 +54,18 @@ public class Button : MonoBehaviour {
         buttonPosOn = button.localPosition;
         buttonPosOff = new Vector3(0, -.3f, 0);
         buttonPosBottom = new Vector3(0, -.4f, 0);
-        UpdateButton();
+        UpdateButton(true);
     }
     public void Update() {
         HandleDebug();
         PulseButton();
         HandlePressingButton();
+        HandleResettingButton();
     }
 
     private void HandleDebug() {
         if(Input.GetKeyDown(KeyCode.Space)) {
+            ResetButton();
         }
     }
     private void HandlePressingButton() {
@@ -82,8 +90,22 @@ public class Button : MonoBehaviour {
                 buttonPosOff - buttonPosBottom, percent-.5f, .5f);
         }
     }
-    private void PressButton() {
-        buttonPressStart = Time.time;
+    private void HandleResettingButton() {
+        if(buttonResetStart == -1) {
+            return;
+        }
+        float percent = (Time.time - buttonResetStart) / buttonPressDuration;
+        if(percent >= 1) {
+            buttonResetStart = -1f;
+            button.localPosition = buttonPosOn;
+            IsPressed = false;
+        } else {
+            button.localPosition = Interpolate.Ease(easeUp, buttonPosOff,
+                buttonPosOn - buttonPosOff, percent, 1);
+        }
+    }
+    public void PressButton() {
+        IsPressed = true;
     }
     private void PulseButton() {
         if(IsPressed) {
@@ -98,19 +120,29 @@ public class Button : MonoBehaviour {
             buttonRenderer.sharedMaterial.color = Color.Lerp(dim, color, (percent-.5f) / .5f);
         }
     }
-
+    public void ResetButton() {
+        IsPressed = false;
+    }
     public void ToggleButton() {
         IsPressed = !IsPressed;
-        UpdateButton();
     }
 
-    private void UpdateButton() {
+    private void UpdateButton(bool silent=false) {
         if(isPressed) {
             buttonLight.enabled = false;
             buttonRenderer.material = pressedMat;
+            if(!silent) {
+                buttonPressStart = Time.time;
+            }
         } else {
             buttonLight.enabled = true;
             buttonRenderer.material = unpressedMat;
+            if(!silent) {
+                buttonResetStart = Time.time;
+            }
+        }
+        if(!silent && buttonListeners != null) {
+            buttonListeners(isPressed);
         }
     }
 
