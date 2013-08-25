@@ -6,7 +6,7 @@ public class PlayerDriver : MonoBehaviour {
     [HideInInspector]
     public bool EnableInput = true;
 
-    private float moveDuration = .3f;
+    private float moveDuration = .25f;
 
     private bool movingForward = false;
     private float moveStart=-1;

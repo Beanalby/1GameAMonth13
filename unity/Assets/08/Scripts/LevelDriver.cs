@@ -6,7 +6,7 @@ public class LevelDriver : MonoBehaviour {
 
     static public Vector3 CAMERA_OFFSET_START = new Vector3(0, 20, 20);
     static public Vector3 CAMERA_OFFSET_CLOSE = new Vector3(0, 3.5f, -1.5f);
-    static public Vector3 CAMERA_OFFSET_FAR = new Vector3(0, 7, -3);
+    static public Vector3 CAMERA_OFFSET_FAR = new Vector3(0, 5.25f, -2.25f);
 
     public GUISkin skin;
     public Button zoomButton;

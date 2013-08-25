@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd0e552504870094a8f271b2702768ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 1, b: 0, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
   unpressedMat: {fileID: 2100000, guid: 45c520be6ba89e64881e32fb20488f99, type: 2}
   pressedMat: {fileID: 2100000, guid: 912977ef2744db24784704f7ca7cb1d6, type: 2}
 --- !u!114 &11400002
