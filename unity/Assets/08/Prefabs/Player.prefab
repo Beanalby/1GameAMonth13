@@ -337,6 +337,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff08beabc998594b8f0ade2bfa2cc50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundMove: {fileID: 8300000, guid: 3f5979350276f3d4191369c90caf415e, type: 3}
+  soundMoveRevert: {fileID: 8300000, guid: 25cc520f4c6431a43bdebba837efbe12, type: 3}
+  EnableInput: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

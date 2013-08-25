@@ -132,6 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d7e7c5f33220544aaa945ce7297bbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoundSlide: {fileID: 8300000, guid: 35a6bcc92f0efa24e97bb18af4c1fff5, type: 3}
 --- !u!65 &4356552
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -258,6 +259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d7e7c5f33220544aaa945ce7297bbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoundSlide: {fileID: 8300000, guid: 35a6bcc92f0efa24e97bb18af4c1fff5, type: 3}
 --- !u!65 &21320617
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -598,6 +600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 433980665a39ecf428854799bba72093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundSlide: {fileID: 8300000, guid: b32c1d4fbbeb1104f8da5057f80a5c62, type: 3}
   button: {fileID: 2054333029}
   delta: {x: 0, y: 0, z: 1}
 --- !u!1001 &123634416
@@ -956,6 +959,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3561deb66f1fe524c8e6a22b04a61e83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundOpen: {fileID: 8300000, guid: f4d6a24e0993b304c9d14438154dba3e, type: 3}
+  soundClose: {fileID: 8300000, guid: b32c1d4fbbeb1104f8da5057f80a5c62, type: 3}
   button: {fileID: 186719981}
   invert: 0
 --- !u!4 &178918411
@@ -1575,6 +1580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d7e7c5f33220544aaa945ce7297bbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoundSlide: {fileID: 8300000, guid: 35a6bcc92f0efa24e97bb18af4c1fff5, type: 3}
 --- !u!65 &276255619
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2136,6 +2142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d7e7c5f33220544aaa945ce7297bbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoundSlide: {fileID: 8300000, guid: 35a6bcc92f0efa24e97bb18af4c1fff5, type: 3}
 --- !u!65 &491037575
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2263,6 +2270,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd4331b26029b5043908ad5da7d01070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundOn: {fileID: 8300000, guid: 653cc2c9b232bb94ebfc5c65af3ebddd, type: 3}
+  soundOff: {fileID: 8300000, guid: d297015dcf8eb8444aac2e00371bb243, type: 3}
   matOn: {fileID: 2100000, guid: f804c1a26a14f604c894a5f07685b590, type: 2}
   matOff: {fileID: 2100000, guid: 33790950bad19904eac666d0d3e00faf, type: 2}
 --- !u!65 &567994773
@@ -4086,6 +4095,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd4331b26029b5043908ad5da7d01070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundOn: {fileID: 8300000, guid: 653cc2c9b232bb94ebfc5c65af3ebddd, type: 3}
+  soundOff: {fileID: 8300000, guid: d297015dcf8eb8444aac2e00371bb243, type: 3}
   matOn: {fileID: 2100000, guid: f804c1a26a14f604c894a5f07685b590, type: 2}
   matOff: {fileID: 2100000, guid: 33790950bad19904eac666d0d3e00faf, type: 2}
 --- !u!65 &1199685214
@@ -4170,6 +4181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd4331b26029b5043908ad5da7d01070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundOn: {fileID: 8300000, guid: 653cc2c9b232bb94ebfc5c65af3ebddd, type: 3}
+  soundOff: {fileID: 8300000, guid: d297015dcf8eb8444aac2e00371bb243, type: 3}
   matOn: {fileID: 2100000, guid: f804c1a26a14f604c894a5f07685b590, type: 2}
   matOff: {fileID: 2100000, guid: 33790950bad19904eac666d0d3e00faf, type: 2}
 --- !u!65 &1204970145
@@ -4890,6 +4903,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff08beabc998594b8f0ade2bfa2cc50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundMove: {fileID: 8300000, guid: 3f5979350276f3d4191369c90caf415e, type: 3}
+  soundMoveRevert: {fileID: 8300000, guid: 25cc520f4c6431a43bdebba837efbe12, type: 3}
   EnableInput: 1
 --- !u!54 &1486307989
 Rigidbody:
@@ -5576,6 +5591,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd4331b26029b5043908ad5da7d01070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundOn: {fileID: 8300000, guid: 653cc2c9b232bb94ebfc5c65af3ebddd, type: 3}
+  soundOff: {fileID: 8300000, guid: d297015dcf8eb8444aac2e00371bb243, type: 3}
   matOn: {fileID: 2100000, guid: f804c1a26a14f604c894a5f07685b590, type: 2}
   matOff: {fileID: 2100000, guid: 33790950bad19904eac666d0d3e00faf, type: 2}
 --- !u!65 &1706722520
@@ -6637,6 +6654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d7e7c5f33220544aaa945ce7297bbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoundSlide: {fileID: 8300000, guid: 35a6bcc92f0efa24e97bb18af4c1fff5, type: 3}
 --- !u!65 &2048784637
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6805,6 +6823,8 @@ MonoBehaviour:
   skin: {fileID: 11400000, guid: 35a61e38499bdd0469157bc9dbb744b1, type: 2}
   message: nmap scans detected.  Blacklisting identified scanners.  Infection rate
     projected to exceed defenses.
+  retryText: 
+  hideWhenDone: 1
 --- !u!1 &2112734999
 GameObject:
   m_ObjectHideFlags: 0

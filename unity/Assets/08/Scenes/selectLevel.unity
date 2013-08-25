@@ -2242,5 +2242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db71cfbc3ae47b4e9e7c0bfd33cd69a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundMove: {fileID: 8300000, guid: 356867ce0915a0c458dbfa049d7e88c5, type: 3}
+  soundChoose: {fileID: 8300000, guid: e6c2a9628c4cfe14382beda363e5bba9, type: 3}
   current: {fileID: 0}
   EnableInput: 1

@@ -78,6 +78,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd4331b26029b5043908ad5da7d01070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundOn: {fileID: 8300000, guid: 653cc2c9b232bb94ebfc5c65af3ebddd, type: 3}
+  soundOff: {fileID: 8300000, guid: d297015dcf8eb8444aac2e00371bb243, type: 3}
   matOn: {fileID: 2100000, guid: f804c1a26a14f604c894a5f07685b590, type: 2}
   matOff: {fileID: 2100000, guid: 33790950bad19904eac666d0d3e00faf, type: 2}
 --- !u!1001 &100100000

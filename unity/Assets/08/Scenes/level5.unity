@@ -1740,6 +1740,18 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 381d496e36f901f47bcd2c3f6482f5fa, type: 2}
+      propertyPath: soundMove
+      value: 
+      objectReference: {fileID: 8300000, guid: 3f5979350276f3d4191369c90caf415e, type: 3}
+    - target: {fileID: 11400000, guid: 381d496e36f901f47bcd2c3f6482f5fa, type: 2}
+      propertyPath: soundMoveRevert
+      value: 
+      objectReference: {fileID: 8300000, guid: 25cc520f4c6431a43bdebba837efbe12, type: 3}
+    - target: {fileID: 5400000, guid: 381d496e36f901f47bcd2c3f6482f5fa, type: 2}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 381d496e36f901f47bcd2c3f6482f5fa, type: 2}
   m_RootGameObject: {fileID: 1486307985}
@@ -2907,6 +2919,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff08beabc998594b8f0ade2bfa2cc50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundMove: {fileID: 8300000, guid: 3f5979350276f3d4191369c90caf415e, type: 3}
+  soundMoveRevert: {fileID: 8300000, guid: 25cc520f4c6431a43bdebba837efbe12, type: 3}
   EnableInput: 1
 --- !u!54 &1486307989
 Rigidbody:
@@ -2919,7 +2933,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: .0500000007
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
@@ -3103,7 +3117,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .899999976, y: .899999976, z: .899999976}
+  m_Size: {x: .5, y: .5, z: .5}
   m_Center: {x: 0, y: 0, z: .5}
 --- !u!114 &1585488340
 MonoBehaviour:
@@ -3596,6 +3610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d7e7c5f33220544aaa945ce7297bbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoundSlide: {fileID: 8300000, guid: 35a6bcc92f0efa24e97bb18af4c1fff5, type: 3}
 --- !u!54 &1690765866
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4371,6 +4386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d7e7c5f33220544aaa945ce7297bbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoundSlide: {fileID: 8300000, guid: 35a6bcc92f0efa24e97bb18af4c1fff5, type: 3}
 --- !u!65 &1907398881
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4849,6 +4865,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skin: {fileID: 11400000, guid: 35a61e38499bdd0469157bc9dbb744b1, type: 2}
   message: Press R to restart a level if you detect you're in an infinite loop.
+  retryText: 
+  hideWhenDone: 1
 --- !u!114 &2054333030
 MonoBehaviour:
   m_ObjectHideFlags: 0

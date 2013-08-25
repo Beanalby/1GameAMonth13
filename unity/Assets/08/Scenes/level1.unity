@@ -323,7 +323,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3561deb66f1fe524c8e6a22b04a61e83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundOpen: {fileID: 8300000, guid: f4d6a24e0993b304c9d14438154dba3e, type: 3}
+  soundClose: {fileID: 8300000, guid: b32c1d4fbbeb1104f8da5057f80a5c62, type: 3}
   button: {fileID: 186719981}
+  invert: 0
 --- !u!4 &178918411
 Transform:
   m_ObjectHideFlags: 0
@@ -2217,6 +2220,14 @@ Prefab:
       propertyPath: zoomButton
       value: 
       objectReference: {fileID: 186719981}
+    - target: {fileID: 8200000, guid: 937c73856042a6c438020934dff19793, type: 2}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200000, guid: 937c73856042a6c438020934dff19793, type: 2}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 937c73856042a6c438020934dff19793, type: 2}
   m_RootGameObject: {fileID: 2054333025}
@@ -2278,6 +2289,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff08beabc998594b8f0ade2bfa2cc50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundMove: {fileID: 8300000, guid: 3f5979350276f3d4191369c90caf415e, type: 3}
+  soundMoveRevert: {fileID: 8300000, guid: 25cc520f4c6431a43bdebba837efbe12, type: 3}
   EnableInput: 1
 --- !u!54 &1486307989
 Rigidbody:
@@ -2422,6 +2435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 581f447173969f94aa5ec65f267bf364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpecialExit: 
 --- !u!65 &1585488339
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2433,7 +2447,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .899999976, y: .899999976, z: .899999976}
+  m_Size: {x: .5, y: .5, z: .5}
   m_Center: {x: 0, y: 0, z: .5}
 --- !u!114 &1585488340
 MonoBehaviour:
@@ -3390,6 +3404,7 @@ GameObject:
   - 114: {fileID: 2054333027}
   - 114: {fileID: 2054333029}
   - 114: {fileID: 2054333030}
+  - 82: {fileID: 2054333028}
   m_Layer: 0
   m_Name: LevelDriver
   m_TagString: Untagged
@@ -3422,6 +3437,65 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skin: {fileID: 11400000, guid: 21d3d5c5767a6a244936615c49a0ee26, type: 2}
   zoomButton: {fileID: 186719981}
+--- !u!82 &2054333028
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 8200000, guid: 937c73856042a6c438020934dff19793,
+    type: 2}
+  m_PrefabInternal: {fileID: 1469408884}
+  m_GameObject: {fileID: 2054333025}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 8300000, guid: 5c89285444523834bad4375b102cb6b3, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!114 &2054333029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3437,6 +3511,8 @@ MonoBehaviour:
   skin: {fileID: 11400000, guid: 35a61e38499bdd0469157bc9dbb744b1, type: 2}
   message: Greetings program 6C617374686F7065.  Use the arrow keys to move.  Reach
     the exit to continue.
+  retryText: 
+  hideWhenDone: 1
 --- !u!114 &2054333030
 MonoBehaviour:
   m_ObjectHideFlags: 0

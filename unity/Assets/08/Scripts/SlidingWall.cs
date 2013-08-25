@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class SlidingWall : MonoBehaviour {
+
+    public AudioClip soundSlide;
     public Switch button;
 
     public Vector3 delta;
@@ -21,6 +23,7 @@ public class SlidingWall : MonoBehaviour {
         if(isPressed) {
             slideStarted = Time.time;
             slideStartPos = transform.position;
+            AudioSource.PlayClipAtPoint(soundSlide, transform.position);
         }
     }
     private void HandleSlide() {

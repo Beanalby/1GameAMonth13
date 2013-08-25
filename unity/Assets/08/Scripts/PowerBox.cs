@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PowerBox : MonoBehaviour {
 
+    public AudioClip SoundSlide;
+
     private float moveStart=-1, moveDuration;
     private Vector3 moveStartPos, moveDelta;
     private Interpolate.Function ease = Interpolate.Ease(Interpolate.EaseType.EaseOutCubic);
@@ -63,7 +65,7 @@ public class PowerBox : MonoBehaviour {
             moveStartPos = transform.position;
             movingForward = false;
             // if I'M reversing, then the player will also need to.
-            player.ReverseMovement();
+            player.ReverseMovement(false);
         }
     }
 
@@ -78,6 +80,7 @@ public class PowerBox : MonoBehaviour {
             moveDelta = player.MoveDelta;
             moveDuration = player.MoveDuration;
             movingForward = true;
+            AudioSource.PlayClipAtPoint(SoundSlide, transform.position);
         }
     }
 }

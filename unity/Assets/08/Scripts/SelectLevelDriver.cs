@@ -3,6 +3,8 @@ using System.Collections;
 
 public class SelectLevelDriver : MonoBehaviour {
 
+    public AudioClip soundMove, soundChoose;
+
     public Level current;
 
     [HideInInspector]
@@ -134,6 +136,7 @@ public class SelectLevelDriver : MonoBehaviour {
         }
         current = newLevel;
         current.Selected();
+        AudioSource.PlayClipAtPoint(soundMove, transform.position);
     }
 
     private void ChooseLevel() {
@@ -143,5 +146,6 @@ public class SelectLevelDriver : MonoBehaviour {
         moveTargetPos = GetInsidePoint(current);
         loadWhenMoved = true;
         EnableInput = false;
+        AudioSource.PlayClipAtPoint(soundChoose, transform.position);
     }
 }

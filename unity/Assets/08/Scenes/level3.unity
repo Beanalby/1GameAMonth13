@@ -751,6 +751,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3561deb66f1fe524c8e6a22b04a61e83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundOpen: {fileID: 8300000, guid: f4d6a24e0993b304c9d14438154dba3e, type: 3}
+  soundClose: {fileID: 8300000, guid: b32c1d4fbbeb1104f8da5057f80a5c62, type: 3}
   button: {fileID: 186719981}
   invert: 0
 --- !u!4 &178918411
@@ -1048,6 +1050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 433980665a39ecf428854799bba72093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundSlide: {fileID: 8300000, guid: b32c1d4fbbeb1104f8da5057f80a5c62, type: 3}
   button: {fileID: 1764498256}
   delta: {x: 0, y: 0, z: 1}
 --- !u!1 &219021944
@@ -2646,6 +2649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 433980665a39ecf428854799bba72093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundSlide: {fileID: 8300000, guid: b32c1d4fbbeb1104f8da5057f80a5c62, type: 3}
   button: {fileID: 845003540}
   delta: {x: 1, y: 0, z: 0}
 --- !u!1 &975429714
@@ -4632,6 +4636,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff08beabc998594b8f0ade2bfa2cc50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundMove: {fileID: 8300000, guid: 3f5979350276f3d4191369c90caf415e, type: 3}
+  soundMoveRevert: {fileID: 8300000, guid: 25cc520f4c6431a43bdebba837efbe12, type: 3}
   EnableInput: 1
 --- !u!54 &1486307989
 Rigidbody:
@@ -6957,6 +6963,8 @@ MonoBehaviour:
   skin: {fileID: 11400000, guid: 35a61e38499bdd0469157bc9dbb744b1, type: 2}
   message: Distributed intruder connections detected, login attempts are commencing.  83k
     concurrent conections.
+  retryText: 
+  hideWhenDone: 1
 --- !u!1 &2075605107
 GameObject:
   m_ObjectHideFlags: 0

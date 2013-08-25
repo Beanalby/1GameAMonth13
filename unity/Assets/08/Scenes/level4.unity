@@ -953,6 +953,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3561deb66f1fe524c8e6a22b04a61e83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundOpen: {fileID: 8300000, guid: f4d6a24e0993b304c9d14438154dba3e, type: 3}
+  soundClose: {fileID: 8300000, guid: b32c1d4fbbeb1104f8da5057f80a5c62, type: 3}
   button: {fileID: 186719981}
   invert: 0
 --- !u!4 &178918411
@@ -4293,6 +4295,14 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 381d496e36f901f47bcd2c3f6482f5fa, type: 2}
+      propertyPath: soundMove
+      value: 
+      objectReference: {fileID: 8300000, guid: 3f5979350276f3d4191369c90caf415e, type: 3}
+    - target: {fileID: 11400000, guid: 381d496e36f901f47bcd2c3f6482f5fa, type: 2}
+      propertyPath: soundMoveRevert
+      value: 
+      objectReference: {fileID: 8300000, guid: 25cc520f4c6431a43bdebba837efbe12, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 381d496e36f901f47bcd2c3f6482f5fa, type: 2}
   m_RootGameObject: {fileID: 1486307985}
@@ -5112,6 +5122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3561deb66f1fe524c8e6a22b04a61e83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundOpen: {fileID: 8300000, guid: f4d6a24e0993b304c9d14438154dba3e, type: 3}
+  soundClose: {fileID: 8300000, guid: b32c1d4fbbeb1104f8da5057f80a5c62, type: 3}
   button: {fileID: 1337102254}
   invert: 0
 --- !u!1 &1231553191
@@ -6419,6 +6431,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff08beabc998594b8f0ade2bfa2cc50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundMove: {fileID: 8300000, guid: 3f5979350276f3d4191369c90caf415e, type: 3}
+  soundMoveRevert: {fileID: 8300000, guid: 25cc520f4c6431a43bdebba837efbe12, type: 3}
   EnableInput: 1
 --- !u!54 &1486307989
 Rigidbody:
@@ -8889,6 +8903,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3561deb66f1fe524c8e6a22b04a61e83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundOpen: {fileID: 8300000, guid: f4d6a24e0993b304c9d14438154dba3e, type: 3}
+  soundClose: {fileID: 8300000, guid: b32c1d4fbbeb1104f8da5057f80a5c62, type: 3}
   button: {fileID: 5839325}
   invert: 1
 --- !u!1 &1978233911
@@ -9152,6 +9168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3561deb66f1fe524c8e6a22b04a61e83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundOpen: {fileID: 8300000, guid: f4d6a24e0993b304c9d14438154dba3e, type: 3}
+  soundClose: {fileID: 8300000, guid: b32c1d4fbbeb1104f8da5057f80a5c62, type: 3}
   button: {fileID: 1372940751}
   invert: 0
 --- !u!1 &2037957990
@@ -9294,6 +9312,8 @@ MonoBehaviour:
   skin: {fileID: 11400000, guid: 35a61e38499bdd0469157bc9dbb744b1, type: 2}
   message: Standard account credentials have been acquired.  Logins detected.  Please
     hurry.
+  retryText: 
+  hideWhenDone: 1
 --- !u!1 &2055898093
 GameObject:
   m_ObjectHideFlags: 0

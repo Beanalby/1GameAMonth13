@@ -6,6 +6,9 @@ public class Door : MonoBehaviour {
     static public Vector3 OPEN_LEFT = new Vector3(-.5f, 0, 0),
         OPEN_RIGHT = new Vector3(.5f, 0, 0);
 
+    public AudioClip soundOpen;
+    public AudioClip soundClose;
+
     public Switch button;
 
     public bool invert = false;
@@ -60,6 +63,7 @@ public class Door : MonoBehaviour {
 
     private void CloseDoors() {
         closeStarted = Time.time;
+        AudioSource.PlayClipAtPoint(soundClose, transform.position);
     }
 
     private void HandleMovement() {
@@ -95,5 +99,6 @@ public class Door : MonoBehaviour {
 
     private void OpenDoors() {
         openStarted = Time.time;
+        AudioSource.PlayClipAtPoint(soundOpen, transform.position);
     }
 }

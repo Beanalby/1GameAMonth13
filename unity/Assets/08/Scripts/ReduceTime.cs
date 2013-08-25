@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(AudioSource))]
 public class ReduceTime : MonoBehaviour {
     public GUISkin skin;
 
@@ -73,8 +74,12 @@ public class ReduceTime : MonoBehaviour {
         if(driver.LastLevelTime == 0) {
             return;
         }
+        if(!audio.isPlaying) {
+            audio.Play();
+        }
         driver.DecrementTime(Time.deltaTime * 4);
         if(driver.LastLevelTime <= 0) {
+            audio.Stop();
             StartCoroutine(FadeOut());
         }
     }

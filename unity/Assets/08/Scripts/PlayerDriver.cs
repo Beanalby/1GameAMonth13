@@ -3,6 +3,9 @@ using System.Collections;
 
 public class PlayerDriver : MonoBehaviour {
 
+    public AudioClip soundMove;
+    public AudioClip soundMoveRevert;
+
     [HideInInspector]
     public bool EnableInput = true;
 
@@ -47,6 +50,7 @@ public class PlayerDriver : MonoBehaviour {
             moveStart = Time.time;
             movingForward = true;
             moveFrom = transform.position;
+            AudioSource.PlayClipAtPoint(soundMove, transform.position);
         }
     }
 
@@ -64,13 +68,17 @@ public class PlayerDriver : MonoBehaviour {
                 percent, 1));
         }
     }
-    public void ReverseMovement() {
+    public void ReverseMovement(bool playSound) {
         if(moveStart != -1 && movingForward) {
             // undo the movement
             moveStart = Time.time;
             moveDelta = moveFrom - transform.position;
             moveFrom = transform.position;
             movingForward = false;
+            if(playSound) {
+                AudioSource.PlayClipAtPoint(soundMoveRevert,
+                    transform.position);
+            }
         }
     }
     private void OnCollisionEnter(Collision col) {
@@ -80,7 +88,10 @@ public class PlayerDriver : MonoBehaviour {
             if(box.MoveStart == -1) {
                 return;
             }
+            // don't play a sound for boxes, they make their own
+            ReverseMovement(false);
+        } else {
+            ReverseMovement(true);
         }
-        ReverseMovement();
     }
 }
