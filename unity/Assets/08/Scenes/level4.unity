@@ -6162,7 +6162,8 @@ Prefab:
       objectReference: {fileID: 186719981}
     - target: {fileID: 11400002, guid: 937c73856042a6c438020934dff19793, type: 2}
       propertyPath: message
-      value: Login credentials acquired.  Logins detected.  Please hurry.
+      value: Standard account credentials have been acquired.  Logins detected.  Please
+        hurry.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 937c73856042a6c438020934dff19793, type: 2}
@@ -6835,6 +6836,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 581f447173969f94aa5ec65f267bf364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpecialExit: 
 --- !u!65 &1585488339
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6846,7 +6848,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .899999976, y: .899999976, z: .899999976}
+  m_Size: {x: .5, y: .5, z: .5}
   m_Center: {x: 0, y: 0, z: .5}
 --- !u!114 &1585488340
 MonoBehaviour:
@@ -9290,7 +9292,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skin: {fileID: 11400000, guid: 35a61e38499bdd0469157bc9dbb744b1, type: 2}
-  message: Login credentials acquired.  Logins detected.  Please hurry.
+  message: Standard account credentials have been acquired.  Logins detected.  Please
+    hurry.
 --- !u!1 &2055898093
 GameObject:
   m_ObjectHideFlags: 0

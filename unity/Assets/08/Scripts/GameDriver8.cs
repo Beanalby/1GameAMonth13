@@ -46,10 +46,6 @@ public class GameDriver8 : MonoBehaviour {
         finishedLevels = new List<string>();
         pickups = new List<string>();
         specialExits = new List<string>();
-
-        lastLevelTime = 8.632f;
-        finishedLevels.Add("level1");
-        finishedLevels.Add("level2");
     }
 
     public void AddPickup(string name) {
