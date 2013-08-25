@@ -50,7 +50,7 @@ public class Level : MonoBehaviour {
         if(isSelected && ShowLabel) {
             Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
             pos.y = Screen.height - pos.y;
-            GUI.Box(new Rect(pos.x - 200, pos.y + 50, 400, 40),
+            GUI.Box(new Rect(pos.x - 200, pos.y + 50, 400, 50),
                 (label!="" ? label : (":" + scene)) );
         }
     }

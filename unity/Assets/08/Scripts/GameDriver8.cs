@@ -85,6 +85,7 @@ public class GameDriver8 : MonoBehaviour {
         Application.LoadLevel(level.scene);
     }
     public bool IsLinkActive(Level level1, Level level2) {
+        return true;
         if(level1.needSpecialExit && !specialExits.Contains(level1.scene)) {
             return false;
         }

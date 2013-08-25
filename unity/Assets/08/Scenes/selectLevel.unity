@@ -215,6 +215,10 @@ Prefab:
       propertyPath: levelRight
       value: 
       objectReference: {fileID: 2138047866}
+    - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: label
+      value: Refactor
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
   m_RootGameObject: {fileID: 1112202622}
@@ -274,6 +278,10 @@ Prefab:
     - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
       propertyPath: scene
       value: level3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: label
+      value: Inspect
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
@@ -588,6 +596,10 @@ Prefab:
     - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
       propertyPath: scene
       value: level1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: label
+      value: Bootstrap
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
@@ -935,7 +947,7 @@ MonoBehaviour:
   skin: {fileID: 11400000, guid: 21d3d5c5767a6a244936615c49a0ee26, type: 2}
   linkPrefab: {fileID: 11400000, guid: 4e903ad706c3b9041a1522310c07ace2, type: 2}
   needSpecialExit: 1
-  label: 
+  label: Clandestine
   scene: level3bonus
   levelTop: {fileID: 0}
   levelRight: {fileID: 0}
@@ -1083,6 +1095,10 @@ Prefab:
       propertyPath: levelRight
       value: 
       objectReference: {fileID: 1279808852}
+    - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: label
+      value: Encapsulation
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
   m_RootGameObject: {fileID: 2138047865}
@@ -1143,6 +1159,14 @@ Prefab:
       propertyPath: levelRight
       value: 
       objectReference: {fileID: 1112202623}
+    - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: needSpecialExit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: label
+      value: Spark
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
   m_RootGameObject: {fileID: 1385283014}
@@ -1203,6 +1227,10 @@ Prefab:
       propertyPath: scene
       value: level2
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: label
+      value: Toggle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
   m_RootGameObject: {fileID: 1003615747}
@@ -1251,7 +1279,7 @@ MonoBehaviour:
   skin: {fileID: 11400000, guid: 21d3d5c5767a6a244936615c49a0ee26, type: 2}
   linkPrefab: {fileID: 11400000, guid: 4e903ad706c3b9041a1522310c07ace2, type: 2}
   needSpecialExit: 0
-  label: 
+  label: Bootstrap
   scene: level1
   levelTop: {fileID: 0}
   levelRight: {fileID: 1003615749}
@@ -1370,6 +1398,10 @@ Prefab:
     - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
       propertyPath: needSpecialExit
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: label
+      value: Backdoor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
@@ -1513,6 +1545,10 @@ Prefab:
       propertyPath: scene
       value: levelFinished
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: label
+      value: Finalzer
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
   m_RootGameObject: {fileID: 1279808850}
@@ -1561,7 +1597,7 @@ MonoBehaviour:
   skin: {fileID: 11400000, guid: 21d3d5c5767a6a244936615c49a0ee26, type: 2}
   linkPrefab: {fileID: 11400000, guid: 4e903ad706c3b9041a1522310c07ace2, type: 2}
   needSpecialExit: 0
-  label: 
+  label: Toggle
   scene: level2
   levelTop: {fileID: 0}
   levelRight: {fileID: 1280371721}
@@ -1599,7 +1635,7 @@ MonoBehaviour:
   skin: {fileID: 11400000, guid: 21d3d5c5767a6a244936615c49a0ee26, type: 2}
   linkPrefab: {fileID: 11400000, guid: 4e903ad706c3b9041a1522310c07ace2, type: 2}
   needSpecialExit: 0
-  label: 
+  label: Refactor
   scene: level6
   levelTop: {fileID: 1141703621}
   levelRight: {fileID: 2138047866}
@@ -1649,7 +1685,7 @@ MonoBehaviour:
   skin: {fileID: 11400000, guid: 21d3d5c5767a6a244936615c49a0ee26, type: 2}
   linkPrefab: {fileID: 11400000, guid: 4e903ad706c3b9041a1522310c07ace2, type: 2}
   needSpecialExit: 1
-  label: 
+  label: Backdoor
   scene: level6bonus
   levelTop: {fileID: 0}
   levelRight: {fileID: 0}
@@ -1797,7 +1833,7 @@ MonoBehaviour:
   skin: {fileID: 11400000, guid: 21d3d5c5767a6a244936615c49a0ee26, type: 2}
   linkPrefab: {fileID: 11400000, guid: 4e903ad706c3b9041a1522310c07ace2, type: 2}
   needSpecialExit: 0
-  label: 
+  label: Finalzer
   scene: levelFinished
   levelTop: {fileID: 0}
   levelRight: {fileID: 0}
@@ -1835,7 +1871,7 @@ MonoBehaviour:
   skin: {fileID: 11400000, guid: 21d3d5c5767a6a244936615c49a0ee26, type: 2}
   linkPrefab: {fileID: 11400000, guid: 4e903ad706c3b9041a1522310c07ace2, type: 2}
   needSpecialExit: 0
-  label: 
+  label: Inspect
   scene: level3
   levelTop: {fileID: 610129370}
   levelRight: {fileID: 1577927998}
@@ -1885,7 +1921,7 @@ MonoBehaviour:
   skin: {fileID: 11400000, guid: 21d3d5c5767a6a244936615c49a0ee26, type: 2}
   linkPrefab: {fileID: 11400000, guid: 4e903ad706c3b9041a1522310c07ace2, type: 2}
   needSpecialExit: 0
-  label: 
+  label: Spark
   scene: level5
   levelTop: {fileID: 0}
   levelRight: {fileID: 1112202623}
@@ -1959,6 +1995,10 @@ Prefab:
       propertyPath: levelRight
       value: 
       objectReference: {fileID: 1385283015}
+    - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: label
+      value: Repercussion
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
   m_RootGameObject: {fileID: 1577927997}
@@ -1995,7 +2035,7 @@ MonoBehaviour:
   skin: {fileID: 11400000, guid: 21d3d5c5767a6a244936615c49a0ee26, type: 2}
   linkPrefab: {fileID: 11400000, guid: 4e903ad706c3b9041a1522310c07ace2, type: 2}
   needSpecialExit: 0
-  label: 
+  label: Repercussion
   scene: level4
   levelTop: {fileID: 0}
   levelRight: {fileID: 1385283015}
@@ -2064,6 +2104,10 @@ Prefab:
     - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
       propertyPath: needSpecialExit
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: label
+      value: Clandestine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
@@ -2184,7 +2228,7 @@ MonoBehaviour:
   skin: {fileID: 11400000, guid: 21d3d5c5767a6a244936615c49a0ee26, type: 2}
   linkPrefab: {fileID: 11400000, guid: 4e903ad706c3b9041a1522310c07ace2, type: 2}
   needSpecialExit: 0
-  label: 
+  label: Encapsulation
   scene: level7
   levelTop: {fileID: 0}
   levelRight: {fileID: 1279808852}

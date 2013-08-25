@@ -16,6 +16,8 @@ public class PlayerDriver : MonoBehaviour {
     private Vector3 moveFrom, moveDelta;
     private Interpolate.Function ease = Interpolate.Ease(Interpolate.EaseType.EaseOutCubic);
 
+    Transform mesh;
+
     public Vector3 MoveDelta {
         get { return moveDelta; }
     }
@@ -23,6 +25,9 @@ public class PlayerDriver : MonoBehaviour {
         get { return moveDuration; }
     }
 
+    public void Start() {
+        mesh = transform.Find("PlayerMesh");
+    }
     public void Update() {
         HandleMovementInput();
     }
@@ -50,6 +55,7 @@ public class PlayerDriver : MonoBehaviour {
             moveStart = Time.time;
             movingForward = true;
             moveFrom = transform.position;
+            mesh.rotation = Quaternion.LookRotation(moveDelta);
             AudioSource.PlayClipAtPoint(soundMove, transform.position);
         }
     }
