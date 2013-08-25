@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class SlidingWall : MonoBehaviour {
-    public Button button;
+    public Switch button;
 
     public Vector3 delta;
     private float slideStarted = -1;
@@ -11,15 +11,17 @@ public class SlidingWall : MonoBehaviour {
     Interpolate.Function ease = Interpolate.Ease(Interpolate.EaseType.EaseInOutCubic);
 
     public void Start() {
-        button.buttonListeners += ButtonPressed;
+        button.switchListeners += ButtonPressed;
     }
     public void Update() {
         HandleSlide();
     }
 
     private void ButtonPressed(bool isPressed) {
-        slideStarted = Time.time;
-        slideStartPos = transform.position;
+        if(isPressed) {
+            slideStarted = Time.time;
+            slideStartPos = transform.position;
+        }
     }
     private void HandleSlide() {
         if(slideStarted == -1) {

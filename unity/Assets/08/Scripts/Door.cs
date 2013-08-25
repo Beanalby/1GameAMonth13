@@ -6,7 +6,9 @@ public class Door : MonoBehaviour {
     static public Vector3 OPEN_LEFT = new Vector3(-.5f, 0, 0),
         OPEN_RIGHT = new Vector3(.5f, 0, 0);
 
-    public Button button;
+    public Switch button;
+
+    public bool invert = false;
 
     private float openStarted = -1;
     private float closeStarted = -1f;
@@ -20,7 +22,7 @@ public class Door : MonoBehaviour {
         foreach(MeshRenderer rend in GetComponentsInChildren<MeshRenderer>()) {
             rend.material.color = button.color;
         }
-        button.buttonListeners += ButtonPressed;
+        button.switchListeners += ButtonPressed;
         doorLeft = transform.Find("doorLeft");
         doorRight = transform.Find("doorRight");
         if(doorLeft.localPosition == Vector3.zero && doorRight.localPosition == Vector3.zero) {
@@ -46,9 +48,12 @@ public class Door : MonoBehaviour {
     }
 
     private void ButtonPressed(bool isPressed) {
-        if(isClosed) {
+        if(invert) {
+            isPressed = !isPressed;
+        }
+        if(isPressed && isClosed) {
             OpenDoors();
-        } else {
+        } else if(!isPressed && !isClosed) {
             CloseDoors();
         }
     }

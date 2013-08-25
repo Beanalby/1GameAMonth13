@@ -112,7 +112,7 @@ Prefab:
     - target: {fileID: 11400000, guid: 3b94d2277f5a3ae48a2ff693250baeb4, type: 2}
       propertyPath: button
       value: 
-      objectReference: {fileID: 191600821}
+      objectReference: {fileID: 191600822}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3b94d2277f5a3ae48a2ff693250baeb4, type: 2}
   m_RootGameObject: {fileID: 2146872757}
@@ -436,7 +436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3561deb66f1fe524c8e6a22b04a61e83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 186719980}
+  button: {fileID: 186719981}
 --- !u!4 &178918411
 Transform:
   m_ObjectHideFlags: 0
@@ -650,6 +650,7 @@ GameObject:
   - 114: {fileID: 186719980}
   - 65: {fileID: 186719979}
   - 114: {fileID: 186719978}
+  - 114: {fileID: 186719981}
   m_Layer: 0
   m_Name: buttonZoom
   m_TagString: Untagged
@@ -713,6 +714,19 @@ MonoBehaviour:
   color: {r: 1, g: 0, b: 0, a: 1}
   unpressedMat: {fileID: 2100000, guid: 45c520be6ba89e64881e32fb20488f99, type: 2}
   pressedMat: {fileID: 2100000, guid: 912977ef2744db24784704f7ca7cb1d6, type: 2}
+--- !u!114 &186719981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 9abdc75d4a6c4f44c876a66a57f50211,
+    type: 2}
+  m_PrefabInternal: {fileID: 1221595741}
+  m_GameObject: {fileID: 186719976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8715743ec4f1af14da5629b2f39ddf74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &191600817
 GameObject:
   m_ObjectHideFlags: 0
@@ -724,8 +738,9 @@ GameObject:
   - 114: {fileID: 191600821}
   - 65: {fileID: 191600820}
   - 114: {fileID: 191600819}
+  - 114: {fileID: 191600822}
   m_Layer: 0
-  m_Name: button
+  m_Name: button2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -787,6 +802,19 @@ MonoBehaviour:
   color: {r: 1, g: 0, b: 1, a: 1}
   unpressedMat: {fileID: 2100000, guid: 45c520be6ba89e64881e32fb20488f99, type: 2}
   pressedMat: {fileID: 2100000, guid: 912977ef2744db24784704f7ca7cb1d6, type: 2}
+--- !u!114 &191600822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 8a85b99439aed3a4d98b144da69c7df1,
+    type: 2}
+  m_PrefabInternal: {fileID: 691124757}
+  m_GameObject: {fileID: 191600817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8715743ec4f1af14da5629b2f39ddf74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &197024819
 Prefab:
   m_ObjectHideFlags: 0
@@ -829,6 +857,10 @@ Prefab:
     - target: {fileID: 11400000, guid: 8a85b99439aed3a4d98b144da69c7df1, type: 2}
       propertyPath: color.g
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 8a85b99439aed3a4d98b144da69c7df1, type: 2}
+      propertyPath: m_Name
+      value: button1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8a85b99439aed3a4d98b144da69c7df1, type: 2}
@@ -1846,6 +1878,10 @@ Prefab:
       propertyPath: color.g
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 8a85b99439aed3a4d98b144da69c7df1, type: 2}
+      propertyPath: m_Name
+      value: button2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8a85b99439aed3a4d98b144da69c7df1, type: 2}
   m_RootGameObject: {fileID: 191600817}
@@ -2704,7 +2740,7 @@ Prefab:
     - target: {fileID: 11400000, guid: 3b94d2277f5a3ae48a2ff693250baeb4, type: 2}
       propertyPath: button
       value: 
-      objectReference: {fileID: 1379293117}
+      objectReference: {fileID: 1379293118}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3b94d2277f5a3ae48a2ff693250baeb4, type: 2}
   m_RootGameObject: {fileID: 1756574425}
@@ -2788,7 +2824,7 @@ Prefab:
     - target: {fileID: 11400000, guid: 3b94d2277f5a3ae48a2ff693250baeb4, type: 2}
       propertyPath: button
       value: 
-      objectReference: {fileID: 186719980}
+      objectReference: {fileID: 186719981}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3b94d2277f5a3ae48a2ff693250baeb4, type: 2}
   m_RootGameObject: {fileID: 178918409}
@@ -3652,8 +3688,9 @@ GameObject:
   - 114: {fileID: 1379293117}
   - 65: {fileID: 1379293116}
   - 114: {fileID: 1379293115}
+  - 114: {fileID: 1379293118}
   m_Layer: 0
-  m_Name: button
+  m_Name: button1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3715,6 +3752,19 @@ MonoBehaviour:
   color: {r: 0, g: 0, b: 1, a: 1}
   unpressedMat: {fileID: 2100000, guid: 45c520be6ba89e64881e32fb20488f99, type: 2}
   pressedMat: {fileID: 2100000, guid: 912977ef2744db24784704f7ca7cb1d6, type: 2}
+--- !u!114 &1379293118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 8a85b99439aed3a4d98b144da69c7df1,
+    type: 2}
+  m_PrefabInternal: {fileID: 197024819}
+  m_GameObject: {fileID: 1379293113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8715743ec4f1af14da5629b2f39ddf74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1399228113
 GameObject:
   m_ObjectHideFlags: 0
@@ -3819,7 +3869,7 @@ Prefab:
     - target: {fileID: 11400000, guid: 937c73856042a6c438020934dff19793, type: 2}
       propertyPath: zoomButton
       value: 
-      objectReference: {fileID: 186719980}
+      objectReference: {fileID: 186719981}
     - target: {fileID: 11400002, guid: 937c73856042a6c438020934dff19793, type: 2}
       propertyPath: message
       value: Defense tool detected.  This would greatly aid resisting the intrusion.
@@ -4918,7 +4968,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3561deb66f1fe524c8e6a22b04a61e83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 1379293117}
+  button: {fileID: 1379293118}
 --- !u!1 &1770535875
 GameObject:
   m_ObjectHideFlags: 0
@@ -6032,21 +6082,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skin: {fileID: 11400000, guid: 21d3d5c5767a6a244936615c49a0ee26, type: 2}
-  zoomButton: {fileID: 186719980}
+  zoomButton: {fileID: 186719981}
 --- !u!114 &2054333028
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400004, guid: 937c73856042a6c438020934dff19793,
+  m_PrefabParentObject: {fileID: 11400006, guid: 937c73856042a6c438020934dff19793,
     type: 2}
   m_PrefabInternal: {fileID: 1436638024}
   m_GameObject: {fileID: 2054333025}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6105d1ca81db9ee4592fa4fa1c5de65b, type: 3}
+  m_Script: {fileID: 11500000, guid: 38093bc1620af5d4c802837402f20fed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Color: {r: 1, g: 0, b: 0, a: 0}
-  pulseRate: 2
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &2054333029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6295,4 +6344,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3561deb66f1fe524c8e6a22b04a61e83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 191600821}
+  button: {fileID: 191600822}

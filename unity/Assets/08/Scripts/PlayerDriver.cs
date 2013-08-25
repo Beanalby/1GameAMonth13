@@ -13,6 +13,13 @@ public class PlayerDriver : MonoBehaviour {
     private Vector3 moveFrom, moveDelta;
     private Interpolate.Function ease = Interpolate.Ease(Interpolate.EaseType.EaseOutCubic);
 
+    public Vector3 MoveDelta {
+        get { return moveDelta; }
+    }
+    public float MoveDuration {
+        get { return moveDuration; }
+    }
+
     public void Update() {
         HandleMovementInput();
     }
@@ -57,10 +64,7 @@ public class PlayerDriver : MonoBehaviour {
                 percent, 1));
         }
     }
-    private void OnCollisionEnter(Collision col) {
-        if(col.collider.name == "Ground") {
-            return;
-        }
+    public void ReverseMovement() {
         if(moveStart != -1 && movingForward) {
             // undo the movement
             moveStart = Time.time;
@@ -68,5 +72,15 @@ public class PlayerDriver : MonoBehaviour {
             moveFrom = transform.position;
             movingForward = false;
         }
+    }
+    private void OnCollisionEnter(Collision col) {
+        PowerBox box = col.collider.GetComponent<PowerBox>();
+        if(box != null) {
+            // don't reverse if it isn't moving, just push it
+            if(box.MoveStart == -1) {
+                return;
+            }
+        }
+        ReverseMovement();
     }
 }

@@ -1,14 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public delegate void ButtonPressHandler(bool isPressed);
-
 public class Button : MonoBehaviour {
 
     public Color color;
     public Material unpressedMat, pressedMat;
-
-    public event ButtonPressHandler buttonListeners;
 
     private bool isPressed = false;
     private Interpolate.Function
@@ -33,9 +29,12 @@ public class Button : MonoBehaviour {
         }
     }
 
-    public void Start() {
+    public void Awake() {
         pulse = GetComponent<Pulse>();
         pulse.SetColor(color);
+        GetComponent<Switch>().SetColor(color);
+    }
+    public void Start() {
         buttonRenderer = GetComponentInChildren<MeshRenderer>();
         // duplicate the materials so our mods don't affect other buttons
         unpressedMat = new Material(unpressedMat);
@@ -121,9 +120,7 @@ public class Button : MonoBehaviour {
                 buttonResetStart = Time.time;
             }
         }
-        if(!silent && buttonListeners != null) {
-            buttonListeners(isPressed);
-        }
+        SendMessage("SetSwitch", isPressed);
     }
 
     public void OnTriggerEnter(Collider other) {

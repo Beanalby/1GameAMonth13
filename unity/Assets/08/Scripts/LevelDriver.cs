@@ -9,7 +9,7 @@ public class LevelDriver : MonoBehaviour {
     static public Vector3 CAMERA_OFFSET_FAR = new Vector3(0, 5.25f, -2.25f);
 
     public GUISkin skin;
-    public Button zoomButton;
+    public Switch zoomButton;
 
     private float timeStart=-1f, timeLevel=-1f;
     private GUIStyle completeStyle, timeStyle;
@@ -43,7 +43,7 @@ public class LevelDriver : MonoBehaviour {
         roomLights = GameObject.Find("RoomLights");
         cam = Camera.main;
         cam.transform.position = CAMERA_OFFSET_FAR;
-        zoomButton.buttonListeners += ButtonPressed;
+        zoomButton.switchListeners += ButtonPressed;
 
         timeStyle = new GUIStyle(skin.box);
         timeStyle.normal.textColor = Color.red;
