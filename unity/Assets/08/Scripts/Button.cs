@@ -10,20 +10,17 @@ public class Button : MonoBehaviour {
 
     public event ButtonPressHandler buttonListeners;
 
-    private float lightMax = 1, lightMin = .5f;
-    private Color dim;
     private bool isPressed = false;
-    private float pulseRate = 2;
     private Interpolate.Function
         easeDown = Interpolate.Ease(Interpolate.EaseType.EaseOutCubic),
         easeUp = Interpolate.Ease(Interpolate.EaseType.Linear);
-    private Light buttonLight;
     private MeshRenderer buttonRenderer;
 
     private float buttonPressStart = -1;
     private float buttonPressDuration = .25f;
     private float buttonResetStart = -1f;
     private Vector3 buttonPosOn, buttonPosOff, buttonPosBottom;
+    private Pulse pulse;
     private Transform button;
 
     public bool IsPressed {
@@ -37,11 +34,8 @@ public class Button : MonoBehaviour {
     }
 
     public void Start() {
-        dim = color;
-        dim /= 1.5f;
-        dim.a = 1;
-        buttonLight = GetComponentInChildren<Light>();
-        buttonLight.color = color;
+        pulse = GetComponent<Pulse>();
+        pulse.SetColor(color);
         buttonRenderer = GetComponentInChildren<MeshRenderer>();
         // duplicate the materials so our mods don't affect other buttons
         unpressedMat = new Material(unpressedMat);
@@ -58,7 +52,6 @@ public class Button : MonoBehaviour {
     }
     public void Update() {
         HandleDebug();
-        PulseButton();
         HandlePressingButton();
         HandleResettingButton();
     }
@@ -107,19 +100,6 @@ public class Button : MonoBehaviour {
     public void PressButton() {
         IsPressed = true;
     }
-    private void PulseButton() {
-        if(IsPressed) {
-            return;
-        }
-        float percent = Time.time / pulseRate % 1;
-        if(percent < .5f) {
-            buttonLight.intensity = Mathf.Lerp(lightMax, lightMin, percent / .5f);
-            buttonRenderer.sharedMaterial.color = Color.Lerp(color, dim, percent / .5f);
-        } else {
-            buttonLight.intensity = Mathf.Lerp(lightMin, lightMax, (percent-.5f) / .5f);
-            buttonRenderer.sharedMaterial.color = Color.Lerp(dim, color, (percent-.5f) / .5f);
-        }
-    }
     public void ResetButton() {
         IsPressed = false;
     }
@@ -129,14 +109,14 @@ public class Button : MonoBehaviour {
 
     private void UpdateButton(bool silent=false) {
         if(isPressed) {
-            buttonLight.enabled = false;
+            pulse.enabled = false;
             buttonRenderer.material = pressedMat;
             if(!silent) {
                 buttonPressStart = Time.time;
             }
         } else {
-            buttonLight.enabled = true;
             buttonRenderer.material = unpressedMat;
+            pulse.enabled = true;
             if(!silent) {
                 buttonResetStart = Time.time;
             }
