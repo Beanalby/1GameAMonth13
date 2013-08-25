@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class GameDriver8 : MonoBehaviour {
-    private static string FIRST_LEVEL = "levelTest1";
+    private static string FIRST_LEVEL = "level1";
 
     private float totalTime = 10f;
     public float TotalTime {
@@ -25,7 +25,7 @@ public class GameDriver8 : MonoBehaviour {
             return _instance;
         }
     }
-    private List<string> finishedLevels;
+    private List<string> finishedLevels, specialExits;
     private List<string> pickups;
 
     public string displayPickup = null;
@@ -45,9 +45,11 @@ public class GameDriver8 : MonoBehaviour {
     public GameDriver8() {
         finishedLevels = new List<string>();
         pickups = new List<string>();
+        specialExits = new List<string>();
+
         lastLevelTime = 8.632f;
-        //finishedLevels.Add("levelTest1");
-        //finishedLevels.Add("levelTest2");
+        finishedLevels.Add("level1");
+        finishedLevels.Add("level2");
     }
 
     public void AddPickup(string name) {
@@ -59,9 +61,13 @@ public class GameDriver8 : MonoBehaviour {
         lastLevelTime -= amount;
         totalTime -= amount / 10;
     }
-    public void LevelFinished(float duration) {
+    public void LevelFinished(float duration, string specialExit) {
         finishedLevels.Add(Application.loadedLevelName);
+        if(specialExit != null && specialExit != "") {
+            specialExits.Add(specialExit);
+        }
         lastLevelTime = duration;
+        displayPickup = null;
         Application.LoadLevel("reduceTime");
     }
 
@@ -70,6 +76,12 @@ public class GameDriver8 : MonoBehaviour {
         Application.LoadLevel(level.scene);
     }
     public bool IsLinkActive(Level level1, Level level2) {
+        if(level1.needSpecialExit && !specialExits.Contains(level1.scene)) {
+            return false;
+        }
+        if(level2.needSpecialExit && !specialExits.Contains(level2.scene)) {
+            return false;
+        }
         return IsLevelFinished(level1) || IsLevelFinished(level2);
     }
     public bool IsLevelFinished(Level level) {

@@ -34,6 +34,8 @@ public class LevelDriver : MonoBehaviour {
     private List<Light> playerGroundLights;
     private bool isExiting = false;
     private GameDriver8 driver;
+    private string specialExit;
+
     Camera cam;
 
     public void Start() {
@@ -57,6 +59,7 @@ public class LevelDriver : MonoBehaviour {
     public void Update() {
         HandleFade();
         HandleMovement();
+        HandleRestart();
         HandleZoom();
     }
 
@@ -92,7 +95,7 @@ public class LevelDriver : MonoBehaviour {
         }
         GUI.Box(r, msg, completeStyle);
     }
-    public void ExitActivated() {
+    public void ExitActivated(string specialExitParam) {
         moveStart = Time.time;
         moveStartPos = cam.transform.position;
         moveDelta = CAMERA_OFFSET_START;
@@ -100,6 +103,7 @@ public class LevelDriver : MonoBehaviour {
         player.EnableInput = false;
         timeLevel = Time.time - timeStart;
         isExiting = true;
+        specialExit = specialExitParam;
         StartCoroutine(FadeText());
     }
 
@@ -117,11 +121,19 @@ public class LevelDriver : MonoBehaviour {
             cam.transform.position = moveStartPos + moveDelta;
             moveStart = -1;
             if(isExiting) {
-                driver.LevelFinished(timeLevel);
+                driver.LevelFinished(timeLevel, specialExit);
             }
         } else {
             cam.transform.position = Interpolate.Ease(moveEase,
                 moveStartPos, moveDelta, percent, 1);
+        }
+    }
+
+    private void HandleRestart() {
+        if(moveStart == -1 && zoomStart == -1
+            && Input.GetKeyDown(KeyCode.R)) {
+
+            Application.LoadLevel(Application.loadedLevel);
         }
     }
 

@@ -115,19 +115,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
       propertyPath: m_Name
-      value: levelTest3
+      value: level3
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
       propertyPath: levelTop
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 610129370}
     - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
       propertyPath: levelRight
       value: 
       objectReference: {fileID: 1577927998}
     - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
       propertyPath: scene
-      value: levelTest3
+      value: level3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
@@ -347,7 +347,7 @@ Prefab:
       objectReference: {fileID: 1003615749}
     - target: {fileID: 100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
       propertyPath: m_Name
-      value: levelTest1
+      value: level1
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
       propertyPath: level
@@ -355,7 +355,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
       propertyPath: scene
-      value: levelTest1
+      value: level1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
@@ -488,6 +488,92 @@ Prefab:
   m_RootGameObject: {fileID: 1854924812}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &448043705
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+  m_PrefabInternal: {fileID: 654366024}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 448043710}
+  - 33: {fileID: 448043709}
+  - 65: {fileID: 448043708}
+  - 23: {fileID: 448043707}
+  - 54: {fileID: 448043706}
+  m_Layer: 0
+  m_Name: levelMesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!54 &448043706
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: c3e3d061bb57685468ab2a0b65211f9f,
+    type: 2}
+  m_PrefabInternal: {fileID: 654366024}
+  m_GameObject: {fileID: 448043705}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!23 &448043707
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 2300000, guid: c3e3d061bb57685468ab2a0b65211f9f,
+    type: 2}
+  m_PrefabInternal: {fileID: 654366024}
+  m_GameObject: {fileID: 448043705}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 2100000, guid: 6a43475dd875ab24ea3e6b9a4c204481, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+--- !u!65 &448043708
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6500000, guid: c3e3d061bb57685468ab2a0b65211f9f,
+    type: 2}
+  m_PrefabInternal: {fileID: 654366024}
+  m_GameObject: {fileID: 448043705}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &448043709
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 3300000, guid: c3e3d061bb57685468ab2a0b65211f9f,
+    type: 2}
+  m_PrefabInternal: {fileID: 654366024}
+  m_GameObject: {fileID: 448043705}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &448043710
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+  m_PrefabInternal: {fileID: 654366024}
+  m_GameObject: {fileID: 448043705}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1385283016}
 --- !u!1 &610129368
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,7 +584,7 @@ GameObject:
   - 4: {fileID: 610129369}
   - 114: {fileID: 610129370}
   m_Layer: 0
-  m_Name: levelTest2bonus
+  m_Name: level3bonus
   m_TagString: Untagged
   m_Icon: {fileID: -2065832391, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -511,7 +597,7 @@ Transform:
   m_PrefabInternal: {fileID: 1777070176}
   m_GameObject: {fileID: 610129368}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 0, z: 3}
+  m_LocalPosition: {x: 6, y: 0, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 405184119}
@@ -530,8 +616,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skin: {fileID: 11400000, guid: 21d3d5c5767a6a244936615c49a0ee26, type: 2}
   linkPrefab: {fileID: 11400000, guid: 4e903ad706c3b9041a1522310c07ace2, type: 2}
+  needSpecialExit: 1
   label: 
-  scene: levelTest2bonus
+  scene: level3bonus
   levelTop: {fileID: 0}
   levelRight: {fileID: 0}
   levelBottom: {fileID: 0}
@@ -623,6 +710,62 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1510023559}
   m_GameObject: {fileID: 624469371}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &654366024
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: level
+      value: test4
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: m_Name
+      value: level5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: levelTop
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: scene
+      value: level5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+  m_RootGameObject: {fileID: 1385283014}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1001 &882873550
 Prefab:
   m_ObjectHideFlags: 0
@@ -664,19 +807,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
       propertyPath: m_Name
-      value: levelTest2
+      value: level2
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
       propertyPath: levelTop
       value: 
-      objectReference: {fileID: 610129370}
+      objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
       propertyPath: levelRight
       value: 
       objectReference: {fileID: 1280371721}
     - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
       propertyPath: scene
-      value: levelTest2
+      value: level2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
@@ -693,7 +836,7 @@ GameObject:
   - 4: {fileID: 932965647}
   - 114: {fileID: 932965648}
   m_Layer: 0
-  m_Name: levelTest1
+  m_Name: level1
   m_TagString: Untagged
   m_Icon: {fileID: -2065832391, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -725,8 +868,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skin: {fileID: 11400000, guid: 21d3d5c5767a6a244936615c49a0ee26, type: 2}
   linkPrefab: {fileID: 11400000, guid: 4e903ad706c3b9041a1522310c07ace2, type: 2}
+  needSpecialExit: 0
   label: 
-  scene: levelTest1
+  scene: level1
   levelTop: {fileID: 0}
   levelRight: {fileID: 1003615749}
   levelBottom: {fileID: 0}
@@ -804,7 +948,7 @@ GameObject:
   - 4: {fileID: 1003615748}
   - 114: {fileID: 1003615749}
   m_Layer: 0
-  m_Name: levelTest2
+  m_Name: level2
   m_TagString: Untagged
   m_Icon: {fileID: -2065832391, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -836,9 +980,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skin: {fileID: 11400000, guid: 21d3d5c5767a6a244936615c49a0ee26, type: 2}
   linkPrefab: {fileID: 11400000, guid: 4e903ad706c3b9041a1522310c07ace2, type: 2}
+  needSpecialExit: 0
   label: 
-  scene: levelTest2
-  levelTop: {fileID: 610129370}
+  scene: level2
+  levelTop: {fileID: 0}
   levelRight: {fileID: 1280371721}
   levelBottom: {fileID: 0}
   levelLeft: {fileID: 0}
@@ -939,7 +1084,7 @@ GameObject:
   - 4: {fileID: 1280371722}
   - 114: {fileID: 1280371721}
   m_Layer: 0
-  m_Name: levelTest3
+  m_Name: level3
   m_TagString: Untagged
   m_Icon: {fileID: -2065832391, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -959,9 +1104,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skin: {fileID: 11400000, guid: 21d3d5c5767a6a244936615c49a0ee26, type: 2}
   linkPrefab: {fileID: 11400000, guid: 4e903ad706c3b9041a1522310c07ace2, type: 2}
+  needSpecialExit: 0
   label: 
-  scene: levelTest3
-  levelTop: {fileID: 0}
+  scene: level3
+  levelTop: {fileID: 610129370}
   levelRight: {fileID: 1577927998}
   levelBottom: {fileID: 0}
   levelLeft: {fileID: 0}
@@ -977,6 +1123,56 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 184637098}
+  m_Father: {fileID: 0}
+--- !u!1 &1385283014
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+  m_PrefabInternal: {fileID: 654366024}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1385283016}
+  - 114: {fileID: 1385283015}
+  m_Layer: 0
+  m_Name: level5
+  m_TagString: Untagged
+  m_Icon: {fileID: -2065832391, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1385283015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f,
+    type: 2}
+  m_PrefabInternal: {fileID: 654366024}
+  m_GameObject: {fileID: 1385283014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f22f801c679e44a906ed84cae19db8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skin: {fileID: 11400000, guid: 21d3d5c5767a6a244936615c49a0ee26, type: 2}
+  linkPrefab: {fileID: 11400000, guid: 4e903ad706c3b9041a1522310c07ace2, type: 2}
+  needSpecialExit: 0
+  label: 
+  scene: level5
+  levelTop: {fileID: 0}
+  levelRight: {fileID: 0}
+  levelBottom: {fileID: 0}
+  levelLeft: {fileID: 0}
+  ShowLabel: 1
+--- !u!4 &1385283016
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+  m_PrefabInternal: {fileID: 654366024}
+  m_GameObject: {fileID: 1385283014}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 448043710}
   m_Father: {fileID: 0}
 --- !u!1001 &1510023559
 Prefab:
@@ -1019,7 +1215,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
       propertyPath: m_Name
-      value: levelTest4
+      value: level4
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
       propertyPath: levelTop
@@ -1027,8 +1223,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
       propertyPath: scene
-      value: levelTest4
+      value: level4
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: levelRight
+      value: 
+      objectReference: {fileID: 1385283015}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
   m_RootGameObject: {fileID: 1577927997}
@@ -1044,7 +1244,7 @@ GameObject:
   - 4: {fileID: 1577927999}
   - 114: {fileID: 1577927998}
   m_Layer: 0
-  m_Name: levelTest4
+  m_Name: level4
   m_TagString: Untagged
   m_Icon: {fileID: -2065832391, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1064,10 +1264,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skin: {fileID: 11400000, guid: 21d3d5c5767a6a244936615c49a0ee26, type: 2}
   linkPrefab: {fileID: 11400000, guid: 4e903ad706c3b9041a1522310c07ace2, type: 2}
+  needSpecialExit: 0
   label: 
-  scene: levelTest4
+  scene: level4
   levelTop: {fileID: 0}
-  levelRight: {fileID: 0}
+  levelRight: {fileID: 1385283015}
   levelBottom: {fileID: 0}
   levelLeft: {fileID: 0}
   ShowLabel: 1
@@ -1092,7 +1293,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1124,11 +1325,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
       propertyPath: m_Name
-      value: levelTest2bonus
+      value: level3bonus
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
       propertyPath: scene
-      value: levelTest2bonus
+      value: level3bonus
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}
+      propertyPath: needSpecialExit
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c3e3d061bb57685468ab2a0b65211f9f, type: 2}

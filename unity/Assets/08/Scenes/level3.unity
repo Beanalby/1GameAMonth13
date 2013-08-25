@@ -752,6 +752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 186719981}
+  invert: 0
 --- !u!4 &178918411
 Transform:
   m_ObjectHideFlags: 0
@@ -2928,7 +2929,7 @@ GameObject:
   - 65: {fileID: 1085254917}
   - 114: {fileID: 1085254916}
   m_Layer: 0
-  m_Name: floor-exit
+  m_Name: floor-exit-special
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2958,6 +2959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 581f447173969f94aa5ec65f267bf364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpecialExit: level3bonus
 --- !u!65 &1085254917
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4883,6 +4885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 581f447173969f94aa5ec65f267bf364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpecialExit: 
 --- !u!65 &1585488339
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6540,6 +6543,14 @@ Prefab:
     - target: {fileID: 100002, guid: 19660841b77d06f41a65d4dcd748eb7c, type: 2}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 19660841b77d06f41a65d4dcd748eb7c, type: 2}
+      propertyPath: m_Name
+      value: floor-exit-special
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 19660841b77d06f41a65d4dcd748eb7c, type: 2}
+      propertyPath: SpecialExit
+      value: level3bonus
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 19660841b77d06f41a65d4dcd748eb7c, type: 2}

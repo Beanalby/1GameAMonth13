@@ -2,7 +2,9 @@
 using System.Collections;
 
 public class Exit : MonoBehaviour {
+    public string SpecialExit;
+
     public void OnTriggerEnter(Collider other) {
-        GameObject.Find("LevelDriver").SendMessage("ExitActivated");
+        GameObject.Find("LevelDriver").SendMessage("ExitActivated", SpecialExit);
     }
 }

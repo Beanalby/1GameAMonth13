@@ -6,6 +6,7 @@ public class Level : MonoBehaviour {
     public GUISkin skin;
     public LevelLink linkPrefab;
 
+    public bool needSpecialExit = false;
     public string label;
     public string scene;
     public Level levelTop, levelRight;

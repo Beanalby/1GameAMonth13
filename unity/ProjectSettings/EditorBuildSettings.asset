@@ -43,11 +43,13 @@ EditorBuildSettings:
     path: Assets/08/Scenes/level1.unity
   - enabled: 1
     path: Assets/08/Scenes/level2.unity
-  - enabled: 0
-    path: Assets/08/Scenes/levelTest2bonus.unity
   - enabled: 1
-    path: Assets/08/Scenes/levelTest3.unity
+    path: Assets/08/Scenes/level3.unity
   - enabled: 1
-    path: Assets/08/Scenes/levelTest4.unity
+    path: Assets/08/Scenes/level3bonus.unity
+  - enabled: 1
+    path: Assets/08/Scenes/level4.unity
+  - enabled: 1
+    path: Assets/08/Scenes/level5.unity
   - enabled: 1
     path: Assets/08/Scenes/reduceTime.unity

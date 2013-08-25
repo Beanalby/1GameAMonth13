@@ -2,8 +2,9 @@
 using System.Collections;
 
 public class PowerTile : MonoBehaviour {
-    private Color colorOn = Color.yellow, colorOff;
     private bool isActive = false;
+
+    public Material matOn, matOff;
 
     private GameObject levelDriver;
 
@@ -12,18 +13,17 @@ public class PowerTile : MonoBehaviour {
     }
 
     public void Start() {
-        colorOff = colorOn / 5;
         levelDriver = GameObject.Find("LevelDriver");
     }
 
     public void ActivateTile() {
         isActive = true;
-        renderer.material.color = colorOn;
+        renderer.material = matOn;
         levelDriver.SendMessage("UpdateTiles");
     }
     public void DeactivateTile() {
         isActive = false;
-        renderer.material.color = colorOff;
+        renderer.material = matOff;
         levelDriver.SendMessage("UpdateTiles");
     }
 }

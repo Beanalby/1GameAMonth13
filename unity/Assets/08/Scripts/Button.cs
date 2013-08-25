@@ -56,9 +56,6 @@ public class Button : MonoBehaviour {
     }
 
     private void HandleDebug() {
-        if(Input.GetKeyDown(KeyCode.Space)) {
-            ResetButton();
-        }
     }
     private void HandlePressingButton() {
         if(buttonPressStart == -1) {

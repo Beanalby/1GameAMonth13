@@ -69,6 +69,7 @@ public class Door : MonoBehaviour {
                 doorLeft.localPosition = OPEN_LEFT;
                 doorRight.localPosition = OPEN_RIGHT;
                 openStarted = -1;
+                isClosed = false;
             } else {
                 doorLeft.localPosition = Interpolate.Ease(ease,
                     Vector3.zero, OPEN_LEFT, percent, 1f);
@@ -82,6 +83,7 @@ public class Door : MonoBehaviour {
                 doorLeft.localPosition = Vector3.zero;
                 doorRight.localPosition = Vector3.zero;
                 closeStarted = -1;
+                isClosed = true;
             } else {
                 doorLeft.localPosition = Interpolate.Ease(ease,
                     OPEN_LEFT, -OPEN_LEFT, percent, 1f);
