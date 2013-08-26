@@ -63,6 +63,7 @@ public class GameDriver8 : MonoBehaviour {
         pickups = new List<string>();
         specialExits = new List<string>();
         lastLevelTime = -1f;
+        lastLevel = null;
         totalTime = 10f;
         displayPickup = null;
     }
@@ -85,7 +86,6 @@ public class GameDriver8 : MonoBehaviour {
         Application.LoadLevel(level.scene);
     }
     public bool IsLinkActive(Level level1, Level level2) {
-        return true;
         if(level1.needSpecialExit && !specialExits.Contains(level1.scene)) {
             return false;
         }

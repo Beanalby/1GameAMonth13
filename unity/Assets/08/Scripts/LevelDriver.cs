@@ -10,7 +10,8 @@ public class LevelDriver : MonoBehaviour {
 
     public GUISkin skin;
     public Switch zoomButton;
-
+    public AudioClip soundDone;
+    
     private float timeStart=-1f, timeLevel=-1f;
     private GUIStyle completeStyle, timeStyle;
     private float fadeAlphaStart, fadeAlphaEnd;
@@ -104,6 +105,7 @@ public class LevelDriver : MonoBehaviour {
         timeLevel = Time.time - timeStart;
         isExiting = true;
         specialExit = specialExitParam;
+        AudioSource.PlayClipAtPoint(soundDone, Camera.main.transform.position);
         StartCoroutine(FadeText());
     }
 
@@ -183,4 +185,5 @@ public class LevelDriver : MonoBehaviour {
         roomLights.SetActive(false);
         timeStart = Time.time;
     }
+
 }

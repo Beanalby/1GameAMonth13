@@ -39,10 +39,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: 5c89285444523834bad4375b102cb6b3, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Priority: 128
   DopplerLevel: 1
@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skin: {fileID: 11400000, guid: 21d3d5c5767a6a244936615c49a0ee26, type: 2}
   zoomButton: {fileID: 0}
+  soundDone: {fileID: 8300000, guid: baf414c3f1222e44ba2c30da9618e80c, type: 3}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

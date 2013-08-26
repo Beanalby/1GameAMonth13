@@ -619,10 +619,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 170300528}
-  - 33: {fileID: 170300531}
-  - 23: {fileID: 170300529}
   m_Layer: 10
-  m_Name: Capsule
+  m_Name: PlayerMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -635,9 +633,10 @@ Transform:
   m_PrefabInternal: {fileID: 1079343476}
   m_GameObject: {fileID: 170300527}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: .25, z: 0}
-  m_LocalScale: {x: .25, y: .25, z: .25}
-  m_Children: []
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1825127170}
   m_Father: {fileID: 1486307986}
 --- !u!23 &170300529
 Renderer:
@@ -645,14 +644,15 @@ Renderer:
   m_PrefabParentObject: {fileID: 2300000, guid: 381d496e36f901f47bcd2c3f6482f5fa,
     type: 2}
   m_PrefabInternal: {fileID: 1079343476}
-  m_GameObject: {fileID: 170300527}
+  m_GameObject: {fileID: 1825127169}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d8828166f531c4d4cbac5d1eaa256bd9, type: 2}
+  - {fileID: 2100000, guid: 837d2101a27a9a447a81867c58b0a6e4, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -664,8 +664,8 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 3300000, guid: 381d496e36f901f47bcd2c3f6482f5fa,
     type: 2}
   m_PrefabInternal: {fileID: 1079343476}
-  m_GameObject: {fileID: 170300527}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_GameObject: {fileID: 1825127169}
+  m_Mesh: {fileID: 4300000, guid: c0111e070041fbd4999aff5613aa0476, type: 3}
 --- !u!1 &176033598
 GameObject:
   m_ObjectHideFlags: 0
@@ -763,7 +763,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3561deb66f1fe524c8e6a22b04a61e83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundOpen: {fileID: 8300000, guid: f4d6a24e0993b304c9d14438154dba3e, type: 3}
+  soundClose: {fileID: 8300000, guid: b32c1d4fbbeb1104f8da5057f80a5c62, type: 3}
   button: {fileID: 186719981}
+  invert: 0
 --- !u!4 &178918411
 Transform:
   m_ObjectHideFlags: 0
@@ -1721,7 +1724,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3561deb66f1fe524c8e6a22b04a61e83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundOpen: {fileID: 8300000, guid: f4d6a24e0993b304c9d14438154dba3e, type: 3}
+  soundClose: {fileID: 8300000, guid: b32c1d4fbbeb1104f8da5057f80a5c62, type: 3}
   button: {fileID: 628855934}
+  invert: 0
 --- !u!1 &628855929
 GameObject:
   m_ObjectHideFlags: 0
@@ -2233,7 +2239,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 734428036}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SelfLights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4111,7 +4117,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1399228115}
   - 108: {fileID: 1399228114}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerLights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4417,8 +4423,8 @@ Transform:
   m_LocalPosition: {x: -2, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 170300528}
   - {fileID: 1399228115}
+  - {fileID: 170300528}
   m_Father: {fileID: 0}
 --- !u!65 &1486307987
 BoxCollider:
@@ -4445,6 +4451,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff08beabc998594b8f0ade2bfa2cc50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundMove: {fileID: 8300000, guid: 3f5979350276f3d4191369c90caf415e, type: 3}
+  soundMoveRevert: {fileID: 8300000, guid: 25cc520f4c6431a43bdebba837efbe12, type: 3}
   EnableInput: 1
 --- !u!54 &1486307989
 Rigidbody:
@@ -4644,6 +4652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 581f447173969f94aa5ec65f267bf364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpecialExit: 
 --- !u!65 &1585488339
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4655,7 +4664,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .899999976, y: .899999976, z: .899999976}
+  m_Size: {x: .5, y: .5, z: .5}
   m_Center: {x: 0, y: 0, z: .5}
 --- !u!114 &1585488340
 MonoBehaviour:
@@ -5594,6 +5603,34 @@ Transform:
   - {fileID: 929013359}
   - {fileID: 1831493038}
   m_Father: {fileID: 0}
+--- !u!1 &1825127169
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: 381d496e36f901f47bcd2c3f6482f5fa, type: 2}
+  m_PrefabInternal: {fileID: 1079343476}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1825127170}
+  - 33: {fileID: 170300531}
+  - 23: {fileID: 170300529}
+  m_Layer: 10
+  m_Name: mesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1825127170
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: 381d496e36f901f47bcd2c3f6482f5fa, type: 2}
+  m_PrefabInternal: {fileID: 1079343476}
+  m_GameObject: {fileID: 1825127169}
+  m_LocalRotation: {x: -.707106829, y: 0, z: 0, w: .707106829}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 170300528}
 --- !u!1 &1829152099
 GameObject:
   m_ObjectHideFlags: 0
@@ -6355,6 +6392,7 @@ GameObject:
   - 114: {fileID: 2054333027}
   - 114: {fileID: 2054333030}
   - 114: {fileID: 2054333029}
+  - 82: {fileID: 2054333031}
   - 114: {fileID: 2054333028}
   m_Layer: 0
   m_Name: LevelDriver
@@ -6388,6 +6426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skin: {fileID: 11400000, guid: 21d3d5c5767a6a244936615c49a0ee26, type: 2}
   zoomButton: {fileID: 186719981}
+  soundDone: {fileID: 8300000, guid: baf414c3f1222e44ba2c30da9618e80c, type: 3}
 --- !u!114 &2054333028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6429,6 +6468,67 @@ MonoBehaviour:
   skin: {fileID: 11400000, guid: 35a61e38499bdd0469157bc9dbb744b1, type: 2}
   message: I reduce visibility as you enter the code segment.  Please make your way
     through quickly.
+  retryText: 
+  hideWhenDone: 1
+--- !u!82 &2054333031
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 8200000, guid: 937c73856042a6c438020934dff19793,
+    type: 2}
+  m_PrefabInternal: {fileID: 2118594567}
+  m_GameObject: {fileID: 2054333025}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 8300000, guid: 5c89285444523834bad4375b102cb6b3, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!1001 &2118594567
 Prefab:
   m_ObjectHideFlags: 0
@@ -6472,6 +6572,14 @@ Prefab:
       propertyPath: message
       value: I reduce visibility as you enter the code segment.  Please make your
         way through quickly.
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200000, guid: 937c73856042a6c438020934dff19793, type: 2}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200000, guid: 937c73856042a6c438020934dff19793, type: 2}
+      propertyPath: Loop
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400004, guid: 937c73856042a6c438020934dff19793, type: 2}
