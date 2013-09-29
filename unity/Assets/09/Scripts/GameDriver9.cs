@@ -37,7 +37,7 @@ public class GameDriver9 : MonoBehaviour {
         }
     }
 
-    public void MoveMade() {
+    public void MadeMove(Spot spot) {
         if(currentTurn == SpotValue.X) {
             currentTurn = SpotValue.O;
         } else {
