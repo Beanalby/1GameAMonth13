@@ -3,7 +3,6 @@ using System.Collections;
 
 public enum SpotValue { O, X, None };
 
-public abstract class Spot : MonoBehaviour {
-
-    public abstract SpotValue GetValue();
+public interface Spot {
+    SpotValue GetValue();
 }

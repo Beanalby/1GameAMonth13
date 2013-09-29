@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TinySpot : Spot {
+public class TinySpot : MonoBehaviour, Spot {
 
     private SpotValue value = SpotValue.None;
     public GameObject prefabX;
@@ -9,30 +9,20 @@ public class TinySpot : Spot {
 
     private GameObject mark = null;
     private TinyBoard board;
+    public TinyBoard Board {
+        get { return board; }
+    }
 
     public void Start() {
         board = transform.parent.GetComponent<TinyBoard>();
     }
 
-    public override SpotValue GetValue() {
+    public SpotValue GetValue() {
         return value;
     }
 
-    public void Chosen(SpotValue currentTurn) {
-        // don't change if this spot has a value, or if the board has a winner
-        if(value != SpotValue.None) {
-            return;
-        }
-        if(board.GetWinner() != SpotValue.None) {
-            return;
-        }
-        value = currentTurn;
-        MakeMark();
-        GameDriver9.instance.SendMessage("MadeMove", this);
-        transform.parent.SendMessage("MadeMove", this);
-    }
-
-    private void MakeMark() {
+    public void MakeMark(SpotValue newValue) {
+        value = newValue;
         if(value == SpotValue.X) {
             mark = Instantiate(prefabX) as GameObject;
         } else {
