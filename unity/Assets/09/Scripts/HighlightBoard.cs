@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HighlightCurrent : MonoBehaviour {
+public class HighlightBoard : MonoBehaviour {
 
     private const float TINY_OFFSET = .5f;
 
@@ -10,7 +10,7 @@ public class HighlightCurrent : MonoBehaviour {
     Vector3 startPos;
     Vector3 deltaPos;
 
-    Vector3 startScale = new Vector3(1,1,1), deltaScale = new Vector3(2.5f, 2.5f, 1);
+    Vector3 startScale = new Vector3(1,1,1), deltaScale = new Vector3(2f, 2f, 1);
     private bool stay = false;
 
     float moveStart = -1, moveDelay=.1f, moveDuration=.75f;

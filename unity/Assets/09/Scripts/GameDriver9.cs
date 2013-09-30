@@ -8,8 +8,11 @@ public class GameDriver9 : MonoBehaviour {
         get { return _instance; }
     }
     private SpotValue currentTurn;
+    public SpotValue CurrentTurn {
+        get { return currentTurn; }
+    }
     private TinyBoard currentBoard;
-    public HighlightCurrent highlight;
+    public HighlightBoard highlight;
 
     private int tinySpotMask;
     public BigBoard bigBoard;
@@ -31,20 +34,43 @@ public class GameDriver9 : MonoBehaviour {
         HandleClick();
     }
 
-    private void HandleClick() {
-        if(!Input.GetMouseButtonDown(0)) {
-            return;
-        }
-
+    public TinySpot GetHovered() {
         // find out if they clicked on anything clickable
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit, Mathf.Infinity, tinySpotMask)) {
-            TryMove(hit.collider.GetComponent<TinySpot>());
+            TinySpot spot = hit.collider.GetComponent<TinySpot>();
+            return spot;
+        }
+        return null;
+    }
+    private void HandleClick() {
+        if(!Input.GetMouseButtonDown(0)) {
+            return;
+        }
+        TinySpot spot = GetHovered();
+        if(IsValidMove(spot)) {
+            MakeMove(spot);
         }
     }
 
-    public void MadeMove(TinySpot spot) {
+    public bool IsValidMove(TinySpot spot) {
+        // don't change if this spot has a value
+        if(spot.GetValue() != SpotValue.None) {
+            return false;
+        }
+        // don't change if the spot's board isn't the current forced one
+        if(forcedBoard != null && forcedBoard != spot.Board) {
+            return false;
+        }
+        //don't change if the board already has a winner
+        if(spot.Board.Winner != SpotValue.None) {
+            return false;
+        }
+        return true;
+    }
+
+    public void MakeMove(TinySpot spot) {
         spot.MakeMark(currentTurn);
         spot.Board.MadeMove(spot);
 
@@ -64,23 +90,5 @@ public class GameDriver9 : MonoBehaviour {
         } else {
             currentTurn = SpotValue.X;
         }
-    }
-
-    private void TryMove(TinySpot spot) {
-        // don't change if this spot has a value
-        if(spot.GetValue() != SpotValue.None) {
-            return;
-        }
-        // don't change if the spot's board isn't the current forced one
-        if(forcedBoard != null && forcedBoard != spot.Board) {
-            return;
-        }
-        //don't change if the board already has a winner
-        if(spot.Board.Winner != SpotValue.None) {
-            return;
-        }
-
-        // no reason not to, apply it
-        MadeMove(spot);
     }
 }
