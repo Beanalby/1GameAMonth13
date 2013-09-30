@@ -10,7 +10,7 @@ public class HighlightBoard : MonoBehaviour {
     Vector3 startPos;
     Vector3 deltaPos;
 
-    Vector3 startScale = new Vector3(1,1,1), deltaScale = new Vector3(2f, 2f, 1);
+    Vector3 startScale = new Vector3(.85f,.85f,1), deltaScale = new Vector3(2f, 2f, 1);
     private bool stay = false;
 
     float moveStart = -1, moveDelay=.1f, moveDuration=.75f;

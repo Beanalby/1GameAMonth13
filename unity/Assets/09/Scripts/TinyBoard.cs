@@ -25,8 +25,13 @@ public class TinyBoard : Board, Spot {
         tmp.transform.localPosition = Vector3.zero;
         WinEffect we = tmp.GetComponent<WinEffect>();
         we.winner = Winner;
-        we.pos1 = IndexToCoordinate(move1);
-        we.pos2 = IndexToCoordinate(move3);
+        if(move1 != -1) {
+            we.pos1 = IndexToCoordinate(move1);
+        }
+        if(move3 != -1) {
+            we.pos2 = IndexToCoordinate(move3);
+        }
+        we.board = this;
     }
 
     public SpotValue GetValue() {
