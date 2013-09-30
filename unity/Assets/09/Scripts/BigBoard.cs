@@ -1,13 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class BigBoard : Board {
 
     public void Start() {
         spots = new Spot[9];
-        for(int i=0;i<transform.childCount; i++) {
-            Transform t = transform.GetChild(i);
-            spots[i] = t.GetComponent<TinyBoard>();
+        Spot spot;
+        int currentSpot = 0;
+        foreach(Transform t in transform.Cast<Transform>().OrderBy(t=>t.name)) {
+            spot = t.GetComponent<TinyBoard>();
+            if(spot != null) {
+                spots[currentSpot++] = spot;
+            }
         }
     }
 

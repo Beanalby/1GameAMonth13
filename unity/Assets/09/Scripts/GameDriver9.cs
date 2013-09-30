@@ -9,6 +9,7 @@ public class GameDriver9 : MonoBehaviour {
     }
     private SpotValue currentTurn;
     private TinyBoard currentBoard;
+    public HighlightCurrent highlight;
 
     private int tinySpotMask;
     public BigBoard bigBoard;
@@ -49,11 +50,14 @@ public class GameDriver9 : MonoBehaviour {
 
         // find the next forced board
         int index = spot.Board.GetIndex(spot);
-        forcedBoard = bigBoard.GetSpot(index) as TinyBoard;
+        TinyBoard targetBoard = bigBoard.GetSpot(index) as TinyBoard;
+        forcedBoard = targetBoard;
         // but don't force it if it's already completed
-        if(forcedBoard.Winner != SpotValue.None) {
+        if(targetBoard.Winner != SpotValue.None) {
             forcedBoard = null;
         }
+        highlight.Highlight(currentTurn, spot, targetBoard,
+            targetBoard==forcedBoard);
         // next turn is opposite player's
         if(currentTurn == SpotValue.X) {
             currentTurn = SpotValue.O;

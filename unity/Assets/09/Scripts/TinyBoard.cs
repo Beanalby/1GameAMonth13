@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class TinyBoard : Board, Spot {
 
@@ -7,14 +8,14 @@ public class TinyBoard : Board, Spot {
     public WinEffect winPrefab;
 
     public void Start() {
+        int currentSpot = 0;
+        Spot spot;
         spots = new Spot[9];
-        GameObject tmp;
-        for(int i = 0; i < 9; i++) {
-            tmp = Instantiate(spotPrefab.gameObject) as GameObject;
-            spots[i] = tmp.GetComponent<TinySpot>();
-            tmp.name = name + "-spot" + i;
-            tmp.transform.parent = transform;
-            tmp.transform.localPosition = IndexToCoordinate(i);
+        foreach(Transform t in transform.Cast<Transform>().OrderBy(t=>t.name)) {
+            spot = t.GetComponent<TinySpot>();
+            if(spot != null) {
+                spots[currentSpot++] = spot;
+            }
         }
     }
 
