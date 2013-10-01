@@ -53,6 +53,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabX: {fileID: 100002, guid: fbe515ef3443d5642b434561d2c2a88d, type: 2}
   prefabO: {fileID: 100002, guid: 720b6885be10c994a9d1709c63a64ab3, type: 2}
+  throwSound: {fileID: 8300000, guid: e9d3d4b780d6345489f259668db253cf, type: 3}
+  hitOSound: {fileID: 8300000, guid: 43c1134d10e694746ab22e9e379ecdd5, type: 3}
+  hitXSound: {fileID: 8300000, guid: fca033304de517849800271013d27fcb, type: 3}
+  winOSound: {fileID: 8300000, guid: b98965495f7eb8f4d85b097cab36a12b, type: 3}
+  winXSound: {fileID: 8300000, guid: 991c9b0f81119754196c3e2f537db867, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

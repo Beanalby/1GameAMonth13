@@ -12,6 +12,7 @@ public class GameDriver9 : MonoBehaviour {
         get { return currentTurn; }
     }
     private TinyBoard currentBoard;
+    public Texture Logo;
     public HighlightBoard highlight;
 
     private bool isPlaying = true;
@@ -72,27 +73,27 @@ public class GameDriver9 : MonoBehaviour {
         // make some moves for testing
         {
             // tie board
-            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(0));
-            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(1));
-            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(2));
-            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(3));
-            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(4));
-            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(8));
-            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(7));
-            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(6));
-            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(5));
+            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(0));
+            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(1));
+            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(2));
+            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(3));
+            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(4));
+            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(8));
+            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(7));
+            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(6));
+            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(5));
 
-            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(3)).GetSpot(0));
-            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(4)).GetSpot(1));
-            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(3)).GetSpot(3));
-            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(4)).GetSpot(4));
-            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(3)).GetSpot(6));
-            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(4)).GetSpot(7));
+            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(3)).GetSpot(0));
+            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(4)).GetSpot(1));
+            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(3)).GetSpot(3));
+            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(4)).GetSpot(4));
+            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(3)).GetSpot(6));
+            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(4)).GetSpot(7));
 
-            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(6)).GetSpot(0));
-            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(7)).GetSpot(1));
-            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(6)).GetSpot(3));
-            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(7)).GetSpot(4));
+            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(6)).GetSpot(0));
+            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(7)).GetSpot(1));
+            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(6)).GetSpot(3));
+            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(7)).GetSpot(4));
             //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(6)).GetSpot(6));
             //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(7)).GetSpot(7));
         }
@@ -117,8 +118,6 @@ public class GameDriver9 : MonoBehaviour {
             //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(7)).GetSpot(1));
             //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(6)).GetSpot(3));
             //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(7)).GetSpot(4));
-            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(6)).GetSpot(6));
-            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(7)).GetSpot(7));
         }
     }
 
@@ -185,6 +184,7 @@ public class GameDriver9 : MonoBehaviour {
         } else {
             DrawTurn();
         }
+        DrawLogo();
     }
 
     public void DrawWinner() {
@@ -194,7 +194,7 @@ public class GameDriver9 : MonoBehaviour {
         if(bigBoard.Winner == SpotValue.O) {
             GUI.Label(winnerRect, "<color=#0080BB>O WINS!</color>", skin.customStyles[0]);
         } else {
-            GUI.Label(winnerRect, "<color=#orange>X WINS!</color>", skin.customStyles[0]);
+            GUI.Label(winnerRect, "<color=orange>X WINS!</color>", skin.customStyles[0]);
         }
         if(GUI.Button(againRect, "Play Again")) {
             Application.LoadLevel(Application.loadedLevel);
@@ -205,20 +205,12 @@ public class GameDriver9 : MonoBehaviour {
         Rect turnRect = new Rect(0, 0, 365, 75);
         Rect descRect = new Rect(0, 80, 365, 100);
 
-        if(bigBoard.Winner == SpotValue.O) {
-            GUI.Label(turnRect, "<color=#0080BB>O WINS!</color>", skin.customStyles[0]);
-            return;
-        }
-        if(bigBoard.Winner == SpotValue.X) {
-            GUI.Label(turnRect, "<color=#0080BB>O WINS!</color>", skin.customStyles[0]);
-            return;
-        }
-
         switch(currentTurn) {
             case SpotValue.O:
                 GUI.Label(turnRect, "<color=#0080BB>O's Turn</color>", skin.customStyles[0]);
                 break;
             case SpotValue.X:
+                //GUI.Label(turnRect, "<color=orange>X's Turn</color>", skin.customStyles[0]);
                 GUI.Label(turnRect, "<color=orange>X's Turn</color>", skin.customStyles[0]);
                 break;
         }
@@ -245,5 +237,11 @@ public class GameDriver9 : MonoBehaviour {
                 + " played in the " + position + " square.";
         }
         GUI.Label(descRect, desc);
+    }
+
+    private void DrawLogo() {
+        Rect logoRect = new Rect(0, Screen.height - (Logo.height + 50),
+            Logo.width, Logo.height);
+        GUI.DrawTexture(logoRect, Logo);
     }
 }

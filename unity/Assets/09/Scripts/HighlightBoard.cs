@@ -13,7 +13,7 @@ public class HighlightBoard : MonoBehaviour {
     Vector3 startScale = new Vector3(.85f,.85f,1), deltaScale = new Vector3(2f, 2f, 1);
     private bool stay = false;
 
-    float moveStart = -1, moveDelay=.1f, moveDuration=.75f;
+    float moveStart = -1, moveDelay=.25f, moveDuration=.75f;
     Interpolate.Function ease = Interpolate.Ease(Interpolate.EaseType.EaseInOutCubic);
     public void Start() {
         renderer.enabled = false;

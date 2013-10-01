@@ -37,31 +37,33 @@ EditorBuildSettings:
     path: Assets/06/Scenes/06-game.unity
   - enabled: 0
     path: Assets/06/Scenes/06-finish.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/08/Scenes/title.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/08/Scenes/selectLevel.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/08/Scenes/level1.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/08/Scenes/level2.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/08/Scenes/level3.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/08/Scenes/level3bonus.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/08/Scenes/level4.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/08/Scenes/level5.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/08/Scenes/level6.unity
-  - enabled: 1
+  - enabled: 0
+    path: Assets/08/Scenes/level7.unity
+  - enabled: 0
+    path: Assets/08/Scenes/levelFinished.unity
+  - enabled: 0
+    path: Assets/08/Scenes/reduceTime.unity
+  - enabled: 0
+    path: Assets/08/Scenes/levelLose.unity
+  - enabled: 0
     path: Assets/08/Scenes/level6bonus.unity
   - enabled: 1
-    path: Assets/08/Scenes/level7.unity
-  - enabled: 1
-    path: Assets/08/Scenes/levelFinished.unity
-  - enabled: 1
-    path: Assets/08/Scenes/reduceTime.unity
-  - enabled: 1
-    path: Assets/08/Scenes/levelLose.unity
+    path: Assets/09/Scenes/test.unity

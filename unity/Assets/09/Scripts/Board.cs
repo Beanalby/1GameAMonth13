@@ -14,7 +14,7 @@ public abstract class Board : MonoBehaviour {
         {2, 4, 6}
     };
 
-    protected static Vector3 IndexToCoordinate(int pos) {
+    public static Vector3 IndexToCoordinate(int pos) {
         return new Vector3(
             (pos % 3) - 1,
             (pos / 3) - 1,

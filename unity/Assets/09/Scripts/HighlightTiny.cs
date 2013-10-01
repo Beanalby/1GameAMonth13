@@ -3,9 +3,11 @@ using System.Collections;
 
 public class HighlightTiny : MonoBehaviour {
     public Texture texO, texX;
+    public AudioClip hoverSound;
 
     GameDriver9 driver;
     private SpotValue currentTex;
+    private TinySpot currentSpot = null;
 
     public void Start() {
         driver = GameDriver9.instance;
@@ -24,8 +26,14 @@ public class HighlightTiny : MonoBehaviour {
                 if(currentTex != driver.CurrentTurn) {
                     UpdateTexture();
                 }
+                if(currentSpot != spot) {
+                    currentSpot = spot;
+                    AudioSource.PlayClipAtPoint(hoverSound,
+                        Camera.main.transform.position);
+                }
             } else {
                 renderer.enabled = false;
+                currentSpot = null;
             }
         }
     }
