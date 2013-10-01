@@ -47,7 +47,6 @@ public class WinEffect : MonoBehaviour {
             if(pos1.y != pos2.y) {
                 tmp.y *= SCALE;
             }
-            tmp.z = -.2f;
             line.SetPosition(0, tmp);
 
             tmp = pos2;
@@ -57,7 +56,6 @@ public class WinEffect : MonoBehaviour {
             if(pos1.y != pos2.y) {
                 tmp.y = SCALE;
             }
-            tmp.z = -.2f;
             line.SetPosition(1, tmp);
         }
     }

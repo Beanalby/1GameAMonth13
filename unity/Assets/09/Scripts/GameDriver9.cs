@@ -19,12 +19,14 @@ public class GameDriver9 : MonoBehaviour {
         get { return isPlaying; }
     }
 
-    private int tinySpotMask;
+    public GUISkin skin;
     public BigBoard bigBoard;
+    private int tinySpotMask;
 
     private TinyBoard forcedBoard = null;
 
     private bool didDebug = false;
+
     public void Awake() {
         if(_instance != null) {
             Destroy(gameObject);
@@ -70,27 +72,27 @@ public class GameDriver9 : MonoBehaviour {
         // make some moves for testing
         {
             // tie board
-            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(0));
-            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(1));
-            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(2));
-            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(3));
-            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(4));
-            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(8));
-            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(7));
-            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(6));
-            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(5));
+            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(0));
+            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(1));
+            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(2));
+            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(3));
+            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(4));
+            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(8));
+            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(7));
+            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(6));
+            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(0)).GetSpot(5));
 
-            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(3)).GetSpot(0));
-            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(4)).GetSpot(1));
-            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(3)).GetSpot(3));
-            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(4)).GetSpot(4));
-            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(3)).GetSpot(6));
-            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(4)).GetSpot(7));
+            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(3)).GetSpot(0));
+            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(4)).GetSpot(1));
+            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(3)).GetSpot(3));
+            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(4)).GetSpot(4));
+            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(3)).GetSpot(6));
+            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(4)).GetSpot(7));
 
-            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(6)).GetSpot(0));
-            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(7)).GetSpot(1));
-            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(6)).GetSpot(3));
-            MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(7)).GetSpot(4));
+            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(6)).GetSpot(0));
+            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(7)).GetSpot(1));
+            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(6)).GetSpot(3));
+            //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(7)).GetSpot(4));
             //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(6)).GetSpot(6));
             //MakeMove((TinySpot)((TinyBoard)bigBoard.GetSpot(7)).GetSpot(7));
         }
@@ -174,5 +176,74 @@ public class GameDriver9 : MonoBehaviour {
                 currentTurn = SpotValue.X;
             }
         }
+    }
+
+    public void OnGUI() {
+        GUI.skin = skin;
+        if(bigBoard.Winner != SpotValue.None) {
+            DrawWinner();
+        } else {
+            DrawTurn();
+        }
+    }
+
+    public void DrawWinner() {
+        Rect winnerRect = new Rect(0, 0, 365, 75);
+        Rect againRect = new Rect(142, 80, 80, 40);
+
+        if(bigBoard.Winner == SpotValue.O) {
+            GUI.Label(winnerRect, "<color=#0080BB>O WINS!</color>", skin.customStyles[0]);
+        } else {
+            GUI.Label(winnerRect, "<color=#orange>X WINS!</color>", skin.customStyles[0]);
+        }
+        if(GUI.Button(againRect, "Play Again")) {
+            Application.LoadLevel(Application.loadedLevel);
+        }
+    }
+
+    public void DrawTurn() {
+        Rect turnRect = new Rect(0, 0, 365, 75);
+        Rect descRect = new Rect(0, 80, 365, 100);
+
+        if(bigBoard.Winner == SpotValue.O) {
+            GUI.Label(turnRect, "<color=#0080BB>O WINS!</color>", skin.customStyles[0]);
+            return;
+        }
+        if(bigBoard.Winner == SpotValue.X) {
+            GUI.Label(turnRect, "<color=#0080BB>O WINS!</color>", skin.customStyles[0]);
+            return;
+        }
+
+        switch(currentTurn) {
+            case SpotValue.O:
+                GUI.Label(turnRect, "<color=#0080BB>O's Turn</color>", skin.customStyles[0]);
+                break;
+            case SpotValue.X:
+                GUI.Label(turnRect, "<color=orange>X's Turn</color>", skin.customStyles[0]);
+                break;
+        }
+
+        string desc;
+        if(forcedBoard == null) {
+            desc = currentTurn + " may play in any board.";
+        } else {
+            int index = bigBoard.GetIndex(forcedBoard);
+            string position="";
+            switch(index) {
+                case 0: position="bottom-left"; break;
+                case 1: position="bottom"; break;
+                case 2: position="bottom-right"; break;
+                case 3: position="left"; break;
+                case 4: position="center"; break;
+                case 5: position="right"; break;
+                case 6: position="upper-left"; break;
+                case 7: position="upper"; break;
+                case 8: position="upper-right"; break;
+            }
+            desc = currentTurn + " must play in the " + position + " board because "
+                + (currentTurn == SpotValue.X ? SpotValue.O : SpotValue.X)
+                + " played in the " + position + " square.";
+        }
+        GUI.Label(descRect, desc);
     }
 }

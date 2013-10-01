@@ -278,6 +278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlight: {fileID: 395905701}
+  skin: {fileID: 11400000, guid: 11e0e92c78342b049b5276fbfcab57f3, type: 2}
   bigBoard: {fileID: 1788937676}
 --- !u!1 &159805093
 GameObject:
