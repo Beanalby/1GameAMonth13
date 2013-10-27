@@ -5,12 +5,17 @@ public class Runner : MonoBehaviour {
 
     private const int MAX_SHIFT_DISTANCE = 2;
 
-    private float speed = 10;
+    private float acceleration = .5f;
+    private float speedStart = 5;
+    private float speed;
 
-    private float maxHealth = 5;
+    private float maxHealth = 4;
     private float health;
     public float Health {
         get { return health; }
+    }
+    public float Speed {
+        get { return speed; }
     }
 
     private float shiftStartPos;
@@ -35,6 +40,7 @@ public class Runner : MonoBehaviour {
 
     public void Start() {
         health = maxHealth;
+        speed = speedStart;
     }
 
     public void Update() {
@@ -42,6 +48,7 @@ public class Runner : MonoBehaviour {
     }
 
     void FixedUpdate() {
+        HandleAcceleration();
         HandleRunning();
     }
 
@@ -90,6 +97,18 @@ public class Runner : MonoBehaviour {
         shiftStartPos = rigidbody.transform.position.x;
     }
 
+    void HandleAcceleration() {
+        if(isRunning) {
+            // slow down acceleration if we're going fast
+            if(speed >= 12) {
+                speed += (acceleration / 10) * Time.deltaTime;
+            } else if(speed >= 8) {
+                speed += (acceleration / 2) * Time.deltaTime;
+            } else {
+                speed += acceleration * Time.deltaTime;
+            }
+        }
+    }
 
     void HandleRunning() {
         if(isRunning) {
@@ -101,8 +120,8 @@ public class Runner : MonoBehaviour {
     }
 
     public void Crashed(float damage) {
-        Debug.Log("I crashed, on noes!");
         health -= damage;
+        speed /= 2;
         if(health <= 0) {
             health = 0;
             Die();

@@ -30,6 +30,15 @@ public class RunnerInfo : MonoBehaviour {
             }
         }
     }
+    public float Speed {
+        get {
+            if(runner) {
+                return runner.Speed;
+            } else {
+                return 0;
+            }
+        }
+    }
 
     public void SpawnRunner() {
         runner = (Instantiate(runnerPrefab.gameObject) as GameObject).GetComponent<Runner>();

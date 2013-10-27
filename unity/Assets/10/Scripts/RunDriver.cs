@@ -55,7 +55,7 @@ public class RunDriver : MonoBehaviour {
         GameObject barrier, warning;
         // make a barrier at the start of the room
         barrierPos = new Vector3(Random.Range(-2, 2), 0,
-            ROOM_LENGTH / 2 + Random.Range(-3f, 3f));
+            ROOM_LENGTH / 2 + Random.Range(-1f, 1f));
         barrier = Instantiate(barrierPrefab) as GameObject;
         barrier.transform.parent = nextRoom.transform;
         barrier.transform.localPosition = barrierPos;
@@ -64,7 +64,7 @@ public class RunDriver : MonoBehaviour {
         warning.transform.localPosition = barrierPos;
 
         // and another barrier halfway through
-        barrierPos = new Vector3(Random.Range(-2, 2), 0, Random.Range(-3f, 3f));
+        barrierPos = new Vector3(Random.Range(-2, 2), 0, Random.Range(-1f, 1f));
         barrier = Instantiate(barrierPrefab) as GameObject;
         barrier.transform.parent = nextRoom.transform;
         barrier.transform.localPosition = barrierPos;
@@ -77,9 +77,11 @@ public class RunDriver : MonoBehaviour {
 
     public void OnGUI() {
         GUI.skin = skin;
-        GUI.Label(new Rect(10, 10, 200, 100),
+        GUI.Label(new Rect(10, 10, 200, 20),
+            "Speed: " + runnerInfo.Speed.ToString("0.00"));
+        GUI.Label(new Rect(10, 30, 200, 100),
             "Distance: " + runnerInfo.DistanceTravelled.ToString("0.0"));
-        GUI.Label(new Rect(Screen.width - 210, 10, 200, 100),
+        GUI.Label(new Rect(Screen.width - 210, 10, 200, 20),
             "Health: " + runnerInfo.Health.ToString("0."), healthStyle);
     }
 }
