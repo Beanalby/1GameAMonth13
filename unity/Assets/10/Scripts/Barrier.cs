@@ -5,6 +5,7 @@ public class Barrier : MonoBehaviour {
 
     int playerLayer;
     public GameObject crashEffect;
+    private int damage = 1;
 
     public void Awake() {
         playerLayer = LayerMask.NameToLayer("Player");
@@ -20,7 +21,7 @@ public class Barrier : MonoBehaviour {
         if(collision.gameObject.layer != playerLayer) {
             return;
         }
-        collision.gameObject.SendMessage("Crashed");
+        collision.gameObject.SendMessage("Crashed", damage);
         GotHit();
     }
 }

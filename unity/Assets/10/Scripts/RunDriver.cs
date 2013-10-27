@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class RunDriver : MonoBehaviour {
+
+    public GUISkin skin;
+
     private static RunDriver _instance = null;
     public static RunDriver instance {
         get { return _instance; }
@@ -15,11 +18,19 @@ public class RunDriver : MonoBehaviour {
 
     GameObject currentRoom, nextRoom;
 
+    private RunnerInfo runnerInfo;
+    private GUIStyle healthStyle;
+
     public void Awake() {
         _instance = this;
+        healthStyle = new GUIStyle(skin.label);
+        healthStyle.alignment = TextAnchor.UpperRight;
     }
 
     public void Start() {
+        runnerInfo = GameObject.Find("RunnerInfo").GetComponent<RunnerInfo>();
+        runnerInfo.SpawnRunner();
+
         currentRoom = Instantiate(roomPrefab) as GameObject;
         currentRoom.name = "room0";
         nextRoom = Instantiate(roomPrefab) as GameObject;
@@ -43,7 +54,8 @@ public class RunDriver : MonoBehaviour {
         Vector3 barrierPos;
         GameObject barrier, warning;
         // make a barrier at the start of the room
-        barrierPos = new Vector3(Random.Range(-2, 2), 0, ROOM_LENGTH / 2);
+        barrierPos = new Vector3(Random.Range(-2, 2), 0,
+            ROOM_LENGTH / 2 + Random.Range(-3f, 3f));
         barrier = Instantiate(barrierPrefab) as GameObject;
         barrier.transform.parent = nextRoom.transform;
         barrier.transform.localPosition = barrierPos;
@@ -52,7 +64,7 @@ public class RunDriver : MonoBehaviour {
         warning.transform.localPosition = barrierPos;
 
         // and another barrier halfway through
-        barrierPos = new Vector3(Random.Range(-2, 2), 0, 0);
+        barrierPos = new Vector3(Random.Range(-2, 2), 0, Random.Range(-3f, 3f));
         barrier = Instantiate(barrierPrefab) as GameObject;
         barrier.transform.parent = nextRoom.transform;
         barrier.transform.localPosition = barrierPos;
@@ -61,5 +73,13 @@ public class RunDriver : MonoBehaviour {
         warning.transform.localPosition = barrierPos;
         nextRoomNum++;
 
+    }
+
+    public void OnGUI() {
+        GUI.skin = skin;
+        GUI.Label(new Rect(10, 10, 200, 100),
+            "Distance: " + runnerInfo.DistanceTravelled.ToString("0.0"));
+        GUI.Label(new Rect(Screen.width - 210, 10, 200, 100),
+            "Health: " + runnerInfo.Health.ToString("0."), healthStyle);
     }
 }

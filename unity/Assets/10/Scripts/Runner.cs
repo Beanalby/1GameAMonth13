@@ -5,11 +5,13 @@ public class Runner : MonoBehaviour {
 
     private const int MAX_SHIFT_DISTANCE = 2;
 
-    private bool isRunning = true;
-
     private float speed = 10;
 
-    public Transform ship;
+    private float maxHealth = 5;
+    private float health;
+    public float Health {
+        get { return health; }
+    }
 
     private float shiftStartPos;
     private float shiftStart = -1;
@@ -17,6 +19,23 @@ public class Runner : MonoBehaviour {
     private const float shipRotate = 15f;
     private float shiftOffset;
     private Interpolate.Function shiftEase = Interpolate.Ease(Interpolate.EaseType.EaseInOutCubic);
+
+    private bool isRunning = true;
+    private Transform ship;
+    [HideInInspector]
+    public RunnerInfo info;
+
+    public float distanceTravelled {
+        get { return transform.position.z; }
+    }
+
+    public void Awake() {
+        ship = transform.FindChild("mesh");
+    }
+
+    public void Start() {
+        health = maxHealth;
+    }
 
     public void Update() {
         HandleShift();
@@ -45,7 +64,7 @@ public class Runner : MonoBehaviour {
         }
     }
     void HandleShift() {
-        if(shiftStart != -1) {
+        if(shiftStart != -1 || isRunning == false) {
             return;
         }
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -81,7 +100,23 @@ public class Runner : MonoBehaviour {
         }
     }
 
-    public void Crashed() {
+    public void Crashed(float damage) {
         Debug.Log("I crashed, on noes!");
+        health -= damage;
+        if(health <= 0) {
+            health = 0;
+            Die();
+        }
+    }
+
+    public void Die() {
+        Debug.Log("Down she goes!");
+        if(info) {
+            info.RunnerDied();
+        }
+        isRunning = false;
+        // remove the camera from ourselves
+        GetComponentInChildren<Camera>().transform.parent = null;
+        Destroy(gameObject);
     }
 }
