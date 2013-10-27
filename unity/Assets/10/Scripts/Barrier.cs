@@ -11,8 +11,7 @@ public class Barrier : MonoBehaviour {
     }
 
     public void GotHit() {
-        GameObject obj = Instantiate(crashEffect, transform.position,
-            Quaternion.identity) as GameObject;
+        Instantiate(crashEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 

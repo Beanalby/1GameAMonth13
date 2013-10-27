@@ -7,7 +7,7 @@ public class Runner : MonoBehaviour {
 
     private bool isRunning = true;
 
-    private float speed = 2;
+    private float speed = 10;
 
     public Transform ship;
 
