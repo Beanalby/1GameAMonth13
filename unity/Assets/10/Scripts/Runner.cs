@@ -7,7 +7,7 @@ public class Runner : MonoBehaviour {
 
     private bool isRunning = true;
 
-    private float speed = 10;
+    private float speed = 2;
 
     public Transform ship;
 
@@ -16,7 +16,7 @@ public class Runner : MonoBehaviour {
     private const float shiftDuration = .25f;
     private const float shipRotate = 15f;
     private float shiftOffset;
-    private Interpolate.Function shiftEase = Interpolate.Ease(Interpolate.EaseType.EaseOutCubic);
+    private Interpolate.Function shiftEase = Interpolate.Ease(Interpolate.EaseType.EaseInOutCubic);
 
     public void Update() {
         HandleShift();
@@ -79,5 +79,9 @@ public class Runner : MonoBehaviour {
             newPos.z += +Time.deltaTime * speed;
             rigidbody.MovePosition(newPos);
         }
+    }
+
+    public void Crashed() {
+        Debug.Log("I crashed, on noes!");
     }
 }
