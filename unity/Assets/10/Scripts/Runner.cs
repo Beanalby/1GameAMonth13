@@ -25,6 +25,10 @@ public class Runner : MonoBehaviour {
     private float shiftOffset;
     private Interpolate.Function shiftEase = Interpolate.Ease(Interpolate.EaseType.EaseInOutCubic);
 
+    private float blinkStart = -1f;
+    private float blinkDuration = 1f;
+    private float blinkRate = .25f;
+
     private bool isRunning = true;
     private Transform ship;
     [HideInInspector]
@@ -44,6 +48,7 @@ public class Runner : MonoBehaviour {
     }
 
     public void Update() {
+        HandleBlink();
         HandleShift();
     }
 
@@ -97,6 +102,19 @@ public class Runner : MonoBehaviour {
         shiftStartPos = rigidbody.transform.position.x;
     }
 
+    void HandleBlink() {
+        if(blinkStart == -1) {
+            return;
+        }
+        float percent = (Time.time - blinkStart) / blinkDuration;
+        if(percent >= 1) {
+            ship.gameObject.SetActive(true);
+            blinkStart = -1;
+        } else {
+            ship.gameObject.SetActive((Time.time - blinkStart) % blinkRate > blinkRate / 2f);
+        }
+    }
+
     void HandleAcceleration() {
         if(isRunning) {
             // slow down acceleration if we're going fast
@@ -122,6 +140,7 @@ public class Runner : MonoBehaviour {
     public void Crashed(float damage) {
         health -= damage;
         speed /= 2;
+        blinkStart = Time.time;
         if(health <= 0) {
             health = 0;
             Die();
