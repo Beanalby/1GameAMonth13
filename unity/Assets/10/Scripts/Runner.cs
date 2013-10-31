@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Runner : MonoBehaviour {
 
+    public AudioClip shiftSound;
+
     private const int MAX_SHIFT_DISTANCE = 2;
 
     private float acceleration = .5f;
@@ -49,6 +51,7 @@ public class Runner : MonoBehaviour {
 
     public void Update() {
         HandleBlink();
+        HandlePitch();
         HandleShift();
     }
 
@@ -100,6 +103,7 @@ public class Runner : MonoBehaviour {
         shiftOffset = offset;
         shiftStart = Time.time;
         shiftStartPos = rigidbody.transform.position.x;
+        AudioSource.PlayClipAtPoint(shiftSound, Camera.main.transform.position);
     }
 
     void HandleBlink() {
@@ -113,6 +117,10 @@ public class Runner : MonoBehaviour {
         } else {
             ship.gameObject.SetActive((Time.time - blinkStart) % blinkRate > blinkRate / 2f);
         }
+    }
+
+    void HandlePitch() {
+        audio.pitch = speed * .1f + .45f;
     }
 
     void HandleAcceleration() {

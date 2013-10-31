@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crashEffect: {fileID: 100000, guid: fc6e75c389a28c049b227f2cec8ff168, type: 2}
+  crashSound: {fileID: 8300000, guid: c588e42f81b36d947be96a4d25052fc2, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
