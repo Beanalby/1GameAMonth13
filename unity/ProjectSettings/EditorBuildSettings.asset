@@ -65,5 +65,7 @@ EditorBuildSettings:
     path: Assets/08/Scenes/levelLose.unity
   - enabled: 0
     path: Assets/08/Scenes/level6bonus.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/09/Scenes/test.unity
+  - enabled: 1
+    path: Assets/10/Scenes/Runner.unity

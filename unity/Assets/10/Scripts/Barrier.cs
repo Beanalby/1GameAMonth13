@@ -19,7 +19,6 @@ public class Barrier : MonoBehaviour {
     }
 
     public void OnCollisionEnter(Collision collision) {
-        Debug.Log("Collided with " + collision.gameObject);
         if(collision.gameObject.layer != playerLayer) {
             return;
         }

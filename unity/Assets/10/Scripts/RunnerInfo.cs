@@ -40,6 +40,10 @@ public class RunnerInfo : MonoBehaviour {
         }
     }
 
+    public void EnableControl() {
+        runner.EnableControl();
+    }
+
     public void SpawnRunner() {
         runner = (Instantiate(runnerPrefab.gameObject) as GameObject).GetComponent<Runner>();
         runner.info = this;

@@ -4,12 +4,15 @@ using System.Collections;
 public class Runner : MonoBehaviour {
 
     public AudioClip shiftSound;
+    public GameObject IntroPrefab;
 
     private const int MAX_SHIFT_DISTANCE = 2;
 
     private float acceleration = .5f;
     private float speedStart = 5;
     private float speed;
+
+    private float startTime, startPos;
 
     private float maxHealth = 4;
     private float health;
@@ -19,6 +22,8 @@ public class Runner : MonoBehaviour {
     public float Speed {
         get { return speed; }
     }
+
+    public bool CanControl;
 
     private float shiftStartPos;
     private float shiftStart = -1;
@@ -31,13 +36,18 @@ public class Runner : MonoBehaviour {
     private float blinkDuration = 1f;
     private float blinkRate = .25f;
 
-    private bool isRunning = true;
     private Transform ship;
     [HideInInspector]
     public RunnerInfo info;
 
     public float distanceTravelled {
-        get { return transform.position.z; }
+        get {
+            if(!CanControl) {
+                return 0;
+            } else {
+                return transform.position.z - startPos;
+            }
+        }
     }
 
     public void Awake() {
@@ -47,6 +57,7 @@ public class Runner : MonoBehaviour {
     public void Start() {
         health = maxHealth;
         speed = speedStart;
+        CanControl = false;
     }
 
     public void Update() {
@@ -79,7 +90,7 @@ public class Runner : MonoBehaviour {
         }
     }
     void HandleShift() {
-        if(shiftStart != -1 || isRunning == false) {
+        if(shiftStart != -1 || !CanControl) {
             return;
         }
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -124,25 +135,45 @@ public class Runner : MonoBehaviour {
     }
 
     void HandleAcceleration() {
-        if(isRunning) {
-            // slow down acceleration if we're going fast
-            if(speed >= 12) {
-                speed += (acceleration / 10) * Time.deltaTime;
-            } else if(speed >= 8) {
-                speed += (acceleration / 2) * Time.deltaTime;
-            } else {
-                speed += acceleration * Time.deltaTime;
-            }
+        if(!CanControl) // don't speed up before they control
+            return;
+        // slow down acceleration if we're going fast
+        if(speed >= 12) {
+            speed += (acceleration / 5) * Time.deltaTime;
+        } else if(speed >= 8) {
+            speed += (acceleration / 2) * Time.deltaTime;
+        } else {
+            speed += acceleration * Time.deltaTime;
         }
     }
 
     void HandleRunning() {
-        if(isRunning) {
-            Vector3 newPos = rigidbody.position;
-            newPos.x = ApplyShift(newPos.x);
-            newPos.z += +Time.deltaTime * speed;
-            rigidbody.MovePosition(newPos);
+        Vector3 newPos = rigidbody.position;
+        newPos.x = ApplyShift(newPos.x);
+        newPos.z += +Time.deltaTime * speed;
+        rigidbody.MovePosition(newPos);
+    }
+
+    public void EnableControl() {
+        startPos = transform.position.z;
+        CanControl = true;
+        // make the title stop following us, and stick to the room
+        Transform title = transform.Find("Title");
+        if(title) {
+            RunDriver.instance.AttachToNextRoom(title);
         }
+        StartCoroutine(AddIntro());
+    }
+
+    private IEnumerator AddIntro() {
+        yield return new WaitForSeconds(.5f);
+        // make a room with the help text
+        Transform intro = (GameObject.Instantiate(IntroPrefab) as GameObject).transform;
+        Vector3 pos = intro.position;
+        intro.parent = transform;
+        intro.localPosition = pos;
+        yield return new WaitForSeconds(2);
+        RunDriver.instance.AttachToNextRoom(intro);
     }
 
     public void Crashed(float damage) {
@@ -156,11 +187,9 @@ public class Runner : MonoBehaviour {
     }
 
     public void Die() {
-        Debug.Log("Down she goes!");
         if(info) {
             info.RunnerDied();
         }
-        isRunning = false;
         // remove the camera from ourselves
         GetComponentInChildren<Camera>().transform.parent = null;
         Destroy(gameObject);
