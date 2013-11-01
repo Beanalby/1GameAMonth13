@@ -83,5 +83,12 @@ public class RunDriver : MonoBehaviour {
             "Distance: " + runnerInfo.DistanceTravelled.ToString("0.0"));
         GUI.Label(new Rect(Screen.width - 210, 10, 200, 20),
             "Health: " + runnerInfo.Health.ToString("0."), healthStyle);
+        if(runnerInfo.Health <= 0) {
+            Rect buttonRect = new Rect(Screen.width/2 - 100, Screen.height/2 - 130,
+                200, 60);
+            if(GUI.Button(buttonRect, "Play Again")) {
+                Application.LoadLevel(Application.loadedLevel);
+            }
+            }
     }
 }
