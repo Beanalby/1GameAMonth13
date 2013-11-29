@@ -7,7 +7,7 @@ public class FruitCatcher : MonoBehaviour {
 
     public void OnTriggerEnter(Collider other) {
         Fruit fruit = other.GetComponent<Fruit>();
-        if(fruit.IsCaught) {
+        if(fruit.HasBeenCaught) {
             return;
         }
         holder.AddFruit(fruit);
