@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 19439cc00a5551a449df01647b920fe1
+guid: 5656502126c329c40bf1ba2f29915759
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
@@ -8,7 +8,6 @@ ModelImporter:
     2300000: //RootNode
     3300000: //RootNode
     4300000: Cube
-    4300002: fruitBinMesh
     7400000: Default Take
     9500000: //RootNode
   materials:
@@ -45,7 +44,7 @@ ModelImporter:
   tangentSpace:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 1
-    normalImportMode: 1
+    normalImportMode: 0
     tangentImportMode: 1
   importAnimation: 0
   copyAvatar: 0

@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(SphereCollider))]
+public enum FruitType { Apple, Lime, Orange };
+
 public class Fruit : MonoBehaviour {
+
+    public FruitType Type;
 
     private int groundLayer;
 
