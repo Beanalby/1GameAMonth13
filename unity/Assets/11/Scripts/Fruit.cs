@@ -6,6 +6,7 @@ public enum FruitType { Apple, Lime, Orange };
 public class Fruit : MonoBehaviour {
 
     public FruitType Type;
+    public GameObject splatPrefab;
 
     private int groundLayer;
 
@@ -23,7 +24,20 @@ public class Fruit : MonoBehaviour {
         if(collision.transform.gameObject.layer != groundLayer) {
             return;
         }
-        Debug.Log("Fruit going SPLAT at " + collision.contacts[0].point);
+        Vector3 pos = collision.contacts[0].point;
+
+        // if the collision point is below zero vertically, then this was a
+        // fast horizontal fruit that went into a bin, but then hit
+        // a side "wall" of the floor.  Don't splat if that's the case.
+        if(pos.y < -0.001f) {
+            Destroy(gameObject);
+            return;
+        }
+
+        SplatEffect splat = (Instantiate(splatPrefab) as GameObject).GetComponent<SplatEffect>();
+        splat.Type = Type;
+        splat.transform.position = new Vector3(pos.x, .01f, 0);
+
         Destroy(gameObject);
     }
 
