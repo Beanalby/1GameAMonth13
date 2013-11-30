@@ -43,7 +43,7 @@ GameObject:
   - 4: {fileID: 400004}
   - 33: {fileID: 3300000}
   - 23: {fileID: 2300000}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: splat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,6 +125,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 0
+  fadeDelay: 3
+  fadeDuration: 1
 --- !u!198 &19800000
 ParticleSystem:
   m_ObjectHideFlags: 1
