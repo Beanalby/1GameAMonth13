@@ -4,9 +4,24 @@ using System.Collections;
 [RequireComponent(typeof(SphereCollider))]
 public class Fruit : MonoBehaviour {
 
+    private int groundLayer;
+
     private bool hasBeenCaught = false;
     public bool HasBeenCaught {
         get { return hasBeenCaught; }
+    }
+
+    public void Start() {
+        groundLayer = LayerMask.NameToLayer("Ground");
+    }
+
+    public void OnCollisionEnter(Collision collision) {
+        // we only react with ground collisions
+        if(collision.transform.gameObject.layer != groundLayer) {
+            return;
+        }
+        Debug.Log("Fruit going SPLAT at " + collision.contacts[0].point);
+        Destroy(gameObject);
     }
 
     public void Init(Vector3 position, Vector3 velocity, Vector3 spin) {
