@@ -17,6 +17,9 @@ public class Fruit : MonoBehaviour {
 
     public void Start() {
         groundLayer = LayerMask.NameToLayer("Ground");
+        // tweak the trailrenderer's color based on our type
+        Material mat = GetComponentInChildren<TrailRenderer>().material;
+        mat.SetColor("_Emission", SplatEffect.type2color[Type]);
     }
 
     public void OnCollisionEnter(Collision collision) {
@@ -51,6 +54,7 @@ public class Fruit : MonoBehaviour {
     public void Caught() {
         rigidbody.isKinematic = true;
         hasBeenCaught = true;
+        GetComponentInChildren<TrailRenderer>().enabled = false;
     }
     public void Released(Vector3 velocity) {
         transform.parent = null;
