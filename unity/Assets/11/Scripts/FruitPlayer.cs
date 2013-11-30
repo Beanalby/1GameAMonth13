@@ -17,7 +17,7 @@ public class FruitPlayer : MonoBehaviour {
     }
 
     public void HandleInput() {
-        if(Input.GetButtonDown("Fire1")) {
+        if(Input.GetButton("Fire1")) {
             holder.DropFruit(rigidbody.velocity);
         }
     }
