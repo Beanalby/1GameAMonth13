@@ -37,6 +37,7 @@ public class Fruit : MonoBehaviour {
             return;
         }
 
+        GameObject.Find("FruitGameDriver").GetComponent<FruitGameDriver>().FruitSplat();
         SplatEffect splat = (Instantiate(splatPrefab) as GameObject).GetComponent<SplatEffect>();
         splat.Type = Type;
         splat.transform.position = new Vector3(pos.x, .01f, 0);

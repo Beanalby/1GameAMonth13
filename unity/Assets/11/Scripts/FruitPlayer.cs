@@ -4,16 +4,23 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody))]
 public class FruitPlayer : MonoBehaviour {
 
+    public bool CanControl = true;
+
     public FruitHolder holder;
+    public FruitLauncher launcher;
 
     private float maxDistance = 6;
     private float slideSpeed = 10;
 
     public void Update() {
-        HandleInput();
+        if(CanControl) {
+            HandleInput();
+        }
     }
     public void FixedUpdate() {
-        HandleMovement();
+        if(CanControl) {
+            HandleMovement();
+        }
     }
 
     public void HandleInput() {

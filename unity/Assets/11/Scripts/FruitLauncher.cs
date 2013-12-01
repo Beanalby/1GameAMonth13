@@ -6,8 +6,11 @@ public class FruitLauncher : MonoBehaviour {
     public GameObject[] fruitPrefabs;
     public Transform launchPoint;
     public AudioClip launchSound;
+    public FruitGameDriver driver;
 
-    private float launchDelay = .5f;
+    private float launchDelay = 2f;
+    private float launchRandomize = .5f;
+    private float launchNext;
     private float launchPower = 10;
     private float angleMin = 5, angleMax = 45;
     private float spinPower = 5;
@@ -16,22 +19,27 @@ public class FruitLauncher : MonoBehaviour {
 
     public void Start() {
         lastLaunch = Mathf.NegativeInfinity;
+        launchNext = launchDelay + Random.Range(-launchRandomize, launchRandomize);
     }
     public void Update() {
         HandleLaunch();
-        if(Input.GetButtonDown("Fire2")) {
-            LaunchFruit();
-        }
+        //if(Input.GetButtonDown("Fire2")) {
+        //    LaunchFruit();
+        //}
     }
 
     private void HandleLaunch() {
-        if(Time.time < lastLaunch + launchDelay) {
+        if(Time.time < lastLaunch + launchNext) {
             return;
         }
-        //LaunchFruit();
+        if(!driver.IsGameRunning()) {
+            return;
+        }
+        LaunchFruit();
+        launchNext = launchDelay + Random.Range(-launchRandomize, launchRandomize);
     }
 
-    private void LaunchFruit() {
+    public void LaunchFruit() {
         lastLaunch = Time.time;
         Vector3 velocity = new Vector3(0, launchPower, 0);
         // angle the launch trajectory
