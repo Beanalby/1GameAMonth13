@@ -6,6 +6,7 @@ using System.Linq;
 public class FruitHolder : MonoBehaviour {
 
     public FruitCatcher catcher;
+    public AudioClip catchSound;
 
     /// <summary>amount of space between fruits when being held</summary>
     private float stackSize = .5f;
@@ -31,6 +32,7 @@ public class FruitHolder : MonoBehaviour {
 
         fruits.Enqueue(fruit);
         catcher.transform.localPosition = new Vector3(0, fruits.Count * stackSize, 0);
+        AudioSource.PlayClipAtPoint(catchSound, Camera.main.transform.position);
     }
 
     public void DropFruit(Vector3 velocity) {

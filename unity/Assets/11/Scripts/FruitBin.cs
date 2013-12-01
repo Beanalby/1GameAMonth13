@@ -3,7 +3,7 @@ using System.Collections;
 
 public class FruitBin : MonoBehaviour {
     public FruitType Type;
-    public GameObject effectPrefab;
+    public GameObject effectGood, effectBad;
 
     public void Start() {
         // adjust this bin's color
@@ -15,13 +15,14 @@ public class FruitBin : MonoBehaviour {
             Debug.LogError("!!! No fruit in bin's collider?");
             return;
         }
+        SplatEffect effect;
         if(fruit.Type == Type) {
-            SplatEffect effect = (Instantiate(effectPrefab) as GameObject).GetComponent<SplatEffect>();
-            effect.transform.position = transform.position;
-            effect.Type = Type;
+            effect = (Instantiate(effectGood) as GameObject).GetComponent<SplatEffect>();
         } else {
-            Debug.Log("EWWW, " + Type + "!");
+            effect = (Instantiate(effectBad) as GameObject).GetComponent<SplatEffect>();
         }
+        effect.transform.position = transform.position;
+        effect.Type = Type;
         Destroy(fruit.gameObject);
     }
 }

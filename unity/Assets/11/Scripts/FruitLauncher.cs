@@ -5,6 +5,7 @@ public class FruitLauncher : MonoBehaviour {
 
     public GameObject[] fruitPrefabs;
     public Transform launchPoint;
+    public AudioClip launchSound;
 
     private float launchDelay = .5f;
     private float launchPower = 10;
@@ -46,6 +47,7 @@ public class FruitLauncher : MonoBehaviour {
         int index = Random.Range(0, fruitPrefabs.Length);
         Fruit fruit = (Instantiate(fruitPrefabs[index]) as GameObject).GetComponent<Fruit>();
         fruit.Init(launchPoint.position, velocity, angularVelocity);
+        AudioSource.PlayClipAtPoint(launchSound, Camera.main.transform.position);
     }
 
     private static Vector3 RotateAroundCenter(Vector3 point, Vector3 angle) {

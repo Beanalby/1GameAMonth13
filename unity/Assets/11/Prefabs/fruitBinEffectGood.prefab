@@ -134,7 +134,7 @@ GameObject:
   - 95: {fileID: 9500000}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: fruitBinEffect
+  m_Name: fruitBinEffectGood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -275,6 +275,7 @@ MonoBehaviour:
   Type: 0
   fadeDelay: .5
   fadeDuration: .5
+  audioEffect: {fileID: 8300000, guid: 44d46b4e2418f70458ff38415b996bc8, type: 3}
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

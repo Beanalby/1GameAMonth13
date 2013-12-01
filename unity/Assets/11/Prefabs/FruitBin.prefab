@@ -186,7 +186,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 1
-  effectPrefab: {fileID: 100016, guid: 190cb39a89a421f4cb7a79262ba625b3, type: 2}
+  effectGood: {fileID: 100016, guid: 190cb39a89a421f4cb7a79262ba625b3, type: 2}
+  effectBad: {fileID: 100016, guid: a75840ec570716844a3f409645a6a8eb, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
