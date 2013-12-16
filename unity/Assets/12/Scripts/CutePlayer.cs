@@ -21,7 +21,7 @@ public class CutePlayer : MonoBehaviour {
     private float travelStart = -1;
     private Vector3 travelDelta = Vector3.zero, travelBase = Vector3.zero;
     private Interpolate.Function travelEase = null;
-    private int groundMask;
+    private int groundMask, attackableMask;
 
     private Vector3 aimDir;
     public bool IsFlinging {
@@ -30,21 +30,24 @@ public class CutePlayer : MonoBehaviour {
     private bool isFlinging;
 
     public bool CanMove {
-        get { return travelStart == -1 && !IsAiming; }
+        get { return stageDriver.IsPlaying && travelStart == -1 && !IsAiming; }
     }
     public bool CanControl {
-        get { return travelStart == -1; }
+        get { return stageDriver.IsPlaying && travelStart == -1; }
     }
 
     private bool IsAiming = false;
+    private CuteStageDriver stageDriver;
 
     public void Start() {
         groundMask = 1 << LayerMask.NameToLayer("Ground");
+        attackableMask = 1 << LayerMask.NameToLayer("Attackable");
         aimObject = Instantiate(aimPrefab) as GameObject;
         aimObject.SetActive(false);
         aimAnyObject = Instantiate(aimAnyPrefab) as GameObject;
         aimAnyObject.SetActive(false);
         mesh = transform.Find("mesh");
+        stageDriver = CuteStageDriver.Instance;
     }
 
     public void Update() {
@@ -69,7 +72,7 @@ public class CutePlayer : MonoBehaviour {
             aimAnyObject.transform.position = transform.position;
             aimObject.transform.position = transform.position;
             foreach(Transform t in aimAnyObject.transform) {
-                t.gameObject.SetActive(IsValidMovementTarget(t.position));
+                t.gameObject.SetActive(IsValidMovementTarget(t.position, true));
             }
             aimDir = Vector3.zero;
         } else if(IsAiming && !Input.GetButton("Fire1")) {
@@ -93,12 +96,13 @@ public class CutePlayer : MonoBehaviour {
                 checkDir = new Vector3(0, 0, 1);
             }
             // if there was direction input and it's valid, aim there
-            if(checkDir != Vector3.zero && IsValidMovementTarget(transform.position + checkDir)) {
+            if(checkDir != Vector3.zero && IsValidMovementTarget(transform.position + checkDir, true)) {
                 aimDir = checkDir;
                 aimAnyObject.SetActive(false);
                 aimObject.SetActive(true);
                 aimObject.transform.position = transform.position + checkDir;
             } else {
+                aimDir = Vector3.zero;
                 aimAnyObject.SetActive(true);
                 aimObject.SetActive(false);
             }
@@ -124,7 +128,7 @@ public class CutePlayer : MonoBehaviour {
         }
     }
     private void TryMovement(Vector3 delta) {
-        if(!IsValidMovementTarget(transform.position + delta)) {
+        if(!IsValidMovementTarget(transform.position + delta, false)) {
             return;
         }
         // everything checks out, let it move
@@ -139,9 +143,15 @@ public class CutePlayer : MonoBehaviour {
         travelEase = moveEase;
     }
 
-    private bool IsValidMovementTarget(Vector3 pos) {
-        // don't move into a ground block
-        if(Physics.OverlapSphere(pos, .2f, groundMask).Length != 0) {
+    private bool IsValidMovementTarget(Vector3 pos, bool testFling) {
+        // check we're not moving into something we shouldn't.  If we're
+        // flinging then we only worry about ground, but movement can't
+        // go through objects either
+        int mask = groundMask;
+        if(!testFling) {
+            mask |= attackableMask;
+        }
+        if(Physics.OverlapSphere(pos, .2f, mask).Length != 0) {
             return false;
         }
         // don't move to a position that doesn't have ground beneath it
@@ -191,27 +201,42 @@ public class CutePlayer : MonoBehaviour {
                 savedScale.x, savedScale.y-1, savedScale.z);
         }
         isFlinging = true;
-        travelStart = Time.time;
-        travelBase = transform.position;
         travelDelta = aimDir;
         travelDuration = 1 / flingSpeed;
+        FlingToNext();
     }
     private void StopFling() {
         mesh.localRotation = Quaternion.Euler(savedRotation) ;
         mesh.localScale = savedScale;
         isFlinging = false;
+        stageDriver.FlingFinished();
         // let the movement stuff finish normally
     }
 
     private void FlingToNext() {
-        // we're at a position and need to see whether we can continue
-        if(!IsValidMovementTarget(travelBase + (2*aimDir))) {
-            StopFling();
-            return;
-        }
         // keep going to the next location
+        if(travelStart == -1) {
+            // we're starting to fling, make sure it's valid
+            if(!IsValidMovementTarget(travelBase + aimDir, true)) {
+                StopFling();
+                return;
+            }
+            travelBase = transform.position;
+        } else {
+            // we're midair, and see whether we can continue beyond the
+            // current movement
+            if(!IsValidMovementTarget((travelBase + aimDir) + aimDir, true)) {
+                StopFling();
+                return;
+            }
+            travelBase = travelBase + aimDir;
+        }
         travelStart = Time.time;
-        travelBase = travelBase + aimDir;
+        // check if there's anything that would get destroyed by this
+        foreach(Collider col in Physics.OverlapSphere(
+                travelBase + aimDir, .2f, attackableMask)) {
+            col.gameObject.SendMessage("Attacked");
+        }
     }
     private void HandleFlinging() {
         // make sure the place we're about to go is over ground
