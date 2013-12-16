@@ -68,8 +68,20 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/09/Scenes/test.unity
   - enabled: 0
+    path: Assets/11/Scenes/intro.unity
+  - enabled: 0
+    path: Assets/11/Scenes/game.unity
+  - enabled: 0
     path: Assets/10/Scenes/Runner.unity
   - enabled: 1
-    path: Assets/11/Scenes/intro.unity
+    path: Assets/12/Scenes/title.unity
   - enabled: 1
-    path: Assets/11/Scenes/game.unity
+    path: Assets/12/Scenes/story1.unity
+  - enabled: 1
+    path: Assets/12/Scenes/story2.unity
+  - enabled: 1
+    path: Assets/12/Scenes/stage1.unity
+  - enabled: 1
+    path: Assets/12/Scenes/stage2.unity
+  - enabled: 1
+    path: Assets/12/Scenes/stage3.unity

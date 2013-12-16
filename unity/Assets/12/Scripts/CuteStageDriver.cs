@@ -38,6 +38,7 @@ public class CuteStageDriver : MonoBehaviour {
         instance = this;
     }
     public void Start() {
+        CuteMusicPlayer.Instance.PlayMusic("stageMusic");
         string moveDesc = "Use the arrow keys to move the player around.";
         string attackDesc = "Hold the spacebar to aim an Super Headbutt.  Hold a direction to headbutt, and release the spacebar to let it fly!";
         if(showControls) {

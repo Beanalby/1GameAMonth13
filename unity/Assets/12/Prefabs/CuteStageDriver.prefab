@@ -38,7 +38,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948ca3aba0518434995c61247166b9af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skin: {fileID: 0}
+  nextStage: 
+  skin: {fileID: 11400000, guid: 4e7fd65375e4e1344b69a7b7cd8cebfe, type: 2}
+  instructions: 
+  showControls: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

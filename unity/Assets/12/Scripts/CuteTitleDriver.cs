@@ -5,6 +5,9 @@ public class CuteTitleDriver : MonoBehaviour {
     public Texture2D titleImage;
     public string nextStage;
 
+    public void Start() {
+        CuteMusicPlayer.Instance.PlayMusic("titleMusic");
+    }
     public void Update() {
         if(Input.GetButtonDown("Fire1")) {
             Application.LoadLevel(nextStage);

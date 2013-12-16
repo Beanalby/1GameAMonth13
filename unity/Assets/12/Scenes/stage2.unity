@@ -1575,6 +1575,107 @@ Prefab:
   m_RootGameObject: {fileID: 1809325048}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &225123526
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: 3dc90828fad8e8241bc38ea2264c1d22, type: 2}
+  m_PrefabInternal: {fileID: 810268421}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 225123529}
+  - 114: {fileID: 225123528}
+  - 82: {fileID: 225123527}
+  m_Layer: 0
+  m_Name: CuteMusic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &225123527
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 8200000, guid: 3dc90828fad8e8241bc38ea2264c1d22,
+    type: 2}
+  m_PrefabInternal: {fileID: 810268421}
+  m_GameObject: {fileID: 225123526}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: .330000013
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+--- !u!114 &225123528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 3dc90828fad8e8241bc38ea2264c1d22,
+    type: 2}
+  m_PrefabInternal: {fileID: 810268421}
+  m_GameObject: {fileID: 225123526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ede8fcfa397b724da30690a0fbf18e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleMusic: {fileID: 8300000, guid: cb5963da48c27cf4ab899eb360f83d5d, type: 3}
+  stageMusic: {fileID: 8300000, guid: 3a23f3be98db69745bad8e67195e9870, type: 3}
+--- !u!4 &225123529
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: 3dc90828fad8e8241bc38ea2264c1d22, type: 2}
+  m_PrefabInternal: {fileID: 810268421}
+  m_GameObject: {fileID: 225123526}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.62544632, y: .786376953, z: 5.63499451}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &226780741
 GameObject:
   m_ObjectHideFlags: 0
@@ -4784,6 +4885,46 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1721519263}
   m_GameObject: {fileID: 803568093}
   m_Mesh: {fileID: 4300000, guid: 58308089b65d2402db691fcd9ebe2c59, type: 3}
+--- !u!1001 &810268421
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 3dc90828fad8e8241bc38ea2264c1d22, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -2.62544632
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3dc90828fad8e8241bc38ea2264c1d22, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: .786376953
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3dc90828fad8e8241bc38ea2264c1d22, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 5.63499451
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3dc90828fad8e8241bc38ea2264c1d22, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3dc90828fad8e8241bc38ea2264c1d22, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3dc90828fad8e8241bc38ea2264c1d22, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3dc90828fad8e8241bc38ea2264c1d22, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 3dc90828fad8e8241bc38ea2264c1d22, type: 2}
+  m_RootGameObject: {fileID: 225123526}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &825130742
 GameObject:
   m_ObjectHideFlags: 0
@@ -5024,6 +5165,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f231755c05d2a494aacb427499f2dc3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &901167818
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1.15195239
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -.50963974
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -.376962185
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
+      propertyPath: nextStage
+      value: stage3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
+      propertyPath: instructions
+      value: Rocks can be pushed around to line up the perfect Super Headbutt.
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
+  m_RootGameObject: {fileID: 1138433722}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1001 &905878356
 Prefab:
   m_ObjectHideFlags: 0
@@ -6602,7 +6791,7 @@ MeshFilter:
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 100000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-  m_PrefabInternal: {fileID: 1254492540}
+  m_PrefabInternal: {fileID: 901167818}
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1138433723}
@@ -6618,7 +6807,7 @@ GameObject:
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-  m_PrefabInternal: {fileID: 1254492540}
+  m_PrefabInternal: {fileID: 901167818}
   m_GameObject: {fileID: 1138433722}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.15195239, y: -.50963974, z: -.376962185}
@@ -6630,7 +6819,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400000, guid: df5e41eedac2c1f48bc20ed914c82628,
     type: 2}
-  m_PrefabInternal: {fileID: 1254492540}
+  m_PrefabInternal: {fileID: 901167818}
   m_GameObject: {fileID: 1138433722}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -6639,7 +6828,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextStage: stage3
   skin: {fileID: 11400000, guid: 4e7fd65375e4e1344b69a7b7cd8cebfe, type: 2}
-  instructions: Rocks can be pushed to line up the perfect Super Headbutt.
+  instructions: Rocks can be pushed around to line up the perfect Super Headbutt.
   showControls: 1
 --- !u!1 &1144298029
 GameObject:
@@ -7119,63 +7308,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1565866582}
   m_GameObject: {fileID: 1248238151}
   m_Mesh: {fileID: 4300000, guid: 58308089b65d2402db691fcd9ebe2c59, type: 3}
---- !u!1001 &1254492540
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 1.15195239
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -.50963974
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -.376962185
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-      propertyPath: skin
-      value: 
-      objectReference: {fileID: 11400000, guid: 4e7fd65375e4e1344b69a7b7cd8cebfe,
-        type: 2}
-    - target: {fileID: 11400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-      propertyPath: showControls
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-      propertyPath: instructions
-      value: Rocks can be pushed to line up the perfect Super Headbutt.
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-      propertyPath: nextStage
-      value: stage3
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-  m_RootGameObject: {fileID: 1138433722}
-  m_IsPrefabParent: 0
-  m_IsExploded: 1
 --- !u!1 &1255083063
 GameObject:
   m_ObjectHideFlags: 0
@@ -8259,10 +8391,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 1409649121}
   - 114: {fileID: 1409649123}
-  - 65: {fileID: 1409649122}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: WaterBlock
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8280,19 +8411,6 @@ Transform:
   - {fileID: 1144298030}
   - {fileID: 259065890}
   m_Father: {fileID: 1673931192}
---- !u!65 &1409649122
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6500000, guid: d7e3c53893758284594e5126faffb0d5,
-    type: 2}
-  m_PrefabInternal: {fileID: 2137568775}
-  m_GameObject: {fileID: 1409649120}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1409649123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11993,10 +12111,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 1943987825}
   - 114: {fileID: 1943987827}
-  - 65: {fileID: 1943987826}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: WaterBlock
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12013,19 +12130,6 @@ Transform:
   m_Children:
   - {fileID: 184077738}
   m_Father: {fileID: 1673931192}
---- !u!65 &1943987826
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6500000, guid: d7e3c53893758284594e5126faffb0d5,
-    type: 2}
-  m_PrefabInternal: {fileID: 1387293975}
-  m_GameObject: {fileID: 1943987824}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1943987827
 MonoBehaviour:
   m_ObjectHideFlags: 0

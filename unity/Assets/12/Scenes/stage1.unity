@@ -4437,7 +4437,7 @@ Prefab:
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 100000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-  m_PrefabInternal: {fileID: 1254492540}
+  m_PrefabInternal: {fileID: 1678467527}
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1138433723}
@@ -4453,7 +4453,7 @@ GameObject:
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-  m_PrefabInternal: {fileID: 1254492540}
+  m_PrefabInternal: {fileID: 1678467527}
   m_GameObject: {fileID: 1138433722}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.15195239, y: -.50963974, z: -.376962185}
@@ -4465,7 +4465,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400000, guid: df5e41eedac2c1f48bc20ed914c82628,
     type: 2}
-  m_PrefabInternal: {fileID: 1254492540}
+  m_PrefabInternal: {fileID: 1678467527}
   m_GameObject: {fileID: 1138433722}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -4474,7 +4474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextStage: stage2
   skin: {fileID: 11400000, guid: 4e7fd65375e4e1344b69a7b7cd8cebfe, type: 2}
-  instructions: Destroy the rocks with one Super Headbutt!
+  instructions: Destroy all the rocks with a single Super Headbutt!
   showControls: 1
 --- !u!1001 &1150244812
 Prefab:
@@ -4844,63 +4844,6 @@ Prefab:
   m_RootGameObject: {fileID: 1575505465}
   m_IsPrefabParent: 0
   m_IsExploded: 1
---- !u!1001 &1254492540
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 1.15195239
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -.50963974
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -.376962185
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-      propertyPath: skin
-      value: 
-      objectReference: {fileID: 11400000, guid: 4e7fd65375e4e1344b69a7b7cd8cebfe,
-        type: 2}
-    - target: {fileID: 11400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-      propertyPath: showControls
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-      propertyPath: instructions
-      value: Destroy the rocks with one Super Headbutt!
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-      propertyPath: nextStage
-      value: stage2
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
-  m_RootGameObject: {fileID: 1138433722}
-  m_IsPrefabParent: 0
-  m_IsExploded: 1
 --- !u!1 &1268160783
 GameObject:
   m_ObjectHideFlags: 0
@@ -5071,6 +5014,46 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1533264897}
   m_GameObject: {fileID: 1277998685}
   m_Mesh: {fileID: 4300000, guid: 58308089b65d2402db691fcd9ebe2c59, type: 3}
+--- !u!1001 &1293516303
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 3dc90828fad8e8241bc38ea2264c1d22, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -2.62544632
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3dc90828fad8e8241bc38ea2264c1d22, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: .786376953
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3dc90828fad8e8241bc38ea2264c1d22, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 5.63499451
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3dc90828fad8e8241bc38ea2264c1d22, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3dc90828fad8e8241bc38ea2264c1d22, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3dc90828fad8e8241bc38ea2264c1d22, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3dc90828fad8e8241bc38ea2264c1d22, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 3dc90828fad8e8241bc38ea2264c1d22, type: 2}
+  m_RootGameObject: {fileID: 1859065916}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &1294123705
 GameObject:
   m_ObjectHideFlags: 0
@@ -5459,6 +5442,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aimPrefab: {fileID: 100002, guid: 12a81cdc2a46f5343b9a5a9b917606e4, type: 2}
   aimAnyPrefab: {fileID: 100016, guid: 839d419b522f1df4a9db860bf393e6d6, type: 2}
+  moveSound: {fileID: 8300000, guid: cc905f25168fa554c9b88ffaa869ba2b, type: 3}
+  chargeSound: {fileID: 8300000, guid: 080eba3119d5e194f9986ebec88a78cb, type: 3}
+  headbuttSound: {fileID: 8300000, guid: b26068ab244083a45a44a3cc53d4342c, type: 3}
 --- !u!1 &1384082561
 GameObject:
   m_ObjectHideFlags: 0
@@ -6751,20 +6737,20 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 399903024}
-  - {fileID: 1615617995}
-  - {fileID: 1717043729}
-  - {fileID: 567279669}
   - {fileID: 1268160784}
-  - {fileID: 2097080255}
-  - {fileID: 349719139}
-  - {fileID: 460330113}
-  - {fileID: 1575505466}
-  - {fileID: 1110685955}
-  - {fileID: 464771102}
   - {fileID: 302601129}
+  - {fileID: 1717043729}
+  - {fileID: 1110685955}
+  - {fileID: 460330113}
+  - {fileID: 349719139}
   - {fileID: 1902038136}
+  - {fileID: 1575505466}
+  - {fileID: 399903024}
   - {fileID: 757639312}
+  - {fileID: 1615617995}
+  - {fileID: 567279669}
+  - {fileID: 464771102}
+  - {fileID: 2097080255}
   - {fileID: 1791510177}
   - {fileID: 995041909}
   - {fileID: 520424787}
@@ -6787,11 +6773,59 @@ Transform:
   - {fileID: 1690266947}
   - {fileID: 531652811}
   - {fileID: 411586840}
-  - {fileID: 111883205}
-  - {fileID: 606883077}
   - {fileID: 1076433577}
   - {fileID: 446914427}
+  - {fileID: 606883077}
+  - {fileID: 111883205}
   m_Father: {fileID: 0}
+--- !u!1001 &1678467527
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1.15195239
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -.50963974
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -.376962185
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
+      propertyPath: instructions
+      value: Destroy all the rocks with a single Super Headbutt!
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
+      propertyPath: nextStage
+      value: stage2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
+  m_RootGameObject: {fileID: 1138433722}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &1690266946
 GameObject:
   m_ObjectHideFlags: 0
@@ -7232,6 +7266,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeathEffect: {fileID: 100000, guid: b24c28f6767b1834285ac691968899f6, type: 2}
   MustDestroy: 1
+  pushedSound: {fileID: 8300000, guid: 085f05ffa7953a845a862aeb2b330f8d, type: 3}
+  dieSound: {fileID: 8300000, guid: baa5b1e6f87c7ef4a9513b322507c7c3, type: 3}
 --- !u!114 &1757188901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7469,6 +7505,107 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f231755c05d2a494aacb427499f2dc3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1859065916
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: 3dc90828fad8e8241bc38ea2264c1d22, type: 2}
+  m_PrefabInternal: {fileID: 1293516303}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1859065919}
+  - 114: {fileID: 1859065918}
+  - 82: {fileID: 1859065917}
+  m_Layer: 0
+  m_Name: CuteMusic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &1859065917
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 8200000, guid: 3dc90828fad8e8241bc38ea2264c1d22,
+    type: 2}
+  m_PrefabInternal: {fileID: 1293516303}
+  m_GameObject: {fileID: 1859065916}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: .330000013
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+--- !u!114 &1859065918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 3dc90828fad8e8241bc38ea2264c1d22,
+    type: 2}
+  m_PrefabInternal: {fileID: 1293516303}
+  m_GameObject: {fileID: 1859065916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ede8fcfa397b724da30690a0fbf18e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleMusic: {fileID: 8300000, guid: cb5963da48c27cf4ab899eb360f83d5d, type: 3}
+  stageMusic: {fileID: 8300000, guid: 3a23f3be98db69745bad8e67195e9870, type: 3}
+--- !u!4 &1859065919
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: 3dc90828fad8e8241bc38ea2264c1d22, type: 2}
+  m_PrefabInternal: {fileID: 1293516303}
+  m_GameObject: {fileID: 1859065916}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.62544632, y: .786376953, z: 5.63499451}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &1870426755
 GameObject:
   m_ObjectHideFlags: 0
@@ -7744,6 +7881,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeathEffect: {fileID: 100000, guid: b24c28f6767b1834285ac691968899f6, type: 2}
   MustDestroy: 1
+  pushedSound: {fileID: 8300000, guid: 085f05ffa7953a845a862aeb2b330f8d, type: 3}
+  dieSound: {fileID: 8300000, guid: baa5b1e6f87c7ef4a9513b322507c7c3, type: 3}
 --- !u!1001 &1927489445
 Prefab:
   m_ObjectHideFlags: 0
@@ -8667,6 +8806,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeathEffect: {fileID: 100000, guid: b24c28f6767b1834285ac691968899f6, type: 2}
   MustDestroy: 1
+  pushedSound: {fileID: 8300000, guid: 085f05ffa7953a845a862aeb2b330f8d, type: 3}
+  dieSound: {fileID: 8300000, guid: baa5b1e6f87c7ef4a9513b322507c7c3, type: 3}
 --- !u!114 &2136081653
 MonoBehaviour:
   m_ObjectHideFlags: 0
