@@ -24,7 +24,9 @@ public class CuteStoryDriver : MonoBehaviour {
     public void Update() {
         float percent = (Time.time - start) / duration;
         if(percent >= 1) {
-            Application.LoadLevel(nextStage);
+            if(nextStage != "") {
+                Application.LoadLevel(nextStage);
+            }
         } else {
             transform.position = Interpolate.Ease(ease, cameraStart,
                 cameraDelta, percent, 1);
