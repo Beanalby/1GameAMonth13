@@ -8,6 +8,8 @@ public class CutePlayer : MonoBehaviour {
     public GameObject aimPrefab, aimAnyPrefab;
     private GameObject aimObject = null, aimAnyObject = null;
 
+    public AudioClip moveSound, chargeSound, headbuttSound;
+
     private Transform mesh;
     private Vector3 savedRotation, savedScale;
 
@@ -75,6 +77,8 @@ public class CutePlayer : MonoBehaviour {
                 t.gameObject.SetActive(IsValidMovementTarget(t.position, true));
             }
             aimDir = Vector3.zero;
+            //AudioSource.PlayClipAtPoint(chargeSound, Camera.main.transform.position);
+
         } else if(IsAiming && !Input.GetButton("Fire1")) {
             if(aimDir != Vector3.zero) {
                 StartFling();
@@ -146,6 +150,7 @@ public class CutePlayer : MonoBehaviour {
         travelStart = Time.time;
         travelDuration = 1 / moveSpeed;
         travelEase = moveEase;
+        AudioSource.PlayClipAtPoint(moveSound, Camera.main.transform.position);
     }
 
     private bool IsValidMovementTarget(Vector3 pos, bool testFling) {
@@ -216,6 +221,7 @@ public class CutePlayer : MonoBehaviour {
         isFlinging = true;
         travelDelta = aimDir;
         travelDuration = 1 / flingSpeed;
+        AudioSource.PlayClipAtPoint(headbuttSound, Camera.main.transform.position);
         FlingToNext();
     }
     private void StopFling() {

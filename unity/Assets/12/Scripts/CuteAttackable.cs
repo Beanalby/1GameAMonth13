@@ -4,6 +4,8 @@ using System.Collections;
 public class CuteAttackable : MonoBehaviour {
     public GameObject DeathEffect;
     public bool MustDestroy = true;
+    public AudioClip pushedSound;
+    public AudioClip dieSound;
 
     private float moveSpeed = 4f;
     private Interpolate.Function moveEase = Interpolate.Ease(Interpolate.EaseType.EaseOutCubic);
@@ -27,7 +29,8 @@ public class CuteAttackable : MonoBehaviour {
         if(DeathEffect != null) {
             GameObject obj = Instantiate(DeathEffect) as GameObject;
             obj.transform.position = transform.position;
-        } 
+        }
+        AudioSource.PlayClipAtPoint(dieSound, Camera.main.transform.position);
         Destroy(gameObject);
     }
 
@@ -74,5 +77,6 @@ public class CuteAttackable : MonoBehaviour {
         travelStart = Time.time;
         travelDuration = 1 / moveSpeed;
         travelEase = moveEase;
+        AudioSource.PlayClipAtPoint(pushedSound, Camera.main.transform.position);
     }
 }
