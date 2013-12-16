@@ -136,6 +136,11 @@ public class CutePlayer : MonoBehaviour {
     }
 
     private void ApplyMovement(Vector3 delta) {
+        // if there's an object in that direction, push it
+        Vector3 pos = transform.position + delta;
+        foreach(Collider col in Physics.OverlapSphere(pos, .2f, attackableMask)) {
+            col.SendMessage("Pushed", delta);
+        }
         travelDelta = delta;
         travelBase = transform.position;
         travelStart = Time.time;
@@ -147,12 +152,20 @@ public class CutePlayer : MonoBehaviour {
         // check we're not moving into something we shouldn't.  If we're
         // flinging then we only worry about ground, but movement can't
         // go through objects either
-        int mask = groundMask;
-        if(!testFling) {
-            mask |= attackableMask;
-        }
-        if(Physics.OverlapSphere(pos, .2f, mask).Length != 0) {
+        if(Physics.OverlapSphere(pos, .2f, groundMask).Length != 0) {
             return false;
+        }
+        // if we're not flinging, look for an attackable object.
+        // make sure the object can be pushed
+        if(!testFling) {
+            Collider[] objs = Physics.OverlapSphere(pos, .2f, attackableMask);
+            if(objs.Length != 0) {
+                CuteAttackable tmp = objs[0].GetComponent<CuteAttackable>();
+                Vector3 dir = pos - transform.position;
+                if(!tmp.IsValidMovementDir(dir)) {
+                    return false;
+                }
+            }
         }
         // don't move to a position that doesn't have ground beneath it
         pos.y -= 1;
