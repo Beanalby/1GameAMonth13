@@ -4,7 +4,10 @@ using System.Collections;
 public enum CuteStageState { intro, playing, success, fail };
 
 public class CuteStageDriver : MonoBehaviour {
+    public string nextStage;
     public GUISkin skin;
+    public string instructions;
+    public bool showControls;
 
     private static CuteStageDriver instance;
     public static CuteStageDriver Instance {
@@ -25,12 +28,27 @@ public class CuteStageDriver : MonoBehaviour {
         get { return state == CuteStageState.playing; }
     }
 
+    private ShowControls sc;
+
     public void Awake() {
         if(instance != null) {
             Debug.LogError("CuteStageDriver already exists");
             Destroy(gameObject);
         }
         instance = this;
+    }
+    public void Start() {
+        string moveDesc = "Use the arrow keys to move the player around.";
+        string attackDesc = "Hold the spacebar to aim an Super Headbutt.  Hold a direction to headbutt, and release the spacebar to let it fly!";
+        if(showControls) {
+            sc = ShowControls.CreateDocked(new ControlItem[] {
+                new ControlItem(moveDesc, CustomDisplay.arrows),
+                new ControlItem(attackDesc, KeyCode.Space)
+            });
+            sc.slideSpeed = -1;
+            sc.showDuration = -1;
+            sc.Show();
+        }
     }
     public void OnGUI() {
         GUI.skin = skin;
@@ -58,18 +76,24 @@ public class CuteStageDriver : MonoBehaviour {
     }
 
     private void DrawStateUI() {
-        Rect stateRect = new Rect(0, 0, Screen.width, 200);
-        string stateLabel = "";
+        Rect stateRect = new Rect(0, 70, Screen.width, 70);
+        Rect buttonRect = new Rect(Screen.width/2 - 100, 140, 200, 35);
         switch(state) {
+            case CuteStageState.playing:
+                GUI.Label(stateRect, instructions, skin.customStyles[0]);
+                break;
             case CuteStageState.success:
-                stateLabel = "Success!";
+                GUI.Label(stateRect, "Success!");
+                if(GUI.Button(buttonRect, "Continue") || Input.GetButtonDown("Fire1")) {
+                    Application.LoadLevel(nextStage);
+                }
                 break;
             case CuteStageState.fail:
-                stateLabel = "Failure :(";
+                GUI.Label(stateRect, "Failed! :(");
+                if(GUI.Button(buttonRect, "Retry") || Input.GetButtonDown("Fire1")) {
+                    Application.LoadLevel(Application.loadedLevel);
+                }
                 break;
-        }
-        if(stateLabel != "") {
-            GUI.Label(stateRect, stateLabel);
         }
     }
 }

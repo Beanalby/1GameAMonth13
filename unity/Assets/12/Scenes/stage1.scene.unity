@@ -4352,6 +4352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948ca3aba0518434995c61247166b9af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextStage: stage2
   skin: {fileID: 11400000, guid: 4e7fd65375e4e1344b69a7b7cd8cebfe, type: 2}
   instructions: Destroy the rocks with one Super Headbutt!
   showControls: 1
@@ -4732,6 +4733,10 @@ Prefab:
     - target: {fileID: 11400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
       propertyPath: instructions
       value: Destroy the rocks with one Super Headbutt!
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
+      propertyPath: nextStage
+      value: stage2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: df5e41eedac2c1f48bc20ed914c82628, type: 2}
