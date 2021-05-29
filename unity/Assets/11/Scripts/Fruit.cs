@@ -29,14 +29,6 @@ public class Fruit : MonoBehaviour {
         }
         Vector3 pos = collision.contacts[0].point;
 
-        // if the collision point is below zero vertically, then this was a
-        // fast horizontal fruit that went into a bin, but then hit
-        // a side "wall" of the floor.  Don't splat if that's the case.
-        if(pos.y < -0.001f) {
-            Destroy(gameObject);
-            return;
-        }
-
         GameObject.Find("FruitGameDriver").GetComponent<FruitGameDriver>().FruitSplat();
         SplatEffect splat = (Instantiate(splatPrefab) as GameObject).GetComponent<SplatEffect>();
         splat.Type = Type;
