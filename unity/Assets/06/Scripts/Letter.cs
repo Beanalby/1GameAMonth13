@@ -64,12 +64,12 @@ public class Letter : MonoBehaviour {
         Vector3 dir = attacker.forward;
         dir.y = Random.Range(.3f, .6f);
         dir *= deathFlingStrength;
-        rigidbody.velocity = dir;
-        rigidbody.angularVelocity = new Vector3(
+        GetComponent<Rigidbody>().velocity = dir;
+        GetComponent<Rigidbody>().angularVelocity = new Vector3(
             Random.Range(-deathSpinStrength, deathSpinStrength),
             Random.Range(-deathSpinStrength, deathSpinStrength),
             Random.Range(-deathSpinStrength, deathSpinStrength));
-        rigidbody.useGravity = true;
+        GetComponent<Rigidbody>().useGravity = true;
         yield return new WaitForSeconds(deathDuration);
         Destroy(gameObject);
     }

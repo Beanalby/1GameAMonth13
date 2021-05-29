@@ -31,7 +31,7 @@ public class Projectile : MonoBehaviour {
             diff /= hangTime;
             velocity = new Vector3(diff.x, (hangTime / 2) * -Physics.gravity.y, diff.z);
         }
-        mesh = transform.FindChild("ProjectileMesh");
+        mesh = transform.Find("ProjectileMesh");
 	}
 	
 	void FixedUpdate () {

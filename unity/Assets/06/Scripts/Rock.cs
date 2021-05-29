@@ -18,8 +18,8 @@ public class Rock : MonoBehaviour {
     private Transform flame;
 
     public void Start() {
-        flame = transform.FindChild("Flame");
-        plane = transform.FindChild("Plane");
+        flame = transform.Find("Flame");
+        plane = transform.Find("Plane");
         dir = (target.transform.position - transform.position).normalized;
         flame.rotation = Quaternion.LookRotation(-dir);
     }

@@ -25,13 +25,13 @@ public class FruitPlayer : MonoBehaviour {
 
     public void HandleInput() {
         if(Input.GetButton("Fire1")) {
-            holder.DropFruit(rigidbody.velocity);
+            holder.DropFruit(GetComponent<Rigidbody>().velocity);
         }
     }
     public void HandleMovement() {
-        Vector3 pos = rigidbody.position;
+        Vector3 pos = GetComponent<Rigidbody>().position;
         pos.x += Input.GetAxis("Horizontal") * Time.deltaTime * slideSpeed;
         pos.x = Mathf.Max(-maxDistance, Mathf.Min(maxDistance, pos.x));
-        rigidbody.MovePosition(pos);
+        GetComponent<Rigidbody>().MovePosition(pos);
     }
 }

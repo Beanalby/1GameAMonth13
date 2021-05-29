@@ -35,26 +35,26 @@ public class TinyEnemyController : MonoBehaviour {
     void FixedUpdate() {
         if (!canControl || player == null)
             return;
-        Vector3 moveTarget = rigidbody.position;
+        Vector3 moveTarget = GetComponent<Rigidbody>().position;
         Vector3 playerDir = player.transform.position - transform.position;
         // don't attempt to move up or down
         playerDir.y = transform.position.y;
 
         Quaternion rotateTarget = Quaternion.LookRotation(playerDir);
         if(isActive) {
-            rigidbody.MoveRotation(Quaternion.Slerp(transform.rotation, rotateTarget, Time.deltaTime * turnSpeed));
+            GetComponent<Rigidbody>().MoveRotation(Quaternion.Slerp(transform.rotation, rotateTarget, Time.deltaTime * turnSpeed));
         }
 
         moveTarget += (transform.forward * moveSpeed * Time.deltaTime);
 
         if(isActive)
-            rigidbody.MovePosition(moveTarget);
+            GetComponent<Rigidbody>().MovePosition(moveTarget);
     }
 
     void DidHit(Collision collision) {
         // cancel out any movement we may have gotten from the collision
-        collision.gameObject.rigidbody.velocity = Vector3.zero;
-        collision.gameObject.rigidbody.angularVelocity = Vector3.zero;
+        collision.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        collision.gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         // turn towards the player, so our attack animation goes towards them
         // even if they rammed us in the back
         Vector3 lookPos = collision.contacts[0].point - transform.position;
@@ -81,7 +81,7 @@ public class TinyEnemyController : MonoBehaviour {
         velocity.y = 1.5f;
         velocity.Normalize();
         velocity *= deathFlingScale;
-        rigidbody.velocity = velocity;
+        GetComponent<Rigidbody>().velocity = velocity;
         yield return new WaitForSeconds(deathDuration);
         KillSelf();
     }

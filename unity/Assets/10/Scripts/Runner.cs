@@ -51,7 +51,7 @@ public class Runner : MonoBehaviour {
     }
 
     public void Awake() {
-        ship = transform.FindChild("mesh");
+        ship = transform.Find("mesh");
     }
 
     public void Start() {
@@ -106,14 +106,14 @@ public class Runner : MonoBehaviour {
             return;
         }
         // don't allow shifting beyond the max position
-        float newPos = rigidbody.transform.position.x + offset;
+        float newPos = GetComponent<Rigidbody>().transform.position.x + offset;
         if(newPos > MAX_SHIFT_DISTANCE || newPos < -MAX_SHIFT_DISTANCE) {
             return;
         }
         ship.rotation = Quaternion.Euler(0, 0, shipRotate * -offset);
         shiftOffset = offset;
         shiftStart = Time.time;
-        shiftStartPos = rigidbody.transform.position.x;
+        shiftStartPos = GetComponent<Rigidbody>().transform.position.x;
         AudioSource.PlayClipAtPoint(shiftSound, Camera.main.transform.position);
     }
 
@@ -131,7 +131,7 @@ public class Runner : MonoBehaviour {
     }
 
     void HandlePitch() {
-        audio.pitch = speed * .1f + .45f;
+        GetComponent<AudioSource>().pitch = speed * .1f + .45f;
     }
 
     void HandleAcceleration() {
@@ -148,10 +148,10 @@ public class Runner : MonoBehaviour {
     }
 
     void HandleRunning() {
-        Vector3 newPos = rigidbody.position;
+        Vector3 newPos = GetComponent<Rigidbody>().position;
         newPos.x = ApplyShift(newPos.x);
         newPos.z += +Time.deltaTime * speed;
-        rigidbody.MovePosition(newPos);
+        GetComponent<Rigidbody>().MovePosition(newPos);
     }
 
     public void EnableControl() {

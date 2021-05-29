@@ -28,7 +28,7 @@ public class Fragment : MonoBehaviour {
 	void Start () {
         lifeStart = Time.time;
         maxLifetime += Random.Range(-.2f * maxLifetime, .2f * maxLifetime);
-        rigidbody.velocity = new Vector3(
+        GetComponent<Rigidbody>().velocity = new Vector3(
             Random.Range(-hRange, hRange),
             Random.Range(vMin, vRange),
             Random.Range(-hRange, hRange));
@@ -49,7 +49,7 @@ public class Fragment : MonoBehaviour {
     void OnCollisionEnter(Collision info) {
         Vector3 newV = -info.relativeVelocity;
         newV.y *= -bounceScale;
-        rigidbody.velocity = newV;
+        GetComponent<Rigidbody>().velocity = newV;
     }
     public void OnGUI() {
         if(pickedUpStart != -1) {
@@ -60,7 +60,7 @@ public class Fragment : MonoBehaviour {
         }
     }
     public void PickedUp() {
-        collider.enabled = false;
+        GetComponent<Collider>().enabled = false;
         for (int i = 0; i < transform.childCount; i++) {
             transform.GetChild(i).gameObject.SetActive(false);
         }

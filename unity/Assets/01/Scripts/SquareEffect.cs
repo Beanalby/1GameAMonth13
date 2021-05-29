@@ -15,9 +15,9 @@ public class SquareEffect : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         if(isCorrupted) {
-            renderer.material = corruptedMaterial;
+            GetComponent<Renderer>().material = corruptedMaterial;
         } else {
-            renderer.material = cleanMaterial;
+            GetComponent<Renderer>().material = cleanMaterial;
         }
         effectStart = Time.time;
 	}

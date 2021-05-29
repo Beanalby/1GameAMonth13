@@ -23,14 +23,14 @@ public class CuteMusicPlayer : MonoBehaviour {
     }
     public void PlayMusic(string name) {
         if(name=="titleMusic") {
-            audio.clip = titleMusic;
+            GetComponent<AudioSource>().clip = titleMusic;
         } else if(name == "stageMusic") {
-            audio.clip = stageMusic;
+            GetComponent<AudioSource>().clip = stageMusic;
         } else {
             return;
         }
-        if(!audio.isPlaying) {
-            audio.Play();
+        if(!GetComponent<AudioSource>().isPlaying) {
+            GetComponent<AudioSource>().Play();
         }
     }        
 }

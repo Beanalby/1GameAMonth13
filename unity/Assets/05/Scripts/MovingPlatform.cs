@@ -23,7 +23,7 @@ public class MovingPlatform : MonoBehaviour {
         if(isMoving) {
             Vector3 pos = transform.position;
             pos += movement * Time.deltaTime;
-            rigidbody.MovePosition(pos);
+            GetComponent<Rigidbody>().MovePosition(pos);
         }
     }
     public void LandedOn(Player player) {
@@ -32,12 +32,12 @@ public class MovingPlatform : MonoBehaviour {
             player.resetListeners += OnReset;
         }
         if (isMoving) {
-            Vector3 v = player.rigidbody.velocity;
+            Vector3 v = player.GetComponent<Rigidbody>().velocity;
             v.x = movement.x;
             // only push the player upwards.  If he's already moving upwards
             // faster than we'd push him, don't bother.
             v.y = Mathf.Max(v.y, movement.y);
-            player.rigidbody.velocity = v;
+            player.GetComponent<Rigidbody>().velocity = v;
             //if (player.rigidbody.position.y < transform.position.y) {
             //}
         }
@@ -45,13 +45,13 @@ public class MovingPlatform : MonoBehaviour {
     }
     public void Die() {
         isMoving = false;
-        collider.enabled = false;
+        GetComponent<Collider>().enabled = false;
         myRenderer.enabled = false;
     }
     public void OnReset() {
         isMoving = false;
         transform.position = originalPosition;
-        collider.enabled = true;
+        GetComponent<Collider>().enabled = true;
         myRenderer.enabled = true;
         player.resetListeners -= OnReset;
     }

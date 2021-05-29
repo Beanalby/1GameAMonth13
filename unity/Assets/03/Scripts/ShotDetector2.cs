@@ -25,7 +25,7 @@ public class ShotDetector2 : MonoBehaviour {
         if(detector1 == null) {
             return;
         }
-        Vector3 proj = Vector3.Project(col.rigidbody.velocity, reqVelocity);
+        Vector3 proj = Vector3.Project(col.GetComponent<Rigidbody>().velocity, reqVelocity);
         if(reqPlane.GetSide(proj)) {
             // only accept it if it also just passed properly through
             // detector1.  Protects against very fast balls moving in
@@ -33,7 +33,7 @@ public class ShotDetector2 : MonoBehaviour {
             if(detector1.passedObjects.Contains(col.gameObject)) {
                 detector1.passedObjects.Remove(col.gameObject);
                 rim.SendMessage("ShotSuccess");
-                if(col.gameObject.rigidbody.velocity.magnitude >= rim.minSoundVelocity) {
+                if(col.gameObject.GetComponent<Rigidbody>().velocity.magnitude >= rim.minSoundVelocity) {
                     source.Play();
                 }
             }

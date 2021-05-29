@@ -45,7 +45,7 @@ public class Player : MonoBehaviour {
         if (spawnPoint.activeCamera != null) {
             cam.Current = spawnPoint.activeCamera;
         }
-        capsule = transform.FindChild("Capsule");
+        capsule = transform.Find("Capsule");
         //rigidbody.velocity = new Vector3(3, 0, 0);
     }
     void Update() {
@@ -76,7 +76,7 @@ public class Player : MonoBehaviour {
 
     void FixedUpdate() {
         // check if either our left or right edge is over a treadmill
-        if(rigidbody.velocity.y <= 0.1) {
+        if(GetComponent<Rigidbody>().velocity.y <= 0.1) {
             GameObject ground = GetGround();
             if(ground != null) {
                 ground.SendMessage("LandedOn", this,
@@ -84,9 +84,9 @@ public class Player : MonoBehaviour {
             }
         }
         if(doJump) {
-            Vector3 velocity = rigidbody.velocity;
+            Vector3 velocity = GetComponent<Rigidbody>().velocity;
             velocity.y = jumpSpeed;
-            rigidbody.velocity = velocity;
+            GetComponent<Rigidbody>().velocity = velocity;
             doJump = false;
             AudioSource.PlayClipAtPoint(jumpSound,
                 cam.Current.transform.position);
@@ -102,7 +102,7 @@ public class Player : MonoBehaviour {
         Vector3 pos = spawnPoint.transform.position;
         pos.y += NUDGE_UP;
         transform.position = pos;
-        rigidbody.velocity = Vector3.zero;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
         capsule.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         isDead = false;
         if(resetListeners != null) {

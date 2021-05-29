@@ -47,19 +47,19 @@ public class Fruit : MonoBehaviour {
 
     public void Init(Vector3 position, Vector3 velocity, Vector3 spin) {
         transform.position = position;
-        Rigidbody rb = rigidbody;
+        Rigidbody rb = GetComponent<Rigidbody>();
         rb.velocity = velocity;
         rb.angularVelocity = spin;
     }
 
     public void Caught() {
-        rigidbody.isKinematic = true;
+        GetComponent<Rigidbody>().isKinematic = true;
         hasBeenCaught = true;
         GetComponentInChildren<TrailRenderer>().enabled = false;
     }
     public void Released(Vector3 velocity) {
         transform.parent = null;
-        Rigidbody rb = rigidbody;
+        Rigidbody rb = GetComponent<Rigidbody>();
         rb.isKinematic = false;
         rb.velocity = velocity;
     }

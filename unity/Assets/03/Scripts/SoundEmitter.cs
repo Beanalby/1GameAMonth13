@@ -13,7 +13,7 @@ public class SoundEmitter : MonoBehaviour {
     }
     public void BallHit(BallHitInfo hitInfo) {
         if(requiredVelocity != 0) {
-            if(hitInfo.ball.rigidbody.velocity.magnitude <= requiredVelocity) {
+            if(hitInfo.ball.GetComponent<Rigidbody>().velocity.magnitude <= requiredVelocity) {
                 return;
             }
         }

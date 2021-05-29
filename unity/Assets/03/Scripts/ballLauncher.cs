@@ -86,7 +86,7 @@ public class ballLauncher : MonoBehaviour {
     public void FireBall() {
         GameObject ball = Instantiate(ballTempalte,
             launchPoint.position, transform.rotation) as GameObject;
-        ball.rigidbody.velocity = startVelocity;
+        ball.GetComponent<Rigidbody>().velocity = startVelocity;
         lastFired = Time.time;
         pc.Percent = 0;
         pc.gameObject.SetActive(true);

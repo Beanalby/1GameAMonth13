@@ -125,8 +125,8 @@ public class HomePlayer : HomeBase {
 
     public void Die() {
         isActive = false;
-        transform.FindChild("HomeCannon").GetComponent<WeaponCannon>().isActive = false;
-        transform.FindChild("Cube").gameObject.SetActive(false);
+        transform.Find("HomeCannon").GetComponent<WeaponCannon>().isActive = false;
+        transform.Find("Cube").gameObject.SetActive(false);
         isDead = true;
         Time.timeScale = 0;
     }

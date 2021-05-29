@@ -13,8 +13,8 @@ public class Treadmill : MonoBehaviour {
     }
 
     public void LandedOn(Player player) {
-        Vector3 v = player.rigidbody.velocity;
+        Vector3 v = player.GetComponent<Rigidbody>().velocity;
         v.x = speed;
-        player.rigidbody.velocity = v;
+        player.GetComponent<Rigidbody>().velocity = v;
     }
 }

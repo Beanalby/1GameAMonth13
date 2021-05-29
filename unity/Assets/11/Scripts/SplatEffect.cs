@@ -35,7 +35,7 @@ public class SplatEffect : MonoBehaviour {
         particleMat.SetColor("_TintColor", color);
         
         // rotate the splatter
-        Transform t = transform.FindChild("splat");
+        Transform t = transform.Find("splat");
         if(t != null)
             t.rotation = Quaternion.Euler(90, 0, Random.Range(0, 360));
         if(audioEffect != null) {

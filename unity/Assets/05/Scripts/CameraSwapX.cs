@@ -11,12 +11,12 @@ public class CameraSwapX : MonoBehaviour {
         if(p == null || p.IsDead) {
             return;
         }
-        if(p.rigidbody==null) {
+        if(p.GetComponent<Rigidbody>()==null) {
             Debug.LogError("!!! No rigidbody on player!");
             return;
         }
         // switch camera based on which direction they're heading
-        if(other.rigidbody.velocity.x >= 0) {
+        if(other.GetComponent<Rigidbody>().velocity.x >= 0) {
             CameraManager.instance.Current = rightCamera;
         } else {
             CameraManager.instance.Current = leftCamera;

@@ -16,7 +16,7 @@ public class HighlightBoard : MonoBehaviour {
     float moveStart = -1, moveDelay=.25f, moveDuration=.75f;
     Interpolate.Function ease = Interpolate.Ease(Interpolate.EaseType.EaseInOutCubic);
     public void Start() {
-        renderer.enabled = false;
+        GetComponent<Renderer>().enabled = false;
     }
 
     public void Highlight(SpotValue currentTurn, TinySpot spot, TinyBoard targetBoard, bool stay) {
@@ -24,14 +24,14 @@ public class HighlightBoard : MonoBehaviour {
         deltaPos = targetBoard.transform.position - spot.transform.position;
         startPos.z = transform.position.z;
         if(currentTurn == SpotValue.X) {
-            renderer.material.mainTexture = texX;
+            GetComponent<Renderer>().material.mainTexture = texX;
         } else {
-            renderer.material.mainTexture = texO;
+            GetComponent<Renderer>().material.mainTexture = texO;
         }
         transform.position = startPos;
         transform.localScale = startScale;
         this.stay = stay;
-        renderer.enabled = true;
+        GetComponent<Renderer>().enabled = true;
         StartCoroutine(MoveAfterDelay());
     }
 
@@ -52,13 +52,13 @@ public class HighlightBoard : MonoBehaviour {
             if(stay) {
                 transform.position = startPos + deltaPos;
                 transform.localScale = startScale + deltaScale;
-                if(renderer.material.mainTexture == texX) {
-                    renderer.material.mainTexture = texO;
+                if(GetComponent<Renderer>().material.mainTexture == texX) {
+                    GetComponent<Renderer>().material.mainTexture = texO;
                 } else {
-                    renderer.material.mainTexture = texX;
+                    GetComponent<Renderer>().material.mainTexture = texX;
                 }
             } else {
-                renderer.enabled = false;
+                GetComponent<Renderer>().enabled = false;
             }
             moveStart = -1f;
         } else {

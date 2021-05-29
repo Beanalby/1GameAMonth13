@@ -164,7 +164,7 @@ public class PlayerController : MonoBehaviour {
         transform.rotation = Quaternion.LookRotation(lookPos);
 
         // throw player backwards from the contact point
-        velocity = rigidbody.position - contactPoint;
+        velocity = GetComponent<Rigidbody>().position - contactPoint;
         velocity.y = 0;
         velocity.Normalize();
         velocity.y = 1;
@@ -279,7 +279,7 @@ public class PlayerController : MonoBehaviour {
                 transform.rotation = Quaternion.LookRotation(lookTarget);
             }
         }
-        rigidbody.MovePosition(pos);
+        GetComponent<Rigidbody>().MovePosition(pos);
         if(velocity.y != 0) {
             velocity += Physics.gravity * Time.deltaTime;
         }

@@ -11,8 +11,8 @@ public class NoobDeathEffect : MonoBehaviour {
     private float startTime;
 
 	void Start () {
-        rigidbody.velocity = new Vector3(0, startVelocity, 0);
-        rigidbody.angularVelocity = new Vector3(Random.Range(-startSpin, startSpin), 0, 0);
+        GetComponent<Rigidbody>().velocity = new Vector3(0, startVelocity, 0);
+        GetComponent<Rigidbody>().angularVelocity = new Vector3(Random.Range(-startSpin, startSpin), 0, 0);
         startTime = Time.time;
 	}
 	void Update () {

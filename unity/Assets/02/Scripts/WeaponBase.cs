@@ -147,7 +147,7 @@ public abstract class WeaponBase : MonoBehaviour {
                 anim.SetBool("IsFiring", true);
             }
             if(weaponSounds.Length != 0) {
-                audio.PlayOneShot(weaponSounds[Random.Range(0, weaponSounds.Length)]);
+                GetComponent<AudioSource>().PlayOneShot(weaponSounds[Random.Range(0, weaponSounds.Length)]);
             }
         }
     }

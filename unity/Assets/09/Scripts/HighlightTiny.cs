@@ -18,10 +18,10 @@ public class HighlightTiny : MonoBehaviour {
         // see if we're mouseOver a valid move
         TinySpot spot = driver.GetHovered();
         if(spot == null) {
-            renderer.enabled = false;
+            GetComponent<Renderer>().enabled = false;
         } else {
             if(driver.IsValidMove(spot)) {
-                renderer.enabled = true;
+                GetComponent<Renderer>().enabled = true;
                 transform.position = spot.transform.position;
                 if(currentTex != driver.CurrentTurn) {
                     UpdateTexture();
@@ -32,7 +32,7 @@ public class HighlightTiny : MonoBehaviour {
                         Camera.main.transform.position);
                 }
             } else {
-                renderer.enabled = false;
+                GetComponent<Renderer>().enabled = false;
                 currentSpot = null;
             }
         }
@@ -41,9 +41,9 @@ public class HighlightTiny : MonoBehaviour {
     private void UpdateTexture() {
         currentTex = driver.CurrentTurn;
         if(currentTex == SpotValue.X) {
-            renderer.material.mainTexture = texX;
+            GetComponent<Renderer>().material.mainTexture = texX;
         } else {
-            renderer.material.mainTexture = texO;
+            GetComponent<Renderer>().material.mainTexture = texO;
         }
     }
 }

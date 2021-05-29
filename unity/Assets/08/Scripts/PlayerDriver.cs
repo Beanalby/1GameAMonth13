@@ -66,11 +66,11 @@ public class PlayerDriver : MonoBehaviour {
         }
         float percent = (Time.time - moveStart) / moveDuration;
         if(percent >= 1) {
-            rigidbody.MovePosition(moveFrom + moveDelta);
+            GetComponent<Rigidbody>().MovePosition(moveFrom + moveDelta);
             moveStart = -1;
             moveDelta = Vector3.zero;
         } else {
-            rigidbody.MovePosition(Interpolate.Ease(ease, moveFrom, moveDelta,
+            GetComponent<Rigidbody>().MovePosition(Interpolate.Ease(ease, moveFrom, moveDelta,
                 percent, 1));
         }
     }

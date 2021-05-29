@@ -49,7 +49,7 @@ public class Ship : MonoBehaviour {
         }
         Ship.ship = this;
         currentHealth = maxHealth;
-        bulletLaunch = transform.FindChild("BulletLaunch");
+        bulletLaunch = transform.Find("BulletLaunch");
 
         GameObject.DontDestroyOnLoad(ship);
         healthStyle = new GUIStyle(skin.customStyles[0]);
@@ -106,7 +106,7 @@ public class Ship : MonoBehaviour {
         GameObject bullet = Instantiate(bulletPrefab) as GameObject;
         bullet.transform.rotation = transform.rotation;
         bullet.transform.position = bulletLaunch.transform.position;
-        bullet.rigidbody.velocity = transform.forward * bulletSpeed;
+        bullet.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
         AudioSource.PlayClipAtPoint(fireSound, Camera.main.transform.position);
     }
 

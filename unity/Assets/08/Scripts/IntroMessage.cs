@@ -17,7 +17,7 @@ public class IntroMessage : MonoBehaviour {
 
     public void Start() {
         introStart = Time.time;
-        audio.Play();
+        GetComponent<AudioSource>().Play();
     }
     public void Update() {
         isFastRate = Input.GetButton("Fire1");
@@ -43,7 +43,7 @@ public class IntroMessage : MonoBehaviour {
         if(amount == message.Length) {
             if(introDone == -1) {
                 introDone = Time.time;
-                audio.Stop();
+                GetComponent<AudioSource>().Stop();
             }
         }
         if(introDone != -1  && retryText != "") {

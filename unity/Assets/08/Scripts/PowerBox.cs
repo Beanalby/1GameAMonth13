@@ -48,11 +48,11 @@ public class PowerBox : MonoBehaviour {
         }
         float percent = (Time.time - moveStart) / moveDuration;
         if(percent >= 1) {
-            rigidbody.MovePosition(moveStartPos + moveDelta);
+            GetComponent<Rigidbody>().MovePosition(moveStartPos + moveDelta);
             moveStart = -1;
             CheckPowerTile();
         } else {
-            rigidbody.MovePosition(Interpolate.Ease(ease, moveStartPos,
+            GetComponent<Rigidbody>().MovePosition(Interpolate.Ease(ease, moveStartPos,
                 moveDelta, percent, 1));
         }
     }

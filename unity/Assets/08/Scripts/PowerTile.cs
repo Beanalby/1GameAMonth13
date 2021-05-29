@@ -20,13 +20,13 @@ public class PowerTile : MonoBehaviour {
 
     public void ActivateTile() {
         isActive = true;
-        renderer.material = matOn;
+        GetComponent<Renderer>().material = matOn;
         AudioSource.PlayClipAtPoint(soundOn, transform.position);
         levelDriver.SendMessage("UpdateTiles");
     }
     public void DeactivateTile() {
         isActive = false;
-        renderer.material = matOff;
+        GetComponent<Renderer>().material = matOff;
         AudioSource.PlayClipAtPoint(soundOff, transform.position);
         levelDriver.SendMessage("UpdateTiles");
     }

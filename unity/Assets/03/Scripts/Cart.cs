@@ -32,7 +32,7 @@ public class Cart : MonoBehaviour {
     }
 
     void ApplyMove() {
-        rigidbody.MovePosition(rigidbody.position + currentTrack.direction * Time.deltaTime * moveSpeed);
+        GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + currentTrack.direction * Time.deltaTime * moveSpeed);
         float dist = (transform.position - currentTrack.transform.position).magnitude;
         if(dist > currentTrack.length) {
             StartTurn();

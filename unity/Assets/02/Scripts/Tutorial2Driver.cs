@@ -32,14 +32,14 @@ public class Tutorial2Driver : MonoBehaviour {
     Tutorial2State current;
 
     public void Start() {
-        GameObject exampleNoob = battlefield.FindChild("ExampleNoob").gameObject;
-        GameObject exampleJack = battlefield.FindChild("ExampleJack").gameObject;
-        GameObject exampleEjector = battlefield.FindChild("ExampleEjector").gameObject;
+        GameObject exampleNoob = battlefield.Find("ExampleNoob").gameObject;
+        GameObject exampleJack = battlefield.Find("ExampleJack").gameObject;
+        GameObject exampleEjector = battlefield.Find("ExampleEjector").gameObject;
 
         HomePlayer homePlayer = GameObject.Find("HomePlayer").GetComponent<HomePlayer>();
         WeaponCannon cannon = homePlayer.transform.Find("HomeCannon").GetComponent<WeaponCannon>();
-        GameObject target1 = battlefield.FindChild("Target1").gameObject;
-        GameObject target2 = battlefield.FindChild("Target2").gameObject;
+        GameObject target1 = battlefield.Find("Target1").gameObject;
+        GameObject target2 = battlefield.Find("Target2").gameObject;
 
         states = new Dictionary<string, Tutorial2State>();
 

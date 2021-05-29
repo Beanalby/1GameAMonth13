@@ -74,12 +74,12 @@ public class ReduceTime : MonoBehaviour {
         if(driver.LastLevelTime == 0) {
             return;
         }
-        if(!audio.isPlaying) {
-            audio.Play();
+        if(!GetComponent<AudioSource>().isPlaying) {
+            GetComponent<AudioSource>().Play();
         }
         driver.DecrementTime(Time.deltaTime * 4);
         if(driver.LastLevelTime <= 0) {
-            audio.Stop();
+            GetComponent<AudioSource>().Stop();
             StartCoroutine(FadeOut());
         }
     }

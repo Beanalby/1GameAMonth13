@@ -46,7 +46,7 @@ public class LetterOmega : Letter {
         invincible = true;
         isAlive = false;
         StartShaking();
-        renderer.material = disabedMaterial;
+        GetComponent<Renderer>().material = disabedMaterial;
         SendMessageUpwards("LetterDisabled");
     }
 
@@ -63,14 +63,14 @@ public class LetterOmega : Letter {
         if(Random.Range(0, 2) > 0) {
             spin.y = -spin.y;
         }
-        rigidbody.angularVelocity = spin;
+        GetComponent<Rigidbody>().angularVelocity = spin;
         yield return new WaitForSeconds(WaveDriver.WAVE_DURATION);
         RemoveVulnerability();
     }
 
     private void RemoveVulnerability() {
         invincible = true;
-        rigidbody.angularVelocity = Vector3.zero;
+        GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         transform.localRotation = baseRotation;
     }
 

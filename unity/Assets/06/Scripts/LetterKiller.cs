@@ -23,7 +23,7 @@ public class LetterKiller : Letter {
             isPursuing = false;
         } else {
             Vector3 shipDir = Ship.ship.transform.position - transform.position;
-            rigidbody.velocity = shipDir.normalized * kamikazeSpeed;
+            GetComponent<Rigidbody>().velocity = shipDir.normalized * kamikazeSpeed;
         }
     }
 

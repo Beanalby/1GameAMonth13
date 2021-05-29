@@ -10,7 +10,7 @@ public class DoorEditor : Editor {
             Door door = (Door)target;
             Transform tmp;
             Vector3 pos;
-            tmp = door.transform.FindChild("doorLeft");
+            tmp = door.transform.Find("doorLeft");
             pos = tmp.localPosition;
             if(pos.x == Door.OPEN_LEFT.x) {
                 pos = Vector3.zero;
@@ -19,7 +19,7 @@ public class DoorEditor : Editor {
             }
             tmp.localPosition = pos;
 
-            tmp = door.transform.FindChild("doorRight");
+            tmp = door.transform.Find("doorRight");
             pos = tmp.localPosition;
             if(pos.x == Door.OPEN_RIGHT.x) {
                 pos = Vector3.zero;

@@ -64,7 +64,7 @@ public class UnitMovement : MonoBehaviour {
             Quaternion targetRot = Quaternion.LookRotation(lookTarget);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, turnSpeed * Time.deltaTime);
         }
-        rigidbody.MovePosition(transform.position + offset);
+        GetComponent<Rigidbody>().MovePosition(transform.position + offset);
         currentVelocity = offset / Time.deltaTime;
         if(anim) {
             anim.SetFloat("Speed", currentVelocity.sqrMagnitude);

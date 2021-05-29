@@ -33,9 +33,9 @@ public class Level : MonoBehaviour {
             CreateLink(levelTop);
         }
         if(GameDriver8.instance.IsLevelFinished(this)) {
-            Color color = mesh.renderer.material.color;
+            Color color = mesh.GetComponent<Renderer>().material.color;
             color /= 5;
-            mesh.renderer.material.color = color;
+            mesh.GetComponent<Renderer>().material.color = color;
         }
     }
 
@@ -65,10 +65,10 @@ public class Level : MonoBehaviour {
     }
 
     private void StartSpin() {
-        mesh.rigidbody.angularVelocity = new Vector3(0, spinSpeed, 0);
+        mesh.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, spinSpeed, 0);
     }
     private void StopSpin() {
-        mesh.rigidbody.angularVelocity = Vector3.zero;
+        mesh.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         mesh.transform.rotation = Quaternion.identity;
     }
 

@@ -18,7 +18,7 @@ public class ShotDetector1 : MonoBehaviour {
     }
     
     public void OnTriggerEnter(Collider col) {
-        Vector3 proj = Vector3.Project(col.rigidbody.velocity, reqVelocity);
+        Vector3 proj = Vector3.Project(col.GetComponent<Rigidbody>().velocity, reqVelocity);
         if(reqPlane.GetSide(proj)) {
             passedObjects.Add(col.gameObject);
         }

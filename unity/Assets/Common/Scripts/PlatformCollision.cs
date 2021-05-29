@@ -41,11 +41,11 @@ public class PlatformCollision : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider col) {
-        if (col.rigidbody == null) {
+        if (col.GetComponent<Rigidbody>() == null) {
             return;
         }
         // don't do anything if it's moving upward
-        if(col.rigidbody.velocity.y > 0) {
+        if(col.GetComponent<Rigidbody>().velocity.y > 0) {
             return;
         }
         // check it more closely if close to the edge
@@ -60,7 +60,7 @@ public class PlatformCollision : MonoBehaviour {
         }
         col.transform.position = new Vector3(col.transform.position.x,
             transform.position.y + Player.NUDGE_UP, col.transform.position.z);
-        col.rigidbody.velocity = new Vector3(col.rigidbody.velocity.x,
-            0, col.rigidbody.velocity.z);
+        col.GetComponent<Rigidbody>().velocity = new Vector3(col.GetComponent<Rigidbody>().velocity.x,
+            0, col.GetComponent<Rigidbody>().velocity.z);
     }
 }
