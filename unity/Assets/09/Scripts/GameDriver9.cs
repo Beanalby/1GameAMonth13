@@ -41,7 +41,7 @@ public class GameDriver9 : MonoBehaviour {
         tinySpotMask = 1 << LayerMask.NameToLayer("TinySpot");
     }
     public void Update() {
-        HandleDebug();
+        // HandleDebug();
         HandleClick();
     }
 
