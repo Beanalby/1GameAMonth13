@@ -65,19 +65,36 @@ public class PowerBox : MonoBehaviour {
             moveStartPos = transform.position;
             movingForward = false;
             // if I'M reversing, then the player will also need to.
-            player.ReverseMovement(false);
+            // but not really? --jrv 2021
+            //player.ReverseMovement(false);
         }
     }
 
     public void OnCollisionEnter(Collision col) {
         PlayerDriver player = col.collider.GetComponent<PlayerDriver>();
-        if(player == null) {
+        if (player == null) {
             // uh oh, collided with something besides player.  ABORT MOVE!
-            ReverseMovement();
+            
+            if (moveStart != -1) {
+                // we were already moving, move back to where we were
+                ReverseMovement();
+            } else {
+                // we weren't moving, but might have gotten nudged.
+                // adjust ourselves back to a whole number
+                Vector3 pos = GetComponent<Rigidbody>().position;
+                Vector3 newPos = new Vector3(
+                    Mathf.Round(pos.x),
+                    Mathf.Round(pos.y),
+                    Mathf.Round(pos.z));
+                GetComponent<Rigidbody>().MovePosition(newPos);
+            }
         } else {
             moveStart = Time.time;
-            moveStartPos = transform.position;
-            moveDelta = player.MoveDelta;
+            moveStartPos = new Vector3(
+                Mathf.Round(transform.position.x),
+                Mathf.Round(transform.position.y),
+                Mathf.Round(transform.position.z));
+            moveDelta = player.MoveRequested;
             moveDuration = player.MoveDuration;
             movingForward = true;
             AudioSource.PlayClipAtPoint(SoundSlide, transform.position);

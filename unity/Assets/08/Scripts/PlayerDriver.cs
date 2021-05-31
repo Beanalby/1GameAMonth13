@@ -9,15 +9,18 @@ public class PlayerDriver : MonoBehaviour {
     [HideInInspector]
     public bool EnableInput = true;
 
-    private float moveDuration = .25f;
-
+    private float moveDefaultDuration = .25f;
+    
     private bool movingForward = false;
-    private float moveStart=-1;
-    private Vector3 moveFrom, moveDelta;
+    private float moveStart = -1, moveDuration;
+    private Vector3 moveFrom, moveDelta, moveRequested;
     private Interpolate.Function ease = Interpolate.Ease(Interpolate.EaseType.EaseOutCubic);
 
     Transform mesh;
 
+    public Vector3 MoveRequested {
+        get { return moveRequested;  }
+    }
     public Vector3 MoveDelta {
         get { return moveDelta; }
     }
@@ -51,13 +54,16 @@ public class PlayerDriver : MonoBehaviour {
         } else if(vertical == 1) {
             moveDelta = Vector3.forward;
         }
+        moveRequested = moveDelta;
         if(moveDelta != Vector3.zero) {
             moveStart = Time.time;
+            moveDuration = moveDefaultDuration;
             movingForward = true;
             moveFrom = transform.position;
             mesh.rotation = Quaternion.LookRotation(moveDelta);
             AudioSource.PlayClipAtPoint(soundMove, transform.position);
         }
+
     }
 
     private void HandleMovement() {
@@ -68,7 +74,9 @@ public class PlayerDriver : MonoBehaviour {
         if(percent >= 1) {
             GetComponent<Rigidbody>().MovePosition(moveFrom + moveDelta);
             moveStart = -1;
+            moveDuration = 0;
             moveDelta = Vector3.zero;
+            moveRequested = moveDelta;
         } else {
             GetComponent<Rigidbody>().MovePosition(Interpolate.Ease(ease, moveFrom, moveDelta,
                 percent, 1));
@@ -78,6 +86,7 @@ public class PlayerDriver : MonoBehaviour {
         if(moveStart != -1 && movingForward) {
             // undo the movement
             moveStart = Time.time;
+            moveDuration = moveDefaultDuration / .5f;
             moveDelta = moveFrom - transform.position;
             moveFrom = transform.position;
             movingForward = false;
@@ -90,10 +99,6 @@ public class PlayerDriver : MonoBehaviour {
     private void OnCollisionEnter(Collision col) {
         PowerBox box = col.collider.GetComponent<PowerBox>();
         if(box != null) {
-            // don't reverse if it isn't moving, just push it
-            if(box.MoveStart == -1) {
-                return;
-            }
             // don't play a sound for boxes, they make their own
             ReverseMovement(false);
         } else {
