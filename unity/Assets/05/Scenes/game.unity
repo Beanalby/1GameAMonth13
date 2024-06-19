@@ -1108,10 +1108,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Treadmill
       objectReference: {fileID: 0}
-    - target: {fileID: 100004, guid: 7fe943c55cb201e44980972913f2fc38, type: 3}
-      propertyPath: m_Name
-      value: PlatformCollider
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7fe943c55cb201e44980972913f2fc38, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20
@@ -1143,6 +1139,10 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 7fe943c55cb201e44980972913f2fc38, type: 3}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 7fe943c55cb201e44980972913f2fc38, type: 3}
+      propertyPath: m_Name
+      value: PlatformCollider
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7fe943c55cb201e44980972913f2fc38, type: 3}
