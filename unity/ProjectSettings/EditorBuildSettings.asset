@@ -41,16 +41,16 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/05/Scenes/game.unity
     guid: 68cbb58ea3ce8754184b6cd0c9b3553b
-  - enabled: 0
+  - enabled: 1
     path: Assets/06/Scenes/06-title.unity
     guid: beab945ca5a832e4391fcb3da777e1ec
-  - enabled: 0
+  - enabled: 1
     path: Assets/06/Scenes/06-speaking.unity
     guid: df4537bff36eb274ca4edc1f0e8662c1
-  - enabled: 0
+  - enabled: 1
     path: Assets/06/Scenes/06-game.unity
     guid: 278977a5bf6c37f49b698ec4afc796ff
-  - enabled: 0
+  - enabled: 1
     path: Assets/06/Scenes/06-finish.unity
     guid: 0361c22e25850c9459d605bfde825b7a
   - enabled: 0
@@ -107,24 +107,25 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/10/Scenes/Runner.unity
     guid: 4349c889f3dd38046aaa7abb3e95981f
-  - enabled: 1
+  - enabled: 0
     path: Assets/12/Scenes/title.unity
     guid: aeb9bb853be4b004b8d27c0af69c6a9e
-  - enabled: 1
+  - enabled: 0
     path: Assets/12/Scenes/story1.unity
     guid: 7ed9e40e8c0b8954683fc586e039ebb2
-  - enabled: 1
+  - enabled: 0
     path: Assets/12/Scenes/story2.unity
     guid: 5b43e4f393e58914285327fb6f15f664
-  - enabled: 1
+  - enabled: 0
     path: Assets/12/Scenes/stage1.unity
     guid: 71f565b4dc93d6348ade51b34d14b3ee
-  - enabled: 1
+  - enabled: 0
     path: Assets/12/Scenes/stage2.unity
     guid: fbc08e63e8e54fc4e9bde721164a164e
-  - enabled: 1
+  - enabled: 0
     path: Assets/12/Scenes/stage3.unity
     guid: 953b4333f298e1149885a7f579969a1b
-  - enabled: 1
+  - enabled: 0
     path: Assets/12/Scenes/end.unity
     guid: 0b0f9c4f996a3b14eb5f7d72b04bc15e
+  m_configObjects: {}

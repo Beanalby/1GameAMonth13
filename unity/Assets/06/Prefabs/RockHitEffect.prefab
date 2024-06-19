@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &74195985395132974
+--- !u!1 &7653973752606855085
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,43 +8,43 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 74195985395133139}
-  - component: {fileID: 74195985395132972}
-  - component: {fileID: 74195985395132973}
+  - component: {fileID: 7653973752606854992}
+  - component: {fileID: 7653973752606855087}
+  - component: {fileID: 7653973752606855086}
   m_Layer: 0
-  m_Name: ShipDeathEffect
+  m_Name: RockHitEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &74195985395133139
+--- !u!4 &7653973752606854992
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 74195985395132974}
+  m_GameObject: {fileID: 7653973752606855085}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 7}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &74195985395132972
+--- !u!114 &7653973752606855087
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 74195985395132974}
+  m_GameObject: {fileID: 7653973752606855085}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a029c79be65b0c3439d542ad5454949c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectDuration: 1
+  effectDuration: 0.5
   sprites:
   - {fileID: 21300000, guid: 841164260e583de448893a8020a5e180, type: 3}
   - {fileID: 21300002, guid: 841164260e583de448893a8020a5e180, type: 3}
@@ -53,13 +53,13 @@ MonoBehaviour:
   - {fileID: 21300008, guid: 841164260e583de448893a8020a5e180, type: 3}
   - {fileID: 21300010, guid: 841164260e583de448893a8020a5e180, type: 3}
   - {fileID: 21300012, guid: 841164260e583de448893a8020a5e180, type: 3}
---- !u!212 &74195985395132973
+--- !u!212 &7653973752606855086
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 74195985395132974}
+  m_GameObject: {fileID: 7653973752606855085}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -91,7 +91,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 841164260e583de448893a8020a5e180, type: 3}
-  m_Color: {r: 1, g: 0.055555556, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
