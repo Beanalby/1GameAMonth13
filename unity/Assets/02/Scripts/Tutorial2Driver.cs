@@ -48,10 +48,9 @@ public class Tutorial2Driver : MonoBehaviour {
         string cannonMsg1 = "Shoot the noobs with your cannon!  Aim with your mouse to change the direction.";
         string cannonMsg2 = "Hold the mouse to charge the cannon, and release to fire!";
         string jackMsg = "You aren't alone in fighting the trolls.  This is Jack, he'll fight for you by launching network packets at the noobs.";
-        string ejectorMsg = "Heavier artillery comes with the ejector.  It launches media at trolls, currently just SD cards.";
-        string spawnMsg1 = "Left Click & hold on a menu item to spawn the selected component.  Spawning costs bitcoins, which regenerate over time and are dropped when things die.";
-        string spawnMsg2 = "Spawn some stuff, and press Space to continue.";
-        string completeMsg = "You've learned all you need to.  Go forth and assault!";
+        string ejectorMsg = "Heavier artillery comes with the Ejector.  It launches media at trolls, currently just SD cards.";
+        string spawnMsg1 = "Left Click & hold on a menu item to spawn.  Spawning costs bitcoins, which regenerate over time and are dropped when noobs die.\nTry spawning a Jack, and an Ejector!";
+        string completeMsg = "You've learned all you need to.\nUse your cannon to pick off noobs, buy Jacks and Ejectors to fight for you.  Go forth and assault!";
 
         AddState("start", new ControlItem(startMsg, KeyCode.Space), "introNoob",
             () => { },
@@ -71,7 +70,7 @@ public class Tutorial2Driver : MonoBehaviour {
             "introJack",
             () => { cannon.isActive = true; target1.SetActive(true); target2.SetActive(true); },
             () => { return target1 == null && target2 == null; },
-            () => { }
+            () => { cannon.gameObject.SetActiveRecursively(false); }
         );
 
         AddState("introJack",
@@ -102,7 +101,6 @@ public class Tutorial2Driver : MonoBehaviour {
         };        
         AddState("introSpawn",
             new ControlItem(spawnMsg1, MouseButton.LeftClick),
-            new ControlItem(spawnMsg2, KeyCode.Space),
             "complete",
             () => { homePlayer.isActive = true; homePlayer.spawnListeners += WatchSpawns; },
             () => { return jackSpawned && ejectorSpawned; },
