@@ -2,7 +2,7 @@
 using System.Collections;
 
 [ExecuteInEditMode]
-public class FaceCamera : MonoBehaviour {
+public class MeshFaceCamera : MonoBehaviour {
     public void Start() {
         transform.Find("mesh").rotation = Camera.main.transform.rotation;
     }

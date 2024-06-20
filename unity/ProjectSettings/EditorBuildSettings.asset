@@ -29,16 +29,16 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/03/Scenes/stage-easyDoesIt.unity
     guid: 39c392ca8693654448b47120f66ebb67
-  - enabled: 0
+  - enabled: 1
     path: Assets/03/Scenes/stageSelect.unity
     guid: 675662fac82483448b1792d15134302d
-  - enabled: 0
+  - enabled: 1
     path: Assets/03/Scenes/stage-easyDoesIt.unity
     guid: 39c392ca8693654448b47120f66ebb67
-  - enabled: 0
+  - enabled: 1
     path: Assets/03/Scenes/stage-zigZag.unity
     guid: 6ee6758a55ca00c48b2ead4bfdfed10a
-  - enabled: 1
+  - enabled: 0
     path: Assets/05/Scenes/game.unity
     guid: 68cbb58ea3ce8754184b6cd0c9b3553b
   - enabled: 0

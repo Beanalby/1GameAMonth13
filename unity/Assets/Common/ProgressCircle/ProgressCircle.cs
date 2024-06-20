@@ -8,16 +8,16 @@ public class ProgressCircle : MonoBehaviour {
         // don't let it go to full 100%, as that will cause all the solid
         // black that should stay transparent to show.  Max out at 99%,
         // which shows the full circle.
-        set { percent = Mathf.Min(.99f, value); }
+        set { percent = Mathf.Min(.99f, value); UpdateCircle();  }
         get { return percent; }
     }
 
     void Start() {
         UpdateCircle();
     }
-    void Update() {
+/*    void Update() {
         UpdateCircle();
-    }
+    } */
 
     public void UpdateCircle() {
         GetComponent<Renderer>().materials[1].SetFloat("_Cutoff", 1-percent);
